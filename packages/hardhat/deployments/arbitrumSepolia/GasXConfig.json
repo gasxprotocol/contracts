@@ -1,0 +1,392 @@
+{
+  "address": "0xDc3094e8D3ffa8D59aB427Ae777B5CBcfF6FC067",
+  "abi": [
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "_oracleSigner",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "constructor"
+    },
+    {
+      "inputs": [],
+      "name": "LengthMismatch",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "ZeroAddress",
+      "type": "error"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "bytes4",
+          "name": "selector",
+          "type": "bytes4"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "previousMaxUsd",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "newMaxUsd",
+          "type": "uint256"
+        }
+      ],
+      "name": "MaxUsdSet",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "previousSigner",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "newSigner",
+          "type": "address"
+        }
+      ],
+      "name": "OracleSignerUpdated",
+      "type": "event"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "bytes4[]",
+          "name": "selectors",
+          "type": "bytes4[]"
+        },
+        {
+          "internalType": "uint256[]",
+          "name": "maxUsds",
+          "type": "uint256[]"
+        }
+      ],
+      "name": "bulkSetMaxUsd",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "bytes4[]",
+          "name": "selectors",
+          "type": "bytes4[]"
+        }
+      ],
+      "name": "getAllLimits",
+      "outputs": [
+        {
+          "internalType": "uint256[]",
+          "name": "results",
+          "type": "uint256[]"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "bytes4",
+          "name": "selector",
+          "type": "bytes4"
+        }
+      ],
+      "name": "getMaxUsd",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "maxUsd",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "bytes4",
+          "name": "",
+          "type": "bytes4"
+        }
+      ],
+      "name": "maxUsdPerSelector",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "oracleSigner",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "owner",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "bytes4",
+          "name": "selector",
+          "type": "bytes4"
+        },
+        {
+          "internalType": "uint256",
+          "name": "maxUsd",
+          "type": "uint256"
+        }
+      ],
+      "name": "setMaxUsd",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "newSigner",
+          "type": "address"
+        }
+      ],
+      "name": "setOracleSigner",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    }
+  ],
+  "transactionHash": "0x92ec3bee9cda8dba4775004c07ac7822942b00547186b2231a688f599fe1efb8",
+  "receipt": {
+    "to": null,
+    "from": "0x7C6d2F09C7Dd26a37c4139FBCe96749633181Aa7",
+    "contractAddress": "0xDc3094e8D3ffa8D59aB427Ae777B5CBcfF6FC067",
+    "transactionIndex": 1,
+    "gasUsed": "537910",
+    "logsBloom": "0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+    "blockHash": "0x8f5786317ccba9d5171e557695306ca02bb6d604f8f45caed1614a02d9bf0e23",
+    "transactionHash": "0x92ec3bee9cda8dba4775004c07ac7822942b00547186b2231a688f599fe1efb8",
+    "logs": [],
+    "blockNumber": 240430162,
+    "cumulativeGasUsed": "537910",
+    "status": 1,
+    "byzantium": true
+  },
+  "args": [
+    "0x7C6d2F09C7Dd26a37c4139FBCe96749633181Aa7"
+  ],
+  "numDeployments": 1,
+  "solcInputHash": "d4afba9f945680c4bdd2a263195f07fc",
+  "metadata": "{\"compiler\":{\"version\":\"0.8.29+commit.ab55807c\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_oracleSigner\",\"type\":\"address\"}],\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"},{\"inputs\":[],\"name\":\"LengthMismatch\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"ZeroAddress\",\"type\":\"error\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"bytes4\",\"name\":\"selector\",\"type\":\"bytes4\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"previousMaxUsd\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"newMaxUsd\",\"type\":\"uint256\"}],\"name\":\"MaxUsdSet\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"previousSigner\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"newSigner\",\"type\":\"address\"}],\"name\":\"OracleSignerUpdated\",\"type\":\"event\"},{\"inputs\":[{\"internalType\":\"bytes4[]\",\"name\":\"selectors\",\"type\":\"bytes4[]\"},{\"internalType\":\"uint256[]\",\"name\":\"maxUsds\",\"type\":\"uint256[]\"}],\"name\":\"bulkSetMaxUsd\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes4[]\",\"name\":\"selectors\",\"type\":\"bytes4[]\"}],\"name\":\"getAllLimits\",\"outputs\":[{\"internalType\":\"uint256[]\",\"name\":\"results\",\"type\":\"uint256[]\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes4\",\"name\":\"selector\",\"type\":\"bytes4\"}],\"name\":\"getMaxUsd\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"maxUsd\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes4\",\"name\":\"\",\"type\":\"bytes4\"}],\"name\":\"maxUsdPerSelector\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"oracleSigner\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"owner\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes4\",\"name\":\"selector\",\"type\":\"bytes4\"},{\"internalType\":\"uint256\",\"name\":\"maxUsd\",\"type\":\"uint256\"}],\"name\":\"setMaxUsd\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"newSigner\",\"type\":\"address\"}],\"name\":\"setOracleSigner\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"}],\"devdoc\":{\"author\":\"edsphinx\",\"details\":\"Used by GasX Paymaster to enforce subsidy limits and oracle verification logic.\",\"events\":{\"MaxUsdSet(bytes4,uint256,uint256)\":{\"params\":{\"newMaxUsd\":\"New max allowed subsidy in USD (6 decimals)\",\"previousMaxUsd\":\"Previous max USD value (6 decimals)\",\"selector\":\"Function selector (4-byte method signature)\"}},\"OracleSignerUpdated(address,address)\":{\"params\":{\"newSigner\":\"The new authorized oracle signer address\",\"previousSigner\":\"The previous oracle signer address\"}}},\"kind\":\"dev\",\"methods\":{\"bulkSetMaxUsd(bytes4[],uint256[])\":{\"custom:security\":\"onlyOwner\",\"details\":\"Only callable by the contract owner\",\"params\":{\"maxUsds\":\"Array of max USD values (6 decimals)\",\"selectors\":\"Array of function selectors (4-byte signatures)\"}},\"constructor\":{\"params\":{\"_oracleSigner\":\"Initial address allowed to sign oracle payloads\"}},\"getAllLimits(bytes4[])\":{\"params\":{\"selectors\":\"List of selectors to query (4-byte signatures)\"},\"returns\":{\"results\":\"Array of USD caps (6 decimals) matching input selectors\"}},\"getMaxUsd(bytes4)\":{\"params\":{\"selector\":\"Function selector to query (4-byte signature)\"},\"returns\":{\"maxUsd\":\"Max allowed subsidy in USD (6 decimals)\"}},\"setMaxUsd(bytes4,uint256)\":{\"custom:security\":\"onlyOwner\",\"details\":\"Only callable by the contract owner\",\"params\":{\"maxUsd\":\"Subsidy limit in USD (6 decimals)\",\"selector\":\"Function selector (4-byte method signature)\"}},\"setOracleSigner(address)\":{\"custom:security\":\"onlyOwner\",\"details\":\"Only callable by the contract owner\",\"params\":{\"newSigner\":\"Address of the new oracle signer\"}}},\"title\":\"GasXConfig\",\"version\":1},\"userdoc\":{\"errors\":{\"LengthMismatch()\":[{\"notice\":\"Thrown when array lengths don't match\"}],\"ZeroAddress()\":[{\"notice\":\"Thrown when zero address is provided\"}]},\"events\":{\"MaxUsdSet(bytes4,uint256,uint256)\":{\"notice\":\"Emitted when a selector's max USD subsidy is set or updated\"},\"OracleSignerUpdated(address,address)\":{\"notice\":\"Emitted when the oracle signer is changed\"}},\"kind\":\"user\",\"methods\":{\"bulkSetMaxUsd(bytes4[],uint256[])\":{\"notice\":\"Batch update of max USD subsidy for multiple selectors\"},\"constructor\":{\"notice\":\"Deploys the config with the initial signer\"},\"getAllLimits(bytes4[])\":{\"notice\":\"Returns an array of max USD limits for the given selectors\"},\"getMaxUsd(bytes4)\":{\"notice\":\"Returns the max allowed USD subsidy for a given selector\"},\"maxUsdPerSelector(bytes4)\":{\"notice\":\"Mapping of function selectors to their max USD cap (6 decimals)\"},\"oracleSigner()\":{\"notice\":\"Address of the authorized signer used for oracle-signed payload validation\"},\"owner()\":{\"notice\":\"Owner of the contract (immutable)\"},\"setMaxUsd(bytes4,uint256)\":{\"notice\":\"Sets the max USD subsidy allowed for a given function selector\"},\"setOracleSigner(address)\":{\"notice\":\"Updates the signer used to verify oracle payloads\"}},\"notice\":\"Stores and manages configuration data for GasX protocol:         - oracleSigner: address authorised to sign off-chain subsidy data         - maxUsdPerSelector: maps function selectors to max spend in USDC\",\"version\":1}},\"settings\":{\"compilationTarget\":{\"contracts/core/GasXConfig.sol\":\"GasXConfig\"},\"evmVersion\":\"cancun\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\",\"useLiteralContent\":true},\"optimizer\":{\"enabled\":true,\"runs\":200},\"remappings\":[]},\"sources\":{\"contracts/core/GasXConfig.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\npragma solidity ^0.8.24;\\n\\n/**\\n * @title GasXConfig\\n * @author edsphinx\\n * @notice Stores and manages configuration data for GasX protocol:\\n *         - oracleSigner: address authorised to sign off-chain subsidy data\\n *         - maxUsdPerSelector: maps function selectors to max spend in USDC\\n * @dev Used by GasX Paymaster to enforce subsidy limits and oracle verification logic.\\n */\\ncontract GasXConfig {\\n    // \\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\n    // \\u2591\\u2591  STATE VARIABLES\\n    // \\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\n\\n    /// @notice Owner of the contract (immutable)\\n    address public immutable owner;\\n\\n    /// @notice Address of the authorized signer used for oracle-signed payload validation\\n    address public oracleSigner;\\n\\n    /// @notice Mapping of function selectors to their max USD cap (6 decimals)\\n    mapping(bytes4 => uint256) public maxUsdPerSelector;\\n\\n    // \\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\n    // \\u2591\\u2591  EVENTS\\n    // \\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\n\\n    /// @notice Emitted when the oracle signer is changed\\n    /// @param previousSigner The previous oracle signer address\\n    /// @param newSigner The new authorized oracle signer address\\n    event OracleSignerUpdated(address indexed previousSigner, address indexed newSigner);\\n\\n    /// @notice Emitted when a selector's max USD subsidy is set or updated\\n    /// @param selector Function selector (4-byte method signature)\\n    /// @param previousMaxUsd Previous max USD value (6 decimals)\\n    /// @param newMaxUsd New max allowed subsidy in USD (6 decimals)\\n    event MaxUsdSet(bytes4 indexed selector, uint256 previousMaxUsd, uint256 newMaxUsd);\\n\\n    // \\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\n    // \\u2591\\u2591  ERRORS\\n    // \\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\n\\n    /// @notice Thrown when zero address is provided\\n    error ZeroAddress();\\n    /// @notice Thrown when array lengths don't match\\n    error LengthMismatch();\\n\\n    // \\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\n    // \\u2591\\u2591  CONSTRUCTOR\\n    // \\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\n\\n    /**\\n     * @notice Deploys the config with the initial signer\\n     * @param _oracleSigner Initial address allowed to sign oracle payloads\\n     */\\n    constructor(address _oracleSigner) {\\n        if (_oracleSigner == address(0)) revert ZeroAddress();\\n        owner = msg.sender;\\n        oracleSigner = _oracleSigner;\\n    }\\n\\n    // \\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\n    // \\u2591\\u2591  MODIFIERS\\n    // \\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\n\\n    /// @dev Restricts function to the contract owner\\n    modifier onlyOwner() {\\n        require(msg.sender == owner, \\\"not owner\\\");\\n        _;\\n    }\\n\\n    // \\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\n    // \\u2591\\u2591  ADMIN FUNCTIONS\\n    // \\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\n\\n    /**\\n     * @notice Updates the signer used to verify oracle payloads\\n     * @dev Only callable by the contract owner\\n     * @param newSigner Address of the new oracle signer\\n     * @custom:security onlyOwner\\n     */\\n    function setOracleSigner(address newSigner) external onlyOwner {\\n        if (newSigner == address(0)) revert ZeroAddress();\\n        address previousSigner = oracleSigner;\\n        oracleSigner = newSigner;\\n        emit OracleSignerUpdated(previousSigner, newSigner);\\n    }\\n\\n    /**\\n     * @notice Sets the max USD subsidy allowed for a given function selector\\n     * @dev Only callable by the contract owner\\n     * @param selector Function selector (4-byte method signature)\\n     * @param maxUsd Subsidy limit in USD (6 decimals)\\n     * @custom:security onlyOwner\\n     */\\n    function setMaxUsd(bytes4 selector, uint256 maxUsd) external onlyOwner {\\n        uint256 previousMaxUsd = maxUsdPerSelector[selector];\\n        maxUsdPerSelector[selector] = maxUsd;\\n        emit MaxUsdSet(selector, previousMaxUsd, maxUsd);\\n    }\\n\\n    /**\\n     * @notice Batch update of max USD subsidy for multiple selectors\\n     * @dev Only callable by the contract owner\\n     * @param selectors Array of function selectors (4-byte signatures)\\n     * @param maxUsds Array of max USD values (6 decimals)\\n     * @custom:security onlyOwner\\n     */\\n    function bulkSetMaxUsd(bytes4[] calldata selectors, uint256[] calldata maxUsds) external onlyOwner {\\n        if (selectors.length != maxUsds.length) revert LengthMismatch();\\n        for (uint256 i = 0; i < selectors.length; i++) {\\n            uint256 previousMaxUsd = maxUsdPerSelector[selectors[i]];\\n            maxUsdPerSelector[selectors[i]] = maxUsds[i];\\n            emit MaxUsdSet(selectors[i], previousMaxUsd, maxUsds[i]);\\n        }\\n    }\\n\\n    // \\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\n    // \\u2591\\u2591  VIEW FUNCTIONS\\n    // \\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\n\\n    /**\\n     * @notice Returns the max allowed USD subsidy for a given selector\\n     * @param selector Function selector to query (4-byte signature)\\n     * @return maxUsd Max allowed subsidy in USD (6 decimals)\\n     */\\n    function getMaxUsd(bytes4 selector) external view returns (uint256 maxUsd) {\\n        return maxUsdPerSelector[selector];\\n    }\\n\\n    /**\\n     * @notice Returns an array of max USD limits for the given selectors\\n     * @param selectors List of selectors to query (4-byte signatures)\\n     * @return results Array of USD caps (6 decimals) matching input selectors\\n     */\\n    function getAllLimits(bytes4[] calldata selectors) external view returns (uint256[] memory results) {\\n        results = new uint256[](selectors.length);\\n        for (uint256 i = 0; i < selectors.length; i++) {\\n            results[i] = maxUsdPerSelector[selectors[i]];\\n        }\\n    }\\n}\\n\",\"keccak256\":\"0xb8b4e9a1fa756591f328ee337530040acbc41c694ab68985f82bdc21048fd1dc\",\"license\":\"MIT\"}},\"version\":1}",
+  "bytecode": "0x60a060405234801561000f575f5ffd5b5060405161089238038061089283398101604081905261002e9161007d565b6001600160a01b0381166100555760405163d92e233d60e01b815260040160405180910390fd5b336080525f80546001600160a01b0319166001600160a01b03929092169190911790556100aa565b5f6020828403121561008d575f5ffd5b81516001600160a01b03811681146100a3575f5ffd5b9392505050565b6080516107bb6100d75f395f818161014e0152818161019b0152818161024b015261030901526107bb5ff3fe608060405234801561000f575f5ffd5b5060043610610085575f3560e01c80636b0bfd9e116100585780636b0bfd9e146101175780637a26a2d31461012a5780638da5cb5b14610149578063ccdbc5e814610170575f5ffd5b806314dbaca0146100895780631709a61b1461009e57806328bff9db146100cd57806329b90207146100e0575b5f5ffd5b61009c610097366004610597565b610190565b005b5f546100b0906001600160a01b031681565b6040516001600160a01b0390911681526020015b60405180910390f35b61009c6100db3660046105bf565b610240565b6101096100ee3660046105ec565b6001600160e01b0319165f9081526001602052604090205490565b6040519081526020016100c4565b61009c61012536600461064d565b6102fe565b6101096101383660046105ec565b60016020525f908152604090205481565b6100b07f000000000000000000000000000000000000000000000000000000000000000081565b61018361017e3660046106b9565b6104b2565b6040516100c491906106f8565b336001600160a01b037f000000000000000000000000000000000000000000000000000000000000000016146101e15760405162461bcd60e51b81526004016101d89061073a565b60405180910390fd5b6001600160e01b031982165f81815260016020908152604091829020805490859055825181815291820185905292917fca34e14488e04a0508cf55a10b87a82cc370338d63f08c2d244360021a2912d5910160405180910390a2505050565b336001600160a01b037f000000000000000000000000000000000000000000000000000000000000000016146102885760405162461bcd60e51b81526004016101d89061073a565b6001600160a01b0381166102af5760405163d92e233d60e01b815260040160405180910390fd5b5f80546001600160a01b038381166001600160a01b0319831681178455604051919092169283917f53484eb5c3028cc71fda017d41e647dea2740218d0f723d84cf7e98476459a8e9190a35050565b336001600160a01b037f000000000000000000000000000000000000000000000000000000000000000016146103465760405162461bcd60e51b81526004016101d89061073a565b828114610369576040516001621398b960e31b0319815260040160405180910390fd5b5f5b838110156104ab575f60015f8787858181106103895761038961075d565b905060200201602081019061039e91906105ec565b6001600160e01b031916815260208101919091526040015f205490508383838181106103cc576103cc61075d565b9050602002013560015f8888868181106103e8576103e861075d565b90506020020160208101906103fd91906105ec565b6001600160e01b031916815260208101919091526040015f20558585838181106104295761042961075d565b905060200201602081019061043e91906105ec565b6001600160e01b0319167fca34e14488e04a0508cf55a10b87a82cc370338d63f08c2d244360021a2912d58286868681811061047c5761047c61075d565b9050602002013560405161049a929190918252602082015260400190565b60405180910390a25060010161036b565b5050505050565b60608167ffffffffffffffff8111156104cd576104cd610771565b6040519080825280602002602001820160405280156104f6578160200160208202803683370190505b5090505f5b828110156105745760015f8585848181106105185761051861075d565b905060200201602081019061052d91906105ec565b6001600160e01b0319166001600160e01b03191681526020019081526020015f20548282815181106105615761056161075d565b60209081029190910101526001016104fb565b5092915050565b80356001600160e01b031981168114610592575f5ffd5b919050565b5f5f604083850312156105a8575f5ffd5b6105b18361057b565b946020939093013593505050565b5f602082840312156105cf575f5ffd5b81356001600160a01b03811681146105e5575f5ffd5b9392505050565b5f602082840312156105fc575f5ffd5b6105e58261057b565b5f5f83601f840112610615575f5ffd5b50813567ffffffffffffffff81111561062c575f5ffd5b6020830191508360208260051b8501011115610646575f5ffd5b9250929050565b5f5f5f5f60408587031215610660575f5ffd5b843567ffffffffffffffff811115610676575f5ffd5b61068287828801610605565b909550935050602085013567ffffffffffffffff8111156106a1575f5ffd5b6106ad87828801610605565b95989497509550505050565b5f5f602083850312156106ca575f5ffd5b823567ffffffffffffffff8111156106e0575f5ffd5b6106ec85828601610605565b90969095509350505050565b602080825282518282018190525f918401906040840190835b8181101561072f578351835260209384019390920191600101610711565b509095945050505050565b6020808252600990820152683737ba1037bbb732b960b91b604082015260600190565b634e487b7160e01b5f52603260045260245ffd5b634e487b7160e01b5f52604160045260245ffdfea26469706673582212202bbbac775ab2adf2708c587bce796dcc7dffb5ccf659c279289ba4989a23154d64736f6c634300081d0033",
+  "deployedBytecode": "0x608060405234801561000f575f5ffd5b5060043610610085575f3560e01c80636b0bfd9e116100585780636b0bfd9e146101175780637a26a2d31461012a5780638da5cb5b14610149578063ccdbc5e814610170575f5ffd5b806314dbaca0146100895780631709a61b1461009e57806328bff9db146100cd57806329b90207146100e0575b5f5ffd5b61009c610097366004610597565b610190565b005b5f546100b0906001600160a01b031681565b6040516001600160a01b0390911681526020015b60405180910390f35b61009c6100db3660046105bf565b610240565b6101096100ee3660046105ec565b6001600160e01b0319165f9081526001602052604090205490565b6040519081526020016100c4565b61009c61012536600461064d565b6102fe565b6101096101383660046105ec565b60016020525f908152604090205481565b6100b07f000000000000000000000000000000000000000000000000000000000000000081565b61018361017e3660046106b9565b6104b2565b6040516100c491906106f8565b336001600160a01b037f000000000000000000000000000000000000000000000000000000000000000016146101e15760405162461bcd60e51b81526004016101d89061073a565b60405180910390fd5b6001600160e01b031982165f81815260016020908152604091829020805490859055825181815291820185905292917fca34e14488e04a0508cf55a10b87a82cc370338d63f08c2d244360021a2912d5910160405180910390a2505050565b336001600160a01b037f000000000000000000000000000000000000000000000000000000000000000016146102885760405162461bcd60e51b81526004016101d89061073a565b6001600160a01b0381166102af5760405163d92e233d60e01b815260040160405180910390fd5b5f80546001600160a01b038381166001600160a01b0319831681178455604051919092169283917f53484eb5c3028cc71fda017d41e647dea2740218d0f723d84cf7e98476459a8e9190a35050565b336001600160a01b037f000000000000000000000000000000000000000000000000000000000000000016146103465760405162461bcd60e51b81526004016101d89061073a565b828114610369576040516001621398b960e31b0319815260040160405180910390fd5b5f5b838110156104ab575f60015f8787858181106103895761038961075d565b905060200201602081019061039e91906105ec565b6001600160e01b031916815260208101919091526040015f205490508383838181106103cc576103cc61075d565b9050602002013560015f8888868181106103e8576103e861075d565b90506020020160208101906103fd91906105ec565b6001600160e01b031916815260208101919091526040015f20558585838181106104295761042961075d565b905060200201602081019061043e91906105ec565b6001600160e01b0319167fca34e14488e04a0508cf55a10b87a82cc370338d63f08c2d244360021a2912d58286868681811061047c5761047c61075d565b9050602002013560405161049a929190918252602082015260400190565b60405180910390a25060010161036b565b5050505050565b60608167ffffffffffffffff8111156104cd576104cd610771565b6040519080825280602002602001820160405280156104f6578160200160208202803683370190505b5090505f5b828110156105745760015f8585848181106105185761051861075d565b905060200201602081019061052d91906105ec565b6001600160e01b0319166001600160e01b03191681526020019081526020015f20548282815181106105615761056161075d565b60209081029190910101526001016104fb565b5092915050565b80356001600160e01b031981168114610592575f5ffd5b919050565b5f5f604083850312156105a8575f5ffd5b6105b18361057b565b946020939093013593505050565b5f602082840312156105cf575f5ffd5b81356001600160a01b03811681146105e5575f5ffd5b9392505050565b5f602082840312156105fc575f5ffd5b6105e58261057b565b5f5f83601f840112610615575f5ffd5b50813567ffffffffffffffff81111561062c575f5ffd5b6020830191508360208260051b8501011115610646575f5ffd5b9250929050565b5f5f5f5f60408587031215610660575f5ffd5b843567ffffffffffffffff811115610676575f5ffd5b61068287828801610605565b909550935050602085013567ffffffffffffffff8111156106a1575f5ffd5b6106ad87828801610605565b95989497509550505050565b5f5f602083850312156106ca575f5ffd5b823567ffffffffffffffff8111156106e0575f5ffd5b6106ec85828601610605565b90969095509350505050565b602080825282518282018190525f918401906040840190835b8181101561072f578351835260209384019390920191600101610711565b509095945050505050565b6020808252600990820152683737ba1037bbb732b960b91b604082015260600190565b634e487b7160e01b5f52603260045260245ffd5b634e487b7160e01b5f52604160045260245ffdfea26469706673582212202bbbac775ab2adf2708c587bce796dcc7dffb5ccf659c279289ba4989a23154d64736f6c634300081d0033",
+  "devdoc": {
+    "author": "edsphinx",
+    "details": "Used by GasX Paymaster to enforce subsidy limits and oracle verification logic.",
+    "events": {
+      "MaxUsdSet(bytes4,uint256,uint256)": {
+        "params": {
+          "newMaxUsd": "New max allowed subsidy in USD (6 decimals)",
+          "previousMaxUsd": "Previous max USD value (6 decimals)",
+          "selector": "Function selector (4-byte method signature)"
+        }
+      },
+      "OracleSignerUpdated(address,address)": {
+        "params": {
+          "newSigner": "The new authorized oracle signer address",
+          "previousSigner": "The previous oracle signer address"
+        }
+      }
+    },
+    "kind": "dev",
+    "methods": {
+      "bulkSetMaxUsd(bytes4[],uint256[])": {
+        "custom:security": "onlyOwner",
+        "details": "Only callable by the contract owner",
+        "params": {
+          "maxUsds": "Array of max USD values (6 decimals)",
+          "selectors": "Array of function selectors (4-byte signatures)"
+        }
+      },
+      "constructor": {
+        "params": {
+          "_oracleSigner": "Initial address allowed to sign oracle payloads"
+        }
+      },
+      "getAllLimits(bytes4[])": {
+        "params": {
+          "selectors": "List of selectors to query (4-byte signatures)"
+        },
+        "returns": {
+          "results": "Array of USD caps (6 decimals) matching input selectors"
+        }
+      },
+      "getMaxUsd(bytes4)": {
+        "params": {
+          "selector": "Function selector to query (4-byte signature)"
+        },
+        "returns": {
+          "maxUsd": "Max allowed subsidy in USD (6 decimals)"
+        }
+      },
+      "setMaxUsd(bytes4,uint256)": {
+        "custom:security": "onlyOwner",
+        "details": "Only callable by the contract owner",
+        "params": {
+          "maxUsd": "Subsidy limit in USD (6 decimals)",
+          "selector": "Function selector (4-byte method signature)"
+        }
+      },
+      "setOracleSigner(address)": {
+        "custom:security": "onlyOwner",
+        "details": "Only callable by the contract owner",
+        "params": {
+          "newSigner": "Address of the new oracle signer"
+        }
+      }
+    },
+    "title": "GasXConfig",
+    "version": 1
+  },
+  "userdoc": {
+    "errors": {
+      "LengthMismatch()": [
+        {
+          "notice": "Thrown when array lengths don't match"
+        }
+      ],
+      "ZeroAddress()": [
+        {
+          "notice": "Thrown when zero address is provided"
+        }
+      ]
+    },
+    "events": {
+      "MaxUsdSet(bytes4,uint256,uint256)": {
+        "notice": "Emitted when a selector's max USD subsidy is set or updated"
+      },
+      "OracleSignerUpdated(address,address)": {
+        "notice": "Emitted when the oracle signer is changed"
+      }
+    },
+    "kind": "user",
+    "methods": {
+      "bulkSetMaxUsd(bytes4[],uint256[])": {
+        "notice": "Batch update of max USD subsidy for multiple selectors"
+      },
+      "constructor": {
+        "notice": "Deploys the config with the initial signer"
+      },
+      "getAllLimits(bytes4[])": {
+        "notice": "Returns an array of max USD limits for the given selectors"
+      },
+      "getMaxUsd(bytes4)": {
+        "notice": "Returns the max allowed USD subsidy for a given selector"
+      },
+      "maxUsdPerSelector(bytes4)": {
+        "notice": "Mapping of function selectors to their max USD cap (6 decimals)"
+      },
+      "oracleSigner()": {
+        "notice": "Address of the authorized signer used for oracle-signed payload validation"
+      },
+      "owner()": {
+        "notice": "Owner of the contract (immutable)"
+      },
+      "setMaxUsd(bytes4,uint256)": {
+        "notice": "Sets the max USD subsidy allowed for a given function selector"
+      },
+      "setOracleSigner(address)": {
+        "notice": "Updates the signer used to verify oracle payloads"
+      }
+    },
+    "notice": "Stores and manages configuration data for GasX protocol:         - oracleSigner: address authorised to sign off-chain subsidy data         - maxUsdPerSelector: maps function selectors to max spend in USDC",
+    "version": 1
+  },
+  "storageLayout": {
+    "storage": [
+      {
+        "astId": 15467,
+        "contract": "contracts/core/GasXConfig.sol:GasXConfig",
+        "label": "oracleSigner",
+        "offset": 0,
+        "slot": "0",
+        "type": "t_address"
+      },
+      {
+        "astId": 15472,
+        "contract": "contracts/core/GasXConfig.sol:GasXConfig",
+        "label": "maxUsdPerSelector",
+        "offset": 0,
+        "slot": "1",
+        "type": "t_mapping(t_bytes4,t_uint256)"
+      }
+    ],
+    "types": {
+      "t_address": {
+        "encoding": "inplace",
+        "label": "address",
+        "numberOfBytes": "20"
+      },
+      "t_bytes4": {
+        "encoding": "inplace",
+        "label": "bytes4",
+        "numberOfBytes": "4"
+      },
+      "t_mapping(t_bytes4,t_uint256)": {
+        "encoding": "mapping",
+        "key": "t_bytes4",
+        "label": "mapping(bytes4 => uint256)",
+        "numberOfBytes": "32",
+        "value": "t_uint256"
+      },
+      "t_uint256": {
+        "encoding": "inplace",
+        "label": "uint256",
+        "numberOfBytes": "32"
+      }
+    }
+  }
+}

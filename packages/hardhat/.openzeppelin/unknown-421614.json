@@ -1,0 +1,560 @@
+{
+  "manifestVersion": "3.2",
+  "proxies": [
+    {
+      "address": "0x5b48Cab86Bd75b0C806a4ef38B2801f9d0BbdE3a",
+      "txHash": "0x7d261c569f1fa24faf0c9355c0da6641f4fb57d5bfa81069761c7cf7e6fbb67d",
+      "kind": "uups"
+    },
+    {
+      "address": "0xb609E4A123636B1aC20f7B67652537132efBDa8C",
+      "txHash": "0x78c9d75dc7eebc5457b6d50c3286cba6aa6128daa028c809f0eeeefd9482b0ed",
+      "kind": "uups"
+    },
+    {
+      "address": "0x0cC37E635EDCc33C62BBA916927bee7E4955b0A8",
+      "txHash": "0x6abb0df9833631d12daf320bd9706951865a2fea765e2b608ca8797a4caa9979",
+      "kind": "uups"
+    }
+  ],
+  "impls": {
+    "1fa8b6404a89918f5faa6b59ff64dd284760f6a9ab1fb42282972b1ce8bfaa50": {
+      "address": "0xf04576ACB17F62e2589DBb33c2565D9B472cE47f",
+      "txHash": "0x38121afc2056617784c4cbd12986a08e448fef3bd2271e478b4f9bcbbc8fdd5a",
+      "layout": {
+        "solcVersion": "0.8.29",
+        "storage": [
+          {
+            "label": "_trustedForwarder",
+            "offset": 0,
+            "slot": "0",
+            "type": "t_address",
+            "contract": "MultiOracleAggregator",
+            "src": "contracts/oracles/MultiOracleAggregator.sol:51"
+          },
+          {
+            "label": "_oracles",
+            "offset": 0,
+            "slot": "1",
+            "type": "t_mapping(t_address,t_mapping(t_address,t_array(t_struct(OracleInfo)20918_storage)dyn_storage))",
+            "contract": "MultiOracleAggregator",
+            "src": "contracts/oracles/MultiOracleAggregator.sol:64"
+          },
+          {
+            "label": "maxDeviationBps",
+            "offset": 0,
+            "slot": "2",
+            "type": "t_uint256",
+            "contract": "MultiOracleAggregator",
+            "src": "contracts/oracles/MultiOracleAggregator.sol:67"
+          }
+        ],
+        "types": {
+          "t_address": {
+            "label": "address",
+            "numberOfBytes": "20"
+          },
+          "t_bool": {
+            "label": "bool",
+            "numberOfBytes": "1"
+          },
+          "t_struct(InitializableStorage)1780_storage": {
+            "label": "struct Initializable.InitializableStorage",
+            "members": [
+              {
+                "label": "_initialized",
+                "type": "t_uint64",
+                "offset": 0,
+                "slot": "0"
+              },
+              {
+                "label": "_initializing",
+                "type": "t_bool",
+                "offset": 8,
+                "slot": "0"
+              }
+            ],
+            "numberOfBytes": "32"
+          },
+          "t_struct(OwnableStorage)1708_storage": {
+            "label": "struct OwnableUpgradeable.OwnableStorage",
+            "members": [
+              {
+                "label": "_owner",
+                "type": "t_address",
+                "offset": 0,
+                "slot": "0"
+              }
+            ],
+            "numberOfBytes": "32"
+          },
+          "t_uint64": {
+            "label": "uint64",
+            "numberOfBytes": "8"
+          },
+          "t_array(t_struct(OracleInfo)20918_storage)dyn_storage": {
+            "label": "struct MultiOracleAggregator.OracleInfo[]",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_address,t_array(t_struct(OracleInfo)20918_storage)dyn_storage)": {
+            "label": "mapping(address => struct MultiOracleAggregator.OracleInfo[])",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_address,t_mapping(t_address,t_array(t_struct(OracleInfo)20918_storage)dyn_storage))": {
+            "label": "mapping(address => mapping(address => struct MultiOracleAggregator.OracleInfo[]))",
+            "numberOfBytes": "32"
+          },
+          "t_struct(OracleInfo)20918_storage": {
+            "label": "struct MultiOracleAggregator.OracleInfo",
+            "members": [
+              {
+                "label": "oracleAddress",
+                "type": "t_address",
+                "offset": 0,
+                "slot": "0"
+              },
+              {
+                "label": "enabled",
+                "type": "t_bool",
+                "offset": 20,
+                "slot": "0"
+              }
+            ],
+            "numberOfBytes": "32"
+          },
+          "t_uint256": {
+            "label": "uint256",
+            "numberOfBytes": "32"
+          }
+        },
+        "namespaces": {
+          "erc7201:openzeppelin.storage.Ownable": [
+            {
+              "contract": "OwnableUpgradeable",
+              "label": "_owner",
+              "type": "t_address",
+              "src": "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol:24",
+              "offset": 0,
+              "slot": "0"
+            }
+          ],
+          "erc7201:openzeppelin.storage.Initializable": [
+            {
+              "contract": "Initializable",
+              "label": "_initialized",
+              "type": "t_uint64",
+              "src": "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol:69",
+              "offset": 0,
+              "slot": "0"
+            },
+            {
+              "contract": "Initializable",
+              "label": "_initializing",
+              "type": "t_bool",
+              "src": "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol:73",
+              "offset": 8,
+              "slot": "0"
+            }
+          ]
+        }
+      }
+    },
+    "d66b5adf9d6ae1da8fbd4829fb3d6219ad418475ec4f00a2220352cb37e8a247": {
+      "address": "0x033254948A5E22e103a8B5069BBdc241AA789fB0",
+      "txHash": "0x1d755c0bbb5319ed0da6bbdb8229fad1018e556d92f213dd07e4cda014ebf571",
+      "layout": {
+        "solcVersion": "0.8.29",
+        "storage": [
+          {
+            "label": "owner",
+            "offset": 0,
+            "slot": "0",
+            "type": "t_address",
+            "contract": "GasXSubscriptions",
+            "src": "contracts/core/GasXSubscriptions.sol:104"
+          },
+          {
+            "label": "pendingOwner",
+            "offset": 0,
+            "slot": "1",
+            "type": "t_address",
+            "contract": "GasXSubscriptions",
+            "src": "contracts/core/GasXSubscriptions.sol:107"
+          },
+          {
+            "label": "treasury",
+            "offset": 0,
+            "slot": "2",
+            "type": "t_address",
+            "contract": "GasXSubscriptions",
+            "src": "contracts/core/GasXSubscriptions.sol:108"
+          },
+          {
+            "label": "supportedTokens",
+            "offset": 0,
+            "slot": "3",
+            "type": "t_mapping(t_address,t_bool)",
+            "contract": "GasXSubscriptions",
+            "src": "contracts/core/GasXSubscriptions.sol:111"
+          },
+          {
+            "label": "tokenDecimals",
+            "offset": 0,
+            "slot": "4",
+            "type": "t_mapping(t_address,t_uint8)",
+            "contract": "GasXSubscriptions",
+            "src": "contracts/core/GasXSubscriptions.sol:114"
+          },
+          {
+            "label": "plans",
+            "offset": 0,
+            "slot": "5",
+            "type": "t_mapping(t_uint256,t_struct(Plan)16766_storage)",
+            "contract": "GasXSubscriptions",
+            "src": "contracts/core/GasXSubscriptions.sol:117"
+          },
+          {
+            "label": "planCount",
+            "offset": 0,
+            "slot": "6",
+            "type": "t_uint256",
+            "contract": "GasXSubscriptions",
+            "src": "contracts/core/GasXSubscriptions.sol:119"
+          },
+          {
+            "label": "creditPacks",
+            "offset": 0,
+            "slot": "7",
+            "type": "t_mapping(t_uint256,t_struct(CreditPack)16779_storage)",
+            "contract": "GasXSubscriptions",
+            "src": "contracts/core/GasXSubscriptions.sol:119"
+          },
+          {
+            "label": "creditPackCount",
+            "offset": 0,
+            "slot": "8",
+            "type": "t_uint256",
+            "contract": "GasXSubscriptions",
+            "src": "contracts/core/GasXSubscriptions.sol:122"
+          },
+          {
+            "label": "subscriptions",
+            "offset": 0,
+            "slot": "9",
+            "type": "t_mapping(t_address,t_struct(Subscription)16790_storage)",
+            "contract": "GasXSubscriptions",
+            "src": "contracts/core/GasXSubscriptions.sol:125"
+          },
+          {
+            "label": "creditBalances",
+            "offset": 0,
+            "slot": "10",
+            "type": "t_mapping(t_address,t_uint256)",
+            "contract": "GasXSubscriptions",
+            "src": "contracts/core/GasXSubscriptions.sol:128"
+          },
+          {
+            "label": "totalCreditsPurchased",
+            "offset": 0,
+            "slot": "11",
+            "type": "t_mapping(t_address,t_uint256)",
+            "contract": "GasXSubscriptions",
+            "src": "contracts/core/GasXSubscriptions.sol:131"
+          },
+          {
+            "label": "totalCreditsUsed",
+            "offset": 0,
+            "slot": "12",
+            "type": "t_mapping(t_address,t_uint256)",
+            "contract": "GasXSubscriptions",
+            "src": "contracts/core/GasXSubscriptions.sol:135"
+          },
+          {
+            "label": "feeCollector",
+            "offset": 0,
+            "slot": "13",
+            "type": "t_address",
+            "contract": "GasXSubscriptions",
+            "src": "contracts/core/GasXSubscriptions.sol:137"
+          },
+          {
+            "label": "accumulatedFees",
+            "offset": 0,
+            "slot": "14",
+            "type": "t_mapping(t_address,t_uint256)",
+            "contract": "GasXSubscriptions",
+            "src": "contracts/core/GasXSubscriptions.sol:137"
+          },
+          {
+            "label": "pendingUpgrade",
+            "offset": 0,
+            "slot": "15",
+            "type": "t_address",
+            "contract": "GasXSubscriptions",
+            "src": "contracts/core/GasXSubscriptions.sol:142"
+          },
+          {
+            "label": "upgradeReadyTime",
+            "offset": 0,
+            "slot": "16",
+            "type": "t_uint256",
+            "contract": "GasXSubscriptions",
+            "src": "contracts/core/GasXSubscriptions.sol:145"
+          }
+        ],
+        "types": {
+          "t_bool": {
+            "label": "bool",
+            "numberOfBytes": "1"
+          },
+          "t_struct(InitializableStorage)1780_storage": {
+            "label": "struct Initializable.InitializableStorage",
+            "members": [
+              {
+                "label": "_initialized",
+                "type": "t_uint64",
+                "offset": 0,
+                "slot": "0"
+              },
+              {
+                "label": "_initializing",
+                "type": "t_bool",
+                "offset": 8,
+                "slot": "0"
+              }
+            ],
+            "numberOfBytes": "32"
+          },
+          "t_struct(PausableStorage)1958_storage": {
+            "label": "struct PausableUpgradeable.PausableStorage",
+            "members": [
+              {
+                "label": "_paused",
+                "type": "t_bool",
+                "offset": 0,
+                "slot": "0"
+              }
+            ],
+            "numberOfBytes": "32"
+          },
+          "t_struct(ReentrancyGuardStorage)2034_storage": {
+            "label": "struct ReentrancyGuardUpgradeable.ReentrancyGuardStorage",
+            "members": [
+              {
+                "label": "_status",
+                "type": "t_uint256",
+                "offset": 0,
+                "slot": "0"
+              }
+            ],
+            "numberOfBytes": "32"
+          },
+          "t_uint256": {
+            "label": "uint256",
+            "numberOfBytes": "32"
+          },
+          "t_uint64": {
+            "label": "uint64",
+            "numberOfBytes": "8"
+          },
+          "t_address": {
+            "label": "address",
+            "numberOfBytes": "20"
+          },
+          "t_mapping(t_address,t_bool)": {
+            "label": "mapping(address => bool)",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_address,t_struct(Subscription)16790_storage)": {
+            "label": "mapping(address => struct GasXSubscriptions.Subscription)",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_address,t_uint256)": {
+            "label": "mapping(address => uint256)",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_address,t_uint8)": {
+            "label": "mapping(address => uint8)",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_uint256,t_struct(CreditPack)16779_storage)": {
+            "label": "mapping(uint256 => struct GasXSubscriptions.CreditPack)",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_uint256,t_struct(Plan)16766_storage)": {
+            "label": "mapping(uint256 => struct GasXSubscriptions.Plan)",
+            "numberOfBytes": "32"
+          },
+          "t_string_storage": {
+            "label": "string",
+            "numberOfBytes": "32"
+          },
+          "t_struct(CreditPack)16779_storage": {
+            "label": "struct GasXSubscriptions.CreditPack",
+            "members": [
+              {
+                "label": "name",
+                "type": "t_string_storage",
+                "offset": 0,
+                "slot": "0"
+              },
+              {
+                "label": "credits",
+                "type": "t_uint256",
+                "offset": 0,
+                "slot": "1"
+              },
+              {
+                "label": "bonusCredits",
+                "type": "t_uint256",
+                "offset": 0,
+                "slot": "2"
+              },
+              {
+                "label": "priceUsdc",
+                "type": "t_uint256",
+                "offset": 0,
+                "slot": "3"
+              },
+              {
+                "label": "priceEth",
+                "type": "t_uint256",
+                "offset": 0,
+                "slot": "4"
+              },
+              {
+                "label": "active",
+                "type": "t_bool",
+                "offset": 0,
+                "slot": "5"
+              }
+            ],
+            "numberOfBytes": "192"
+          },
+          "t_struct(Plan)16766_storage": {
+            "label": "struct GasXSubscriptions.Plan",
+            "members": [
+              {
+                "label": "name",
+                "type": "t_string_storage",
+                "offset": 0,
+                "slot": "0"
+              },
+              {
+                "label": "priceUsdc",
+                "type": "t_uint256",
+                "offset": 0,
+                "slot": "1"
+              },
+              {
+                "label": "priceEth",
+                "type": "t_uint256",
+                "offset": 0,
+                "slot": "2"
+              },
+              {
+                "label": "durationDays",
+                "type": "t_uint256",
+                "offset": 0,
+                "slot": "3"
+              },
+              {
+                "label": "platformFeeBps",
+                "type": "t_uint256",
+                "offset": 0,
+                "slot": "4"
+              },
+              {
+                "label": "active",
+                "type": "t_bool",
+                "offset": 0,
+                "slot": "5"
+              }
+            ],
+            "numberOfBytes": "192"
+          },
+          "t_struct(Subscription)16790_storage": {
+            "label": "struct GasXSubscriptions.Subscription",
+            "members": [
+              {
+                "label": "planId",
+                "type": "t_uint256",
+                "offset": 0,
+                "slot": "0"
+              },
+              {
+                "label": "startTime",
+                "type": "t_uint256",
+                "offset": 0,
+                "slot": "1"
+              },
+              {
+                "label": "endTime",
+                "type": "t_uint256",
+                "offset": 0,
+                "slot": "2"
+              },
+              {
+                "label": "paymentToken",
+                "type": "t_address",
+                "offset": 0,
+                "slot": "3"
+              },
+              {
+                "label": "autoRenew",
+                "type": "t_bool",
+                "offset": 20,
+                "slot": "3"
+              }
+            ],
+            "numberOfBytes": "128"
+          },
+          "t_uint8": {
+            "label": "uint8",
+            "numberOfBytes": "1"
+          }
+        },
+        "namespaces": {
+          "erc7201:openzeppelin.storage.Pausable": [
+            {
+              "contract": "PausableUpgradeable",
+              "label": "_paused",
+              "type": "t_bool",
+              "src": "@openzeppelin/contracts-upgradeable/utils/PausableUpgradeable.sol:21",
+              "offset": 0,
+              "slot": "0"
+            }
+          ],
+          "erc7201:openzeppelin.storage.ReentrancyGuard": [
+            {
+              "contract": "ReentrancyGuardUpgradeable",
+              "label": "_status",
+              "type": "t_uint256",
+              "src": "@openzeppelin/contracts-upgradeable/utils/ReentrancyGuardUpgradeable.sol:43",
+              "offset": 0,
+              "slot": "0"
+            }
+          ],
+          "erc7201:openzeppelin.storage.Initializable": [
+            {
+              "contract": "Initializable",
+              "label": "_initialized",
+              "type": "t_uint64",
+              "src": "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol:69",
+              "offset": 0,
+              "slot": "0"
+            },
+            {
+              "contract": "Initializable",
+              "label": "_initializing",
+              "type": "t_bool",
+              "src": "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol:73",
+              "offset": 8,
+              "slot": "0"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

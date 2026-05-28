@@ -38,7 +38,10 @@ cache/
 coverage/
 typechain/
 broadcast/
-deployments/
+# Track per-network deployments (needed for redeploys, ABI references, and audit trail).
+# Ignore only local/ephemeral networks.
+deployments/localhost/
+deployments/hardhat/
 
 # Compiled contracts
 *.tsbuildinfo
@@ -54,8 +57,10 @@ aa-lib/
 packages/aa-lib/
 packages/hardhat/contracts/@account-abstraction/
 
-# OpenZeppelin state files
-packages/hardhat/.openzeppelin/
+# OpenZeppelin upgrades manifest — MUST be tracked for UUPS proxies (storage layout
+# history is required to validate future upgrades). Only ignore local/ephemeral chains.
+packages/hardhat/.openzeppelin/unknown-31337.json
+packages/hardhat/.openzeppelin/unknown-1337.json
 
 # --- Local & Internal Documentation ---
 # These files are for the developer's internal use and should not be committed.

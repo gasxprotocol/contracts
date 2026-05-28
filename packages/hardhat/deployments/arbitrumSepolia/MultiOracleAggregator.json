@@ -1,0 +1,1281 @@
+{
+  "address": "0xE7fD65F31f6daB86593A89113a240827e561F574",
+  "abi": [
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "target",
+          "type": "address"
+        }
+      ],
+      "name": "AddressEmptyCode",
+      "type": "error"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "bps",
+          "type": "uint256"
+        }
+      ],
+      "name": "DeviationTooHigh",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "DuplicateOracle",
+      "type": "error"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "implementation",
+          "type": "address"
+        }
+      ],
+      "name": "ERC1967InvalidImplementation",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "ERC1967NonPayable",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "FailedCall",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "InvalidIndex",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "InvalidInitialization",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "InvalidPair",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "NoData",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "NoOracles",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "NotInitializing",
+      "type": "error"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "owner",
+          "type": "address"
+        }
+      ],
+      "name": "OwnableInvalidOwner",
+      "type": "error"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "account",
+          "type": "address"
+        }
+      ],
+      "name": "OwnableUnauthorizedAccount",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "UUPSUnauthorizedCallContext",
+      "type": "error"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "bytes32",
+          "name": "slot",
+          "type": "bytes32"
+        }
+      ],
+      "name": "UUPSUnsupportedProxiableUUID",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "ZeroAddress",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "ZeroOracle",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "ZeroQuote",
+      "type": "error"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "to",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "amount",
+          "type": "uint256"
+        }
+      ],
+      "name": "EthWithdrawn",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "uint64",
+          "name": "version",
+          "type": "uint64"
+        }
+      ],
+      "name": "Initialized",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "previousBps",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "newBps",
+          "type": "uint256"
+        }
+      ],
+      "name": "MaxDeviationUpdated",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "base",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "quote",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "address",
+          "name": "oracle",
+          "type": "address"
+        }
+      ],
+      "name": "OracleAdded",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "base",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "quote",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "index",
+          "type": "uint256"
+        }
+      ],
+      "name": "OracleRemoved",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "base",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "quote",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "index",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "bool",
+          "name": "enabled",
+          "type": "bool"
+        }
+      ],
+      "name": "OracleToggled",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "base",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "quote",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "index",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "address",
+          "name": "oldOracle",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "address",
+          "name": "newOracle",
+          "type": "address"
+        }
+      ],
+      "name": "OracleUpdated",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "previousOwner",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "newOwner",
+          "type": "address"
+        }
+      ],
+      "name": "OwnershipTransferred",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "base",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "quote",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "address",
+          "name": "oracle",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "inputAmount",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "quoteValue",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "referenceQuote",
+          "type": "uint256"
+        }
+      ],
+      "name": "QuoteDeviationRejected",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "base",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "quote",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "address",
+          "name": "oracle",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "inputAmount",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "outputQuote",
+          "type": "uint256"
+        }
+      ],
+      "name": "QuoteUsed",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "address",
+          "name": "previousForwarder",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "address",
+          "name": "newForwarder",
+          "type": "address"
+        }
+      ],
+      "name": "TrustedForwarderUpdated",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "implementation",
+          "type": "address"
+        }
+      ],
+      "name": "Upgraded",
+      "type": "event"
+    },
+    {
+      "inputs": [],
+      "name": "UPGRADE_INTERFACE_VERSION",
+      "outputs": [
+        {
+          "internalType": "string",
+          "name": "",
+          "type": "string"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "base",
+          "type": "address"
+        },
+        {
+          "internalType": "address",
+          "name": "quote",
+          "type": "address"
+        },
+        {
+          "internalType": "address",
+          "name": "oracle",
+          "type": "address"
+        }
+      ],
+      "name": "addOracle",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "amount",
+          "type": "uint256"
+        },
+        {
+          "internalType": "address",
+          "name": "base",
+          "type": "address"
+        },
+        {
+          "internalType": "address",
+          "name": "quote",
+          "type": "address"
+        }
+      ],
+      "name": "computeQuoteAverage",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "amount",
+          "type": "uint256"
+        },
+        {
+          "internalType": "address",
+          "name": "base",
+          "type": "address"
+        },
+        {
+          "internalType": "address",
+          "name": "quote",
+          "type": "address"
+        }
+      ],
+      "name": "computeQuoteMedian",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address payable",
+          "name": "to",
+          "type": "address"
+        }
+      ],
+      "name": "emergencyWithdrawEth",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "base",
+          "type": "address"
+        },
+        {
+          "internalType": "address",
+          "name": "quote",
+          "type": "address"
+        }
+      ],
+      "name": "getOracles",
+      "outputs": [
+        {
+          "components": [
+            {
+              "internalType": "address",
+              "name": "oracleAddress",
+              "type": "address"
+            },
+            {
+              "internalType": "bool",
+              "name": "enabled",
+              "type": "bool"
+            }
+          ],
+          "internalType": "struct MultiOracleAggregator.OracleInfo[]",
+          "name": "",
+          "type": "tuple[]"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "amount",
+          "type": "uint256"
+        },
+        {
+          "internalType": "address",
+          "name": "base",
+          "type": "address"
+        },
+        {
+          "internalType": "address",
+          "name": "quote",
+          "type": "address"
+        }
+      ],
+      "name": "getQuoteAverage",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "amount",
+          "type": "uint256"
+        },
+        {
+          "internalType": "address",
+          "name": "base",
+          "type": "address"
+        },
+        {
+          "internalType": "address",
+          "name": "quote",
+          "type": "address"
+        }
+      ],
+      "name": "getQuoteMedian",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "initialOwner",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "deviationBps",
+          "type": "uint256"
+        }
+      ],
+      "name": "initialize",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "forwarder",
+          "type": "address"
+        }
+      ],
+      "name": "isTrustedForwarder",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "maxDeviationBps",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "base",
+          "type": "address"
+        },
+        {
+          "internalType": "address",
+          "name": "quote",
+          "type": "address"
+        }
+      ],
+      "name": "oracleCount",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "owner",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "proxiableUUID",
+      "outputs": [
+        {
+          "internalType": "bytes32",
+          "name": "",
+          "type": "bytes32"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "base",
+          "type": "address"
+        },
+        {
+          "internalType": "address",
+          "name": "quote",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "index",
+          "type": "uint256"
+        }
+      ],
+      "name": "removeOracle",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "renounceOwnership",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "bps",
+          "type": "uint256"
+        }
+      ],
+      "name": "setMaxDeviationBps",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "forwarder",
+          "type": "address"
+        }
+      ],
+      "name": "setTrustedForwarder",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "base",
+          "type": "address"
+        },
+        {
+          "internalType": "address",
+          "name": "quote",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "index",
+          "type": "uint256"
+        },
+        {
+          "internalType": "bool",
+          "name": "enabled",
+          "type": "bool"
+        }
+      ],
+      "name": "toggleOracle",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "newOwner",
+          "type": "address"
+        }
+      ],
+      "name": "transferOwnership",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "base",
+          "type": "address"
+        },
+        {
+          "internalType": "address",
+          "name": "quote",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "index",
+          "type": "uint256"
+        },
+        {
+          "internalType": "address",
+          "name": "newOracle",
+          "type": "address"
+        }
+      ],
+      "name": "updateOracle",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "newImplementation",
+          "type": "address"
+        },
+        {
+          "internalType": "bytes",
+          "name": "data",
+          "type": "bytes"
+        }
+      ],
+      "name": "upgradeToAndCall",
+      "outputs": [],
+      "stateMutability": "payable",
+      "type": "function"
+    }
+  ],
+  "transactionHash": "0x2f1dbd2e6fe7c9f17b4a7b153b8a21cb506fae629b0b67f24bed9a915ee042c8",
+  "receipt": {
+    "to": null,
+    "from": "0x7C6d2F09C7Dd26a37c4139FBCe96749633181Aa7",
+    "contractAddress": "0xE7fD65F31f6daB86593A89113a240827e561F574",
+    "transactionIndex": 2,
+    "gasUsed": "2358737",
+    "logsBloom": "0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+    "blockHash": "0xa5625c766a663defc8c913e83531782fb12f927b6b40133e53d158cc1eed1d9b",
+    "transactionHash": "0x2f1dbd2e6fe7c9f17b4a7b153b8a21cb506fae629b0b67f24bed9a915ee042c8",
+    "logs": [],
+    "blockNumber": 240430091,
+    "cumulativeGasUsed": "2470928",
+    "status": 1,
+    "byzantium": true
+  },
+  "args": [],
+  "numDeployments": 1,
+  "solcInputHash": "d4afba9f945680c4bdd2a263195f07fc",
+  "metadata": "{\"compiler\":{\"version\":\"0.8.29+commit.ab55807c\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[{\"internalType\":\"address\",\"name\":\"target\",\"type\":\"address\"}],\"name\":\"AddressEmptyCode\",\"type\":\"error\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"bps\",\"type\":\"uint256\"}],\"name\":\"DeviationTooHigh\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"DuplicateOracle\",\"type\":\"error\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"implementation\",\"type\":\"address\"}],\"name\":\"ERC1967InvalidImplementation\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"ERC1967NonPayable\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"FailedCall\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"InvalidIndex\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"InvalidInitialization\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"InvalidPair\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"NoData\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"NoOracles\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"NotInitializing\",\"type\":\"error\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"owner\",\"type\":\"address\"}],\"name\":\"OwnableInvalidOwner\",\"type\":\"error\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"OwnableUnauthorizedAccount\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"UUPSUnauthorizedCallContext\",\"type\":\"error\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"slot\",\"type\":\"bytes32\"}],\"name\":\"UUPSUnsupportedProxiableUUID\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"ZeroAddress\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"ZeroOracle\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"ZeroQuote\",\"type\":\"error\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"to\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"}],\"name\":\"EthWithdrawn\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint64\",\"name\":\"version\",\"type\":\"uint64\"}],\"name\":\"Initialized\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"previousBps\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"newBps\",\"type\":\"uint256\"}],\"name\":\"MaxDeviationUpdated\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"base\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"quote\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"oracle\",\"type\":\"address\"}],\"name\":\"OracleAdded\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"base\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"quote\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"index\",\"type\":\"uint256\"}],\"name\":\"OracleRemoved\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"base\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"quote\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"index\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"bool\",\"name\":\"enabled\",\"type\":\"bool\"}],\"name\":\"OracleToggled\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"base\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"quote\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"index\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"oldOracle\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"newOracle\",\"type\":\"address\"}],\"name\":\"OracleUpdated\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"previousOwner\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"OwnershipTransferred\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"base\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"quote\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"oracle\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"inputAmount\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"quoteValue\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"referenceQuote\",\"type\":\"uint256\"}],\"name\":\"QuoteDeviationRejected\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"base\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"quote\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"oracle\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"inputAmount\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"outputQuote\",\"type\":\"uint256\"}],\"name\":\"QuoteUsed\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"previousForwarder\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"newForwarder\",\"type\":\"address\"}],\"name\":\"TrustedForwarderUpdated\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"implementation\",\"type\":\"address\"}],\"name\":\"Upgraded\",\"type\":\"event\"},{\"inputs\":[],\"name\":\"UPGRADE_INTERFACE_VERSION\",\"outputs\":[{\"internalType\":\"string\",\"name\":\"\",\"type\":\"string\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"base\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"quote\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"oracle\",\"type\":\"address\"}],\"name\":\"addOracle\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"base\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"quote\",\"type\":\"address\"}],\"name\":\"computeQuoteAverage\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"base\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"quote\",\"type\":\"address\"}],\"name\":\"computeQuoteMedian\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address payable\",\"name\":\"to\",\"type\":\"address\"}],\"name\":\"emergencyWithdrawEth\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"base\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"quote\",\"type\":\"address\"}],\"name\":\"getOracles\",\"outputs\":[{\"components\":[{\"internalType\":\"address\",\"name\":\"oracleAddress\",\"type\":\"address\"},{\"internalType\":\"bool\",\"name\":\"enabled\",\"type\":\"bool\"}],\"internalType\":\"struct MultiOracleAggregator.OracleInfo[]\",\"name\":\"\",\"type\":\"tuple[]\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"base\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"quote\",\"type\":\"address\"}],\"name\":\"getQuoteAverage\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"base\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"quote\",\"type\":\"address\"}],\"name\":\"getQuoteMedian\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"initialOwner\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"deviationBps\",\"type\":\"uint256\"}],\"name\":\"initialize\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"forwarder\",\"type\":\"address\"}],\"name\":\"isTrustedForwarder\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"maxDeviationBps\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"base\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"quote\",\"type\":\"address\"}],\"name\":\"oracleCount\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"owner\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"proxiableUUID\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"base\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"quote\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"index\",\"type\":\"uint256\"}],\"name\":\"removeOracle\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"renounceOwnership\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"bps\",\"type\":\"uint256\"}],\"name\":\"setMaxDeviationBps\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"forwarder\",\"type\":\"address\"}],\"name\":\"setTrustedForwarder\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"base\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"quote\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"index\",\"type\":\"uint256\"},{\"internalType\":\"bool\",\"name\":\"enabled\",\"type\":\"bool\"}],\"name\":\"toggleOracle\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"transferOwnership\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"base\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"quote\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"index\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"newOracle\",\"type\":\"address\"}],\"name\":\"updateOracle\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"newImplementation\",\"type\":\"address\"},{\"internalType\":\"bytes\",\"name\":\"data\",\"type\":\"bytes\"}],\"name\":\"upgradeToAndCall\",\"outputs\":[],\"stateMutability\":\"payable\",\"type\":\"function\"}],\"devdoc\":{\"author\":\"edsphinx\",\"details\":\"Ensure all adapters return 1e18-scaled quotes. Emits events for tracing and deviation validation.\",\"errors\":{\"AddressEmptyCode(address)\":[{\"details\":\"There's no code at `target` (it is not a contract).\"}],\"ERC1967InvalidImplementation(address)\":[{\"details\":\"The `implementation` of the proxy is invalid.\"}],\"ERC1967NonPayable()\":[{\"details\":\"An upgrade function sees `msg.value > 0` that may be lost.\"}],\"FailedCall()\":[{\"details\":\"A call to an address target failed. The target may have reverted.\"}],\"InvalidInitialization()\":[{\"details\":\"The contract is already initialized.\"}],\"NotInitializing()\":[{\"details\":\"The contract is not initializing.\"}],\"OwnableInvalidOwner(address)\":[{\"details\":\"The owner is not a valid owner account. (eg. `address(0)`)\"}],\"OwnableUnauthorizedAccount(address)\":[{\"details\":\"The caller account is not authorized to perform an operation.\"}],\"UUPSUnauthorizedCallContext()\":[{\"details\":\"The call is from an unauthorized context.\"}],\"UUPSUnsupportedProxiableUUID(bytes32)\":[{\"details\":\"The storage `slot` is unsupported as a UUID.\"}]},\"events\":{\"Initialized(uint64)\":{\"details\":\"Triggered when the contract has been initialized or reinitialized.\"},\"Upgraded(address)\":{\"details\":\"Emitted when the implementation is upgraded.\"}},\"kind\":\"dev\",\"methods\":{\"addOracle(address,address,address)\":{\"custom:security\":\"onlyOwner\",\"params\":{\"base\":\"Token being priced\",\"oracle\":\"Oracle address\",\"quote\":\"Reference token\"}},\"computeQuoteAverage(uint256,address,address)\":{\"params\":{\"amount\":\"Input amount\",\"base\":\"Token being priced\",\"quote\":\"Reference token\"},\"returns\":{\"_0\":\"Quote in reference token\"}},\"computeQuoteMedian(uint256,address,address)\":{\"params\":{\"amount\":\"Input amount\",\"base\":\"Token being priced\",\"quote\":\"Reference token\"},\"returns\":{\"_0\":\"Quote in reference token\"}},\"emergencyWithdrawEth(address)\":{\"custom:security\":\"onlyOwner\",\"details\":\"This contract is not designed to hold ETH. This function exists      to recover any ETH accidentally sent to it.\",\"params\":{\"to\":\"Recipient address\"}},\"getOracles(address,address)\":{\"params\":{\"base\":\"Token being priced\",\"quote\":\"Reference token\"},\"returns\":{\"_0\":\"Array of OracleInfo structs\"}},\"getQuoteAverage(uint256,address,address)\":{\"params\":{\"amount\":\"Input amount\",\"base\":\"Token being priced\",\"quote\":\"Reference token\"},\"returns\":{\"_0\":\"Quote in reference token\"}},\"getQuoteMedian(uint256,address,address)\":{\"params\":{\"amount\":\"Input amount\",\"base\":\"Token being priced\",\"quote\":\"Reference token\"},\"returns\":{\"_0\":\"Quote in reference token\"}},\"initialize(address,uint256)\":{\"params\":{\"deviationBps\":\"Max allowed deviation in basis points\",\"initialOwner\":\"The owner to set\"}},\"isTrustedForwarder(address)\":{\"custom:security\":\"ERC2771ContextUpgradeable\"},\"oracleCount(address,address)\":{\"params\":{\"base\":\"Token being priced\",\"quote\":\"Reference token\"},\"returns\":{\"_0\":\"Number of registered oracles\"}},\"owner()\":{\"details\":\"Returns the address of the current owner.\"},\"proxiableUUID()\":{\"details\":\"Implementation of the ERC-1822 {proxiableUUID} function. This returns the storage slot used by the implementation. It is used to validate the implementation's compatibility when performing an upgrade. IMPORTANT: A proxy pointing at a proxiable contract should not be considered proxiable itself, because this risks bricking a proxy that upgrades to it, by delegating to itself until out of gas. Thus it is critical that this function revert if invoked through a proxy. This is guaranteed by the `notDelegated` modifier.\"},\"removeOracle(address,address,uint256)\":{\"custom:security\":\"onlyOwner\",\"params\":{\"base\":\"Token being priced\",\"index\":\"Oracle index\",\"quote\":\"Reference token\"}},\"renounceOwnership()\":{\"details\":\"Leaves the contract without owner. It will not be possible to call `onlyOwner` functions. Can only be called by the current owner. NOTE: Renouncing ownership will leave the contract without an owner, thereby disabling any functionality that is only available to the owner.\"},\"setMaxDeviationBps(uint256)\":{\"custom:security\":\"onlyOwner\",\"params\":{\"bps\":\"Deviation in basis points\"}},\"setTrustedForwarder(address)\":{\"custom:security\":\"onlyOwner\",\"params\":{\"forwarder\":\"Address of the trusted forwarder\"}},\"toggleOracle(address,address,uint256,bool)\":{\"custom:security\":\"onlyOwner\",\"params\":{\"base\":\"Token being priced\",\"enabled\":\"True to enable, false to disable\",\"index\":\"Oracle index\",\"quote\":\"Reference token\"}},\"transferOwnership(address)\":{\"details\":\"Transfers ownership of the contract to a new account (`newOwner`). Can only be called by the current owner.\"},\"updateOracle(address,address,uint256,address)\":{\"custom:security\":\"onlyOwner\",\"params\":{\"base\":\"Token being priced\",\"index\":\"Oracle index\",\"newOracle\":\"New oracle address\",\"quote\":\"Reference token\"}},\"upgradeToAndCall(address,bytes)\":{\"custom:oz-upgrades-unsafe-allow-reachable\":\"delegatecall\",\"details\":\"Upgrade the implementation of the proxy to `newImplementation`, and subsequently execute the function call encoded in `data`. Calls {_authorizeUpgrade}. Emits an {Upgraded} event.\"}},\"stateVariables\":{\"_oracles\":{\"details\":\"Slither false positive: mappings are initialized to empty by default in Solidity\"}},\"title\":\"MultiOracleAggregator (UUPS Upgradeable + Trusted Forwarder Compatible)\",\"version\":1},\"userdoc\":{\"events\":{\"EthWithdrawn(address,uint256)\":{\"notice\":\"Emitted when ETH is withdrawn from the contract\"},\"MaxDeviationUpdated(uint256,uint256)\":{\"notice\":\"Emitted when the maximum deviation is updated\"},\"OracleAdded(address,address,address)\":{\"notice\":\"Emitted when a new oracle is added to a pair\"},\"OracleRemoved(address,address,uint256)\":{\"notice\":\"Emitted when an oracle is removed by index\"},\"OracleToggled(address,address,uint256,bool)\":{\"notice\":\"Emitted when an oracle is toggled (enabled/disabled)\"},\"OracleUpdated(address,address,uint256,address,address)\":{\"notice\":\"Emitted when an oracle is updated\"},\"QuoteDeviationRejected(address,address,address,uint256,uint256,uint256)\":{\"notice\":\"Emitted when a quote is rejected due to deviation\"},\"QuoteUsed(address,address,address,uint256,uint256)\":{\"notice\":\"Emitted when a quote is successfully used\"},\"TrustedForwarderUpdated(address,address)\":{\"notice\":\"Emitted when the trusted forwarder is updated\"}},\"kind\":\"user\",\"methods\":{\"addOracle(address,address,address)\":{\"notice\":\"Adds an oracle for a base/quote pair\"},\"computeQuoteAverage(uint256,address,address)\":{\"notice\":\"Returns average quote after filtering as view\"},\"computeQuoteMedian(uint256,address,address)\":{\"notice\":\"Returns median quote after filtering as view\"},\"emergencyWithdrawEth(address)\":{\"notice\":\"Withdraws any ETH accidentally sent to this contract\"},\"getOracles(address,address)\":{\"notice\":\"Returns list of registered oracles for a pair\"},\"getQuoteAverage(uint256,address,address)\":{\"notice\":\"Returns average quote after filtering\"},\"getQuoteMedian(uint256,address,address)\":{\"notice\":\"Returns median quote after filtering\"},\"initialize(address,uint256)\":{\"notice\":\"Initializes the contract with the owner and deviation settings\"},\"maxDeviationBps()\":{\"notice\":\"Allowed maximum deviation (in basis points)\"},\"oracleCount(address,address)\":{\"notice\":\"Returns the number of oracles for a pair\"},\"removeOracle(address,address,uint256)\":{\"notice\":\"Removes an oracle from a pair by index\"},\"setMaxDeviationBps(uint256)\":{\"notice\":\"Sets the maximum deviation allowed between quotes\"},\"setTrustedForwarder(address)\":{\"notice\":\"Sets the trusted forwarder for meta-transactions\"},\"toggleOracle(address,address,uint256,bool)\":{\"notice\":\"Enables or disables an oracle\"},\"updateOracle(address,address,uint256,address)\":{\"notice\":\"Replaces an existing oracle\"}},\"notice\":\"Aggregates multiple oracle feeds and provides average/median pricing with full traceability.\",\"version\":1}},\"settings\":{\"compilationTarget\":{\"contracts/oracles/MultiOracleAggregator.sol\":\"MultiOracleAggregator\"},\"evmVersion\":\"cancun\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\",\"useLiteralContent\":true},\"optimizer\":{\"enabled\":true,\"runs\":200},\"remappings\":[]},\"sources\":{\"@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\n// OpenZeppelin Contracts (last updated v5.0.0) (access/Ownable.sol)\\n\\npragma solidity ^0.8.20;\\n\\nimport {ContextUpgradeable} from \\\"../utils/ContextUpgradeable.sol\\\";\\nimport {Initializable} from \\\"../proxy/utils/Initializable.sol\\\";\\n\\n/**\\n * @dev Contract module which provides a basic access control mechanism, where\\n * there is an account (an owner) that can be granted exclusive access to\\n * specific functions.\\n *\\n * The initial owner is set to the address provided by the deployer. This can\\n * later be changed with {transferOwnership}.\\n *\\n * This module is used through inheritance. It will make available the modifier\\n * `onlyOwner`, which can be applied to your functions to restrict their use to\\n * the owner.\\n */\\nabstract contract OwnableUpgradeable is Initializable, ContextUpgradeable {\\n    /// @custom:storage-location erc7201:openzeppelin.storage.Ownable\\n    struct OwnableStorage {\\n        address _owner;\\n    }\\n\\n    // keccak256(abi.encode(uint256(keccak256(\\\"openzeppelin.storage.Ownable\\\")) - 1)) & ~bytes32(uint256(0xff))\\n    bytes32 private constant OwnableStorageLocation = 0x9016d09d72d40fdae2fd8ceac6b6234c7706214fd39c1cd1e609a0528c199300;\\n\\n    function _getOwnableStorage() private pure returns (OwnableStorage storage $) {\\n        assembly {\\n            $.slot := OwnableStorageLocation\\n        }\\n    }\\n\\n    /**\\n     * @dev The caller account is not authorized to perform an operation.\\n     */\\n    error OwnableUnauthorizedAccount(address account);\\n\\n    /**\\n     * @dev The owner is not a valid owner account. (eg. `address(0)`)\\n     */\\n    error OwnableInvalidOwner(address owner);\\n\\n    event OwnershipTransferred(address indexed previousOwner, address indexed newOwner);\\n\\n    /**\\n     * @dev Initializes the contract setting the address provided by the deployer as the initial owner.\\n     */\\n    function __Ownable_init(address initialOwner) internal onlyInitializing {\\n        __Ownable_init_unchained(initialOwner);\\n    }\\n\\n    function __Ownable_init_unchained(address initialOwner) internal onlyInitializing {\\n        if (initialOwner == address(0)) {\\n            revert OwnableInvalidOwner(address(0));\\n        }\\n        _transferOwnership(initialOwner);\\n    }\\n\\n    /**\\n     * @dev Throws if called by any account other than the owner.\\n     */\\n    modifier onlyOwner() {\\n        _checkOwner();\\n        _;\\n    }\\n\\n    /**\\n     * @dev Returns the address of the current owner.\\n     */\\n    function owner() public view virtual returns (address) {\\n        OwnableStorage storage $ = _getOwnableStorage();\\n        return $._owner;\\n    }\\n\\n    /**\\n     * @dev Throws if the sender is not the owner.\\n     */\\n    function _checkOwner() internal view virtual {\\n        if (owner() != _msgSender()) {\\n            revert OwnableUnauthorizedAccount(_msgSender());\\n        }\\n    }\\n\\n    /**\\n     * @dev Leaves the contract without owner. It will not be possible to call\\n     * `onlyOwner` functions. Can only be called by the current owner.\\n     *\\n     * NOTE: Renouncing ownership will leave the contract without an owner,\\n     * thereby disabling any functionality that is only available to the owner.\\n     */\\n    function renounceOwnership() public virtual onlyOwner {\\n        _transferOwnership(address(0));\\n    }\\n\\n    /**\\n     * @dev Transfers ownership of the contract to a new account (`newOwner`).\\n     * Can only be called by the current owner.\\n     */\\n    function transferOwnership(address newOwner) public virtual onlyOwner {\\n        if (newOwner == address(0)) {\\n            revert OwnableInvalidOwner(address(0));\\n        }\\n        _transferOwnership(newOwner);\\n    }\\n\\n    /**\\n     * @dev Transfers ownership of the contract to a new account (`newOwner`).\\n     * Internal function without access restriction.\\n     */\\n    function _transferOwnership(address newOwner) internal virtual {\\n        OwnableStorage storage $ = _getOwnableStorage();\\n        address oldOwner = $._owner;\\n        $._owner = newOwner;\\n        emit OwnershipTransferred(oldOwner, newOwner);\\n    }\\n}\\n\",\"keccak256\":\"0xc163fcf9bb10138631a9ba5564df1fa25db9adff73bd9ee868a8ae1858fe093a\",\"license\":\"MIT\"},\"@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\n// OpenZeppelin Contracts (last updated v5.3.0) (proxy/utils/Initializable.sol)\\n\\npragma solidity ^0.8.20;\\n\\n/**\\n * @dev This is a base contract to aid in writing upgradeable contracts, or any kind of contract that will be deployed\\n * behind a proxy. Since proxied contracts do not make use of a constructor, it's common to move constructor logic to an\\n * external initializer function, usually called `initialize`. It then becomes necessary to protect this initializer\\n * function so it can only be called once. The {initializer} modifier provided by this contract will have this effect.\\n *\\n * The initialization functions use a version number. Once a version number is used, it is consumed and cannot be\\n * reused. This mechanism prevents re-execution of each \\\"step\\\" but allows the creation of new initialization steps in\\n * case an upgrade adds a module that needs to be initialized.\\n *\\n * For example:\\n *\\n * [.hljs-theme-light.nopadding]\\n * ```solidity\\n * contract MyToken is ERC20Upgradeable {\\n *     function initialize() initializer public {\\n *         __ERC20_init(\\\"MyToken\\\", \\\"MTK\\\");\\n *     }\\n * }\\n *\\n * contract MyTokenV2 is MyToken, ERC20PermitUpgradeable {\\n *     function initializeV2() reinitializer(2) public {\\n *         __ERC20Permit_init(\\\"MyToken\\\");\\n *     }\\n * }\\n * ```\\n *\\n * TIP: To avoid leaving the proxy in an uninitialized state, the initializer function should be called as early as\\n * possible by providing the encoded function call as the `_data` argument to {ERC1967Proxy-constructor}.\\n *\\n * CAUTION: When used with inheritance, manual care must be taken to not invoke a parent initializer twice, or to ensure\\n * that all initializers are idempotent. This is not verified automatically as constructors are by Solidity.\\n *\\n * [CAUTION]\\n * ====\\n * Avoid leaving a contract uninitialized.\\n *\\n * An uninitialized contract can be taken over by an attacker. This applies to both a proxy and its implementation\\n * contract, which may impact the proxy. To prevent the implementation contract from being used, you should invoke\\n * the {_disableInitializers} function in the constructor to automatically lock it when it is deployed:\\n *\\n * [.hljs-theme-light.nopadding]\\n * ```\\n * /// @custom:oz-upgrades-unsafe-allow constructor\\n * constructor() {\\n *     _disableInitializers();\\n * }\\n * ```\\n * ====\\n */\\nabstract contract Initializable {\\n    /**\\n     * @dev Storage of the initializable contract.\\n     *\\n     * It's implemented on a custom ERC-7201 namespace to reduce the risk of storage collisions\\n     * when using with upgradeable contracts.\\n     *\\n     * @custom:storage-location erc7201:openzeppelin.storage.Initializable\\n     */\\n    struct InitializableStorage {\\n        /**\\n         * @dev Indicates that the contract has been initialized.\\n         */\\n        uint64 _initialized;\\n        /**\\n         * @dev Indicates that the contract is in the process of being initialized.\\n         */\\n        bool _initializing;\\n    }\\n\\n    // keccak256(abi.encode(uint256(keccak256(\\\"openzeppelin.storage.Initializable\\\")) - 1)) & ~bytes32(uint256(0xff))\\n    bytes32 private constant INITIALIZABLE_STORAGE = 0xf0c57e16840df040f15088dc2f81fe391c3923bec73e23a9662efc9c229c6a00;\\n\\n    /**\\n     * @dev The contract is already initialized.\\n     */\\n    error InvalidInitialization();\\n\\n    /**\\n     * @dev The contract is not initializing.\\n     */\\n    error NotInitializing();\\n\\n    /**\\n     * @dev Triggered when the contract has been initialized or reinitialized.\\n     */\\n    event Initialized(uint64 version);\\n\\n    /**\\n     * @dev A modifier that defines a protected initializer function that can be invoked at most once. In its scope,\\n     * `onlyInitializing` functions can be used to initialize parent contracts.\\n     *\\n     * Similar to `reinitializer(1)`, except that in the context of a constructor an `initializer` may be invoked any\\n     * number of times. This behavior in the constructor can be useful during testing and is not expected to be used in\\n     * production.\\n     *\\n     * Emits an {Initialized} event.\\n     */\\n    modifier initializer() {\\n        // solhint-disable-next-line var-name-mixedcase\\n        InitializableStorage storage $ = _getInitializableStorage();\\n\\n        // Cache values to avoid duplicated sloads\\n        bool isTopLevelCall = !$._initializing;\\n        uint64 initialized = $._initialized;\\n\\n        // Allowed calls:\\n        // - initialSetup: the contract is not in the initializing state and no previous version was\\n        //                 initialized\\n        // - construction: the contract is initialized at version 1 (no reinitialization) and the\\n        //                 current contract is just being deployed\\n        bool initialSetup = initialized == 0 && isTopLevelCall;\\n        bool construction = initialized == 1 && address(this).code.length == 0;\\n\\n        if (!initialSetup && !construction) {\\n            revert InvalidInitialization();\\n        }\\n        $._initialized = 1;\\n        if (isTopLevelCall) {\\n            $._initializing = true;\\n        }\\n        _;\\n        if (isTopLevelCall) {\\n            $._initializing = false;\\n            emit Initialized(1);\\n        }\\n    }\\n\\n    /**\\n     * @dev A modifier that defines a protected reinitializer function that can be invoked at most once, and only if the\\n     * contract hasn't been initialized to a greater version before. In its scope, `onlyInitializing` functions can be\\n     * used to initialize parent contracts.\\n     *\\n     * A reinitializer may be used after the original initialization step. This is essential to configure modules that\\n     * are added through upgrades and that require initialization.\\n     *\\n     * When `version` is 1, this modifier is similar to `initializer`, except that functions marked with `reinitializer`\\n     * cannot be nested. If one is invoked in the context of another, execution will revert.\\n     *\\n     * Note that versions can jump in increments greater than 1; this implies that if multiple reinitializers coexist in\\n     * a contract, executing them in the right order is up to the developer or operator.\\n     *\\n     * WARNING: Setting the version to 2**64 - 1 will prevent any future reinitialization.\\n     *\\n     * Emits an {Initialized} event.\\n     */\\n    modifier reinitializer(uint64 version) {\\n        // solhint-disable-next-line var-name-mixedcase\\n        InitializableStorage storage $ = _getInitializableStorage();\\n\\n        if ($._initializing || $._initialized >= version) {\\n            revert InvalidInitialization();\\n        }\\n        $._initialized = version;\\n        $._initializing = true;\\n        _;\\n        $._initializing = false;\\n        emit Initialized(version);\\n    }\\n\\n    /**\\n     * @dev Modifier to protect an initialization function so that it can only be invoked by functions with the\\n     * {initializer} and {reinitializer} modifiers, directly or indirectly.\\n     */\\n    modifier onlyInitializing() {\\n        _checkInitializing();\\n        _;\\n    }\\n\\n    /**\\n     * @dev Reverts if the contract is not in an initializing state. See {onlyInitializing}.\\n     */\\n    function _checkInitializing() internal view virtual {\\n        if (!_isInitializing()) {\\n            revert NotInitializing();\\n        }\\n    }\\n\\n    /**\\n     * @dev Locks the contract, preventing any future reinitialization. This cannot be part of an initializer call.\\n     * Calling this in the constructor of a contract will prevent that contract from being initialized or reinitialized\\n     * to any version. It is recommended to use this to lock implementation contracts that are designed to be called\\n     * through proxies.\\n     *\\n     * Emits an {Initialized} event the first time it is successfully executed.\\n     */\\n    function _disableInitializers() internal virtual {\\n        // solhint-disable-next-line var-name-mixedcase\\n        InitializableStorage storage $ = _getInitializableStorage();\\n\\n        if ($._initializing) {\\n            revert InvalidInitialization();\\n        }\\n        if ($._initialized != type(uint64).max) {\\n            $._initialized = type(uint64).max;\\n            emit Initialized(type(uint64).max);\\n        }\\n    }\\n\\n    /**\\n     * @dev Returns the highest version that has been initialized. See {reinitializer}.\\n     */\\n    function _getInitializedVersion() internal view returns (uint64) {\\n        return _getInitializableStorage()._initialized;\\n    }\\n\\n    /**\\n     * @dev Returns `true` if the contract is currently initializing. See {onlyInitializing}.\\n     */\\n    function _isInitializing() internal view returns (bool) {\\n        return _getInitializableStorage()._initializing;\\n    }\\n\\n    /**\\n     * @dev Pointer to storage slot. Allows integrators to override it with a custom storage location.\\n     *\\n     * NOTE: Consider following the ERC-7201 formula to derive storage locations.\\n     */\\n    function _initializableStorageSlot() internal pure virtual returns (bytes32) {\\n        return INITIALIZABLE_STORAGE;\\n    }\\n\\n    /**\\n     * @dev Returns a pointer to the storage namespace.\\n     */\\n    // solhint-disable-next-line var-name-mixedcase\\n    function _getInitializableStorage() private pure returns (InitializableStorage storage $) {\\n        bytes32 slot = _initializableStorageSlot();\\n        assembly {\\n            $.slot := slot\\n        }\\n    }\\n}\\n\",\"keccak256\":\"0xdb4d24ee2c087c391d587cd17adfe5b3f9d93b3110b1388c2ab6c7c0ad1dcd05\",\"license\":\"MIT\"},\"@openzeppelin/contracts-upgradeable/proxy/utils/UUPSUpgradeable.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\n// OpenZeppelin Contracts (last updated v5.3.0) (proxy/utils/UUPSUpgradeable.sol)\\n\\npragma solidity ^0.8.22;\\n\\nimport {IERC1822Proxiable} from \\\"@openzeppelin/contracts/interfaces/draft-IERC1822.sol\\\";\\nimport {ERC1967Utils} from \\\"@openzeppelin/contracts/proxy/ERC1967/ERC1967Utils.sol\\\";\\nimport {Initializable} from \\\"./Initializable.sol\\\";\\n\\n/**\\n * @dev An upgradeability mechanism designed for UUPS proxies. The functions included here can perform an upgrade of an\\n * {ERC1967Proxy}, when this contract is set as the implementation behind such a proxy.\\n *\\n * A security mechanism ensures that an upgrade does not turn off upgradeability accidentally, although this risk is\\n * reinstated if the upgrade retains upgradeability but removes the security mechanism, e.g. by replacing\\n * `UUPSUpgradeable` with a custom implementation of upgrades.\\n *\\n * The {_authorizeUpgrade} function must be overridden to include access restriction to the upgrade mechanism.\\n */\\nabstract contract UUPSUpgradeable is Initializable, IERC1822Proxiable {\\n    /// @custom:oz-upgrades-unsafe-allow state-variable-immutable\\n    address private immutable __self = address(this);\\n\\n    /**\\n     * @dev The version of the upgrade interface of the contract. If this getter is missing, both `upgradeTo(address)`\\n     * and `upgradeToAndCall(address,bytes)` are present, and `upgradeTo` must be used if no function should be called,\\n     * while `upgradeToAndCall` will invoke the `receive` function if the second argument is the empty byte string.\\n     * If the getter returns `\\\"5.0.0\\\"`, only `upgradeToAndCall(address,bytes)` is present, and the second argument must\\n     * be the empty byte string if no function should be called, making it impossible to invoke the `receive` function\\n     * during an upgrade.\\n     */\\n    string public constant UPGRADE_INTERFACE_VERSION = \\\"5.0.0\\\";\\n\\n    /**\\n     * @dev The call is from an unauthorized context.\\n     */\\n    error UUPSUnauthorizedCallContext();\\n\\n    /**\\n     * @dev The storage `slot` is unsupported as a UUID.\\n     */\\n    error UUPSUnsupportedProxiableUUID(bytes32 slot);\\n\\n    /**\\n     * @dev Check that the execution is being performed through a delegatecall call and that the execution context is\\n     * a proxy contract with an implementation (as defined in ERC-1967) pointing to self. This should only be the case\\n     * for UUPS and transparent proxies that are using the current contract as their implementation. Execution of a\\n     * function through ERC-1167 minimal proxies (clones) would not normally pass this test, but is not guaranteed to\\n     * fail.\\n     */\\n    modifier onlyProxy() {\\n        _checkProxy();\\n        _;\\n    }\\n\\n    /**\\n     * @dev Check that the execution is not being performed through a delegate call. This allows a function to be\\n     * callable on the implementing contract but not through proxies.\\n     */\\n    modifier notDelegated() {\\n        _checkNotDelegated();\\n        _;\\n    }\\n\\n    function __UUPSUpgradeable_init() internal onlyInitializing {\\n    }\\n\\n    function __UUPSUpgradeable_init_unchained() internal onlyInitializing {\\n    }\\n    /**\\n     * @dev Implementation of the ERC-1822 {proxiableUUID} function. This returns the storage slot used by the\\n     * implementation. It is used to validate the implementation's compatibility when performing an upgrade.\\n     *\\n     * IMPORTANT: A proxy pointing at a proxiable contract should not be considered proxiable itself, because this risks\\n     * bricking a proxy that upgrades to it, by delegating to itself until out of gas. Thus it is critical that this\\n     * function revert if invoked through a proxy. This is guaranteed by the `notDelegated` modifier.\\n     */\\n    function proxiableUUID() external view virtual notDelegated returns (bytes32) {\\n        return ERC1967Utils.IMPLEMENTATION_SLOT;\\n    }\\n\\n    /**\\n     * @dev Upgrade the implementation of the proxy to `newImplementation`, and subsequently execute the function call\\n     * encoded in `data`.\\n     *\\n     * Calls {_authorizeUpgrade}.\\n     *\\n     * Emits an {Upgraded} event.\\n     *\\n     * @custom:oz-upgrades-unsafe-allow-reachable delegatecall\\n     */\\n    function upgradeToAndCall(address newImplementation, bytes memory data) public payable virtual onlyProxy {\\n        _authorizeUpgrade(newImplementation);\\n        _upgradeToAndCallUUPS(newImplementation, data);\\n    }\\n\\n    /**\\n     * @dev Reverts if the execution is not performed via delegatecall or the execution\\n     * context is not of a proxy with an ERC-1967 compliant implementation pointing to self.\\n     */\\n    function _checkProxy() internal view virtual {\\n        if (\\n            address(this) == __self || // Must be called through delegatecall\\n            ERC1967Utils.getImplementation() != __self // Must be called through an active proxy\\n        ) {\\n            revert UUPSUnauthorizedCallContext();\\n        }\\n    }\\n\\n    /**\\n     * @dev Reverts if the execution is performed via delegatecall.\\n     * See {notDelegated}.\\n     */\\n    function _checkNotDelegated() internal view virtual {\\n        if (address(this) != __self) {\\n            // Must not be called through delegatecall\\n            revert UUPSUnauthorizedCallContext();\\n        }\\n    }\\n\\n    /**\\n     * @dev Function that should revert when `msg.sender` is not authorized to upgrade the contract. Called by\\n     * {upgradeToAndCall}.\\n     *\\n     * Normally, this function will use an xref:access.adoc[access control] modifier such as {Ownable-onlyOwner}.\\n     *\\n     * ```solidity\\n     * function _authorizeUpgrade(address) internal onlyOwner {}\\n     * ```\\n     */\\n    function _authorizeUpgrade(address newImplementation) internal virtual;\\n\\n    /**\\n     * @dev Performs an implementation upgrade with a security check for UUPS proxies, and additional setup call.\\n     *\\n     * As a security check, {proxiableUUID} is invoked in the new implementation, and the return value\\n     * is expected to be the implementation slot in ERC-1967.\\n     *\\n     * Emits an {IERC1967-Upgraded} event.\\n     */\\n    function _upgradeToAndCallUUPS(address newImplementation, bytes memory data) private {\\n        try IERC1822Proxiable(newImplementation).proxiableUUID() returns (bytes32 slot) {\\n            if (slot != ERC1967Utils.IMPLEMENTATION_SLOT) {\\n                revert UUPSUnsupportedProxiableUUID(slot);\\n            }\\n            ERC1967Utils.upgradeToAndCall(newImplementation, data);\\n        } catch {\\n            // The implementation is not UUPS\\n            revert ERC1967Utils.ERC1967InvalidImplementation(newImplementation);\\n        }\\n    }\\n}\\n\",\"keccak256\":\"0x574a7451e42724f7de29e2855c392a8a5020acd695169466a18459467d719d63\",\"license\":\"MIT\"},\"@openzeppelin/contracts-upgradeable/utils/ContextUpgradeable.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\n// OpenZeppelin Contracts (last updated v5.0.1) (utils/Context.sol)\\n\\npragma solidity ^0.8.20;\\nimport {Initializable} from \\\"../proxy/utils/Initializable.sol\\\";\\n\\n/**\\n * @dev Provides information about the current execution context, including the\\n * sender of the transaction and its data. While these are generally available\\n * via msg.sender and msg.data, they should not be accessed in such a direct\\n * manner, since when dealing with meta-transactions the account sending and\\n * paying for execution may not be the actual sender (as far as an application\\n * is concerned).\\n *\\n * This contract is only required for intermediate, library-like contracts.\\n */\\nabstract contract ContextUpgradeable is Initializable {\\n    function __Context_init() internal onlyInitializing {\\n    }\\n\\n    function __Context_init_unchained() internal onlyInitializing {\\n    }\\n    function _msgSender() internal view virtual returns (address) {\\n        return msg.sender;\\n    }\\n\\n    function _msgData() internal view virtual returns (bytes calldata) {\\n        return msg.data;\\n    }\\n\\n    function _contextSuffixLength() internal view virtual returns (uint256) {\\n        return 0;\\n    }\\n}\\n\",\"keccak256\":\"0xdbef5f0c787055227243a7318ef74c8a5a1108ca3a07f2b3a00ef67769e1e397\",\"license\":\"MIT\"},\"@openzeppelin/contracts/interfaces/IERC1967.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\n// OpenZeppelin Contracts (last updated v5.4.0) (interfaces/IERC1967.sol)\\n\\npragma solidity >=0.4.11;\\n\\n/**\\n * @dev ERC-1967: Proxy Storage Slots. This interface contains the events defined in the ERC.\\n */\\ninterface IERC1967 {\\n    /**\\n     * @dev Emitted when the implementation is upgraded.\\n     */\\n    event Upgraded(address indexed implementation);\\n\\n    /**\\n     * @dev Emitted when the admin account has changed.\\n     */\\n    event AdminChanged(address previousAdmin, address newAdmin);\\n\\n    /**\\n     * @dev Emitted when the beacon is changed.\\n     */\\n    event BeaconUpgraded(address indexed beacon);\\n}\\n\",\"keccak256\":\"0xbf2aefe54b76d7f7bcd4f6da1080b7b1662611937d870b880db584d09cea56b5\",\"license\":\"MIT\"},\"@openzeppelin/contracts/interfaces/draft-IERC1822.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\n// OpenZeppelin Contracts (last updated v5.4.0) (interfaces/draft-IERC1822.sol)\\n\\npragma solidity >=0.4.16;\\n\\n/**\\n * @dev ERC-1822: Universal Upgradeable Proxy Standard (UUPS) documents a method for upgradeability through a simplified\\n * proxy whose upgrades are fully controlled by the current implementation.\\n */\\ninterface IERC1822Proxiable {\\n    /**\\n     * @dev Returns the storage slot that the proxiable contract assumes is being used to store the implementation\\n     * address.\\n     *\\n     * IMPORTANT: A proxy pointing at a proxiable contract should not be considered proxiable itself, because this risks\\n     * bricking a proxy that upgrades to it, by delegating to itself until out of gas. Thus it is critical that this\\n     * function revert if invoked through a proxy.\\n     */\\n    function proxiableUUID() external view returns (bytes32);\\n}\\n\",\"keccak256\":\"0x82f757819bf2429a0d4db141b99a4bbe5039e4ef86dfb94e2e6d40577ed5b28b\",\"license\":\"MIT\"},\"@openzeppelin/contracts/proxy/ERC1967/ERC1967Utils.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\n// OpenZeppelin Contracts (last updated v5.4.0) (proxy/ERC1967/ERC1967Utils.sol)\\n\\npragma solidity ^0.8.21;\\n\\nimport {IBeacon} from \\\"../beacon/IBeacon.sol\\\";\\nimport {IERC1967} from \\\"../../interfaces/IERC1967.sol\\\";\\nimport {Address} from \\\"../../utils/Address.sol\\\";\\nimport {StorageSlot} from \\\"../../utils/StorageSlot.sol\\\";\\n\\n/**\\n * @dev This library provides getters and event emitting update functions for\\n * https://eips.ethereum.org/EIPS/eip-1967[ERC-1967] slots.\\n */\\nlibrary ERC1967Utils {\\n    /**\\n     * @dev Storage slot with the address of the current implementation.\\n     * This is the keccak-256 hash of \\\"eip1967.proxy.implementation\\\" subtracted by 1.\\n     */\\n    // solhint-disable-next-line private-vars-leading-underscore\\n    bytes32 internal constant IMPLEMENTATION_SLOT = 0x360894a13ba1a3210667c828492db98dca3e2076cc3735a920a3ca505d382bbc;\\n\\n    /**\\n     * @dev The `implementation` of the proxy is invalid.\\n     */\\n    error ERC1967InvalidImplementation(address implementation);\\n\\n    /**\\n     * @dev The `admin` of the proxy is invalid.\\n     */\\n    error ERC1967InvalidAdmin(address admin);\\n\\n    /**\\n     * @dev The `beacon` of the proxy is invalid.\\n     */\\n    error ERC1967InvalidBeacon(address beacon);\\n\\n    /**\\n     * @dev An upgrade function sees `msg.value > 0` that may be lost.\\n     */\\n    error ERC1967NonPayable();\\n\\n    /**\\n     * @dev Returns the current implementation address.\\n     */\\n    function getImplementation() internal view returns (address) {\\n        return StorageSlot.getAddressSlot(IMPLEMENTATION_SLOT).value;\\n    }\\n\\n    /**\\n     * @dev Stores a new address in the ERC-1967 implementation slot.\\n     */\\n    function _setImplementation(address newImplementation) private {\\n        if (newImplementation.code.length == 0) {\\n            revert ERC1967InvalidImplementation(newImplementation);\\n        }\\n        StorageSlot.getAddressSlot(IMPLEMENTATION_SLOT).value = newImplementation;\\n    }\\n\\n    /**\\n     * @dev Performs implementation upgrade with additional setup call if data is nonempty.\\n     * This function is payable only if the setup call is performed, otherwise `msg.value` is rejected\\n     * to avoid stuck value in the contract.\\n     *\\n     * Emits an {IERC1967-Upgraded} event.\\n     */\\n    function upgradeToAndCall(address newImplementation, bytes memory data) internal {\\n        _setImplementation(newImplementation);\\n        emit IERC1967.Upgraded(newImplementation);\\n\\n        if (data.length > 0) {\\n            Address.functionDelegateCall(newImplementation, data);\\n        } else {\\n            _checkNonPayable();\\n        }\\n    }\\n\\n    /**\\n     * @dev Storage slot with the admin of the contract.\\n     * This is the keccak-256 hash of \\\"eip1967.proxy.admin\\\" subtracted by 1.\\n     */\\n    // solhint-disable-next-line private-vars-leading-underscore\\n    bytes32 internal constant ADMIN_SLOT = 0xb53127684a568b3173ae13b9f8a6016e243e63b6e8ee1178d6a717850b5d6103;\\n\\n    /**\\n     * @dev Returns the current admin.\\n     *\\n     * TIP: To get this value clients can read directly from the storage slot shown below (specified by ERC-1967) using\\n     * the https://eth.wiki/json-rpc/API#eth_getstorageat[`eth_getStorageAt`] RPC call.\\n     * `0xb53127684a568b3173ae13b9f8a6016e243e63b6e8ee1178d6a717850b5d6103`\\n     */\\n    function getAdmin() internal view returns (address) {\\n        return StorageSlot.getAddressSlot(ADMIN_SLOT).value;\\n    }\\n\\n    /**\\n     * @dev Stores a new address in the ERC-1967 admin slot.\\n     */\\n    function _setAdmin(address newAdmin) private {\\n        if (newAdmin == address(0)) {\\n            revert ERC1967InvalidAdmin(address(0));\\n        }\\n        StorageSlot.getAddressSlot(ADMIN_SLOT).value = newAdmin;\\n    }\\n\\n    /**\\n     * @dev Changes the admin of the proxy.\\n     *\\n     * Emits an {IERC1967-AdminChanged} event.\\n     */\\n    function changeAdmin(address newAdmin) internal {\\n        emit IERC1967.AdminChanged(getAdmin(), newAdmin);\\n        _setAdmin(newAdmin);\\n    }\\n\\n    /**\\n     * @dev The storage slot of the UpgradeableBeacon contract which defines the implementation for this proxy.\\n     * This is the keccak-256 hash of \\\"eip1967.proxy.beacon\\\" subtracted by 1.\\n     */\\n    // solhint-disable-next-line private-vars-leading-underscore\\n    bytes32 internal constant BEACON_SLOT = 0xa3f0ad74e5423aebfd80d3ef4346578335a9a72aeaee59ff6cb3582b35133d50;\\n\\n    /**\\n     * @dev Returns the current beacon.\\n     */\\n    function getBeacon() internal view returns (address) {\\n        return StorageSlot.getAddressSlot(BEACON_SLOT).value;\\n    }\\n\\n    /**\\n     * @dev Stores a new beacon in the ERC-1967 beacon slot.\\n     */\\n    function _setBeacon(address newBeacon) private {\\n        if (newBeacon.code.length == 0) {\\n            revert ERC1967InvalidBeacon(newBeacon);\\n        }\\n\\n        StorageSlot.getAddressSlot(BEACON_SLOT).value = newBeacon;\\n\\n        address beaconImplementation = IBeacon(newBeacon).implementation();\\n        if (beaconImplementation.code.length == 0) {\\n            revert ERC1967InvalidImplementation(beaconImplementation);\\n        }\\n    }\\n\\n    /**\\n     * @dev Change the beacon and trigger a setup call if data is nonempty.\\n     * This function is payable only if the setup call is performed, otherwise `msg.value` is rejected\\n     * to avoid stuck value in the contract.\\n     *\\n     * Emits an {IERC1967-BeaconUpgraded} event.\\n     *\\n     * CAUTION: Invoking this function has no effect on an instance of {BeaconProxy} since v5, since\\n     * it uses an immutable beacon without looking at the value of the ERC-1967 beacon slot for\\n     * efficiency.\\n     */\\n    function upgradeBeaconToAndCall(address newBeacon, bytes memory data) internal {\\n        _setBeacon(newBeacon);\\n        emit IERC1967.BeaconUpgraded(newBeacon);\\n\\n        if (data.length > 0) {\\n            Address.functionDelegateCall(IBeacon(newBeacon).implementation(), data);\\n        } else {\\n            _checkNonPayable();\\n        }\\n    }\\n\\n    /**\\n     * @dev Reverts if `msg.value` is not zero. It can be used to avoid `msg.value` stuck in the contract\\n     * if an upgrade doesn't perform an initialization call.\\n     */\\n    function _checkNonPayable() private {\\n        if (msg.value > 0) {\\n            revert ERC1967NonPayable();\\n        }\\n    }\\n}\\n\",\"keccak256\":\"0xa1ad192cd45317c788618bef5cb1fb3ca4ce8b230f6433ac68cc1d850fb81618\",\"license\":\"MIT\"},\"@openzeppelin/contracts/proxy/beacon/IBeacon.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\n// OpenZeppelin Contracts (last updated v5.4.0) (proxy/beacon/IBeacon.sol)\\n\\npragma solidity >=0.4.16;\\n\\n/**\\n * @dev This is the interface that {BeaconProxy} expects of its beacon.\\n */\\ninterface IBeacon {\\n    /**\\n     * @dev Must return an address that can be used as a delegate call target.\\n     *\\n     * {UpgradeableBeacon} will check that this address is a contract.\\n     */\\n    function implementation() external view returns (address);\\n}\\n\",\"keccak256\":\"0x20462ddb2665e9521372c76b001d0ce196e59dbbd989de9af5576cad0bd5628b\",\"license\":\"MIT\"},\"@openzeppelin/contracts/utils/Address.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\n// OpenZeppelin Contracts (last updated v5.4.0) (utils/Address.sol)\\n\\npragma solidity ^0.8.20;\\n\\nimport {Errors} from \\\"./Errors.sol\\\";\\n\\n/**\\n * @dev Collection of functions related to the address type\\n */\\nlibrary Address {\\n    /**\\n     * @dev There's no code at `target` (it is not a contract).\\n     */\\n    error AddressEmptyCode(address target);\\n\\n    /**\\n     * @dev Replacement for Solidity's `transfer`: sends `amount` wei to\\n     * `recipient`, forwarding all available gas and reverting on errors.\\n     *\\n     * https://eips.ethereum.org/EIPS/eip-1884[EIP1884] increases the gas cost\\n     * of certain opcodes, possibly making contracts go over the 2300 gas limit\\n     * imposed by `transfer`, making them unable to receive funds via\\n     * `transfer`. {sendValue} removes this limitation.\\n     *\\n     * https://consensys.net/diligence/blog/2019/09/stop-using-soliditys-transfer-now/[Learn more].\\n     *\\n     * IMPORTANT: because control is transferred to `recipient`, care must be\\n     * taken to not create reentrancy vulnerabilities. Consider using\\n     * {ReentrancyGuard} or the\\n     * https://solidity.readthedocs.io/en/v0.8.20/security-considerations.html#use-the-checks-effects-interactions-pattern[checks-effects-interactions pattern].\\n     */\\n    function sendValue(address payable recipient, uint256 amount) internal {\\n        if (address(this).balance < amount) {\\n            revert Errors.InsufficientBalance(address(this).balance, amount);\\n        }\\n\\n        (bool success, bytes memory returndata) = recipient.call{value: amount}(\\\"\\\");\\n        if (!success) {\\n            _revert(returndata);\\n        }\\n    }\\n\\n    /**\\n     * @dev Performs a Solidity function call using a low level `call`. A\\n     * plain `call` is an unsafe replacement for a function call: use this\\n     * function instead.\\n     *\\n     * If `target` reverts with a revert reason or custom error, it is bubbled\\n     * up by this function (like regular Solidity function calls). However, if\\n     * the call reverted with no returned reason, this function reverts with a\\n     * {Errors.FailedCall} error.\\n     *\\n     * Returns the raw returned data. To convert to the expected return value,\\n     * use https://solidity.readthedocs.io/en/latest/units-and-global-variables.html?highlight=abi.decode#abi-encoding-and-decoding-functions[`abi.decode`].\\n     *\\n     * Requirements:\\n     *\\n     * - `target` must be a contract.\\n     * - calling `target` with `data` must not revert.\\n     */\\n    function functionCall(address target, bytes memory data) internal returns (bytes memory) {\\n        return functionCallWithValue(target, data, 0);\\n    }\\n\\n    /**\\n     * @dev Same as {xref-Address-functionCall-address-bytes-}[`functionCall`],\\n     * but also transferring `value` wei to `target`.\\n     *\\n     * Requirements:\\n     *\\n     * - the calling contract must have an ETH balance of at least `value`.\\n     * - the called Solidity function must be `payable`.\\n     */\\n    function functionCallWithValue(address target, bytes memory data, uint256 value) internal returns (bytes memory) {\\n        if (address(this).balance < value) {\\n            revert Errors.InsufficientBalance(address(this).balance, value);\\n        }\\n        (bool success, bytes memory returndata) = target.call{value: value}(data);\\n        return verifyCallResultFromTarget(target, success, returndata);\\n    }\\n\\n    /**\\n     * @dev Same as {xref-Address-functionCall-address-bytes-}[`functionCall`],\\n     * but performing a static call.\\n     */\\n    function functionStaticCall(address target, bytes memory data) internal view returns (bytes memory) {\\n        (bool success, bytes memory returndata) = target.staticcall(data);\\n        return verifyCallResultFromTarget(target, success, returndata);\\n    }\\n\\n    /**\\n     * @dev Same as {xref-Address-functionCall-address-bytes-}[`functionCall`],\\n     * but performing a delegate call.\\n     */\\n    function functionDelegateCall(address target, bytes memory data) internal returns (bytes memory) {\\n        (bool success, bytes memory returndata) = target.delegatecall(data);\\n        return verifyCallResultFromTarget(target, success, returndata);\\n    }\\n\\n    /**\\n     * @dev Tool to verify that a low level call to smart-contract was successful, and reverts if the target\\n     * was not a contract or bubbling up the revert reason (falling back to {Errors.FailedCall}) in case\\n     * of an unsuccessful call.\\n     */\\n    function verifyCallResultFromTarget(\\n        address target,\\n        bool success,\\n        bytes memory returndata\\n    ) internal view returns (bytes memory) {\\n        if (!success) {\\n            _revert(returndata);\\n        } else {\\n            // only check if target is a contract if the call was successful and the return data is empty\\n            // otherwise we already know that it was a contract\\n            if (returndata.length == 0 && target.code.length == 0) {\\n                revert AddressEmptyCode(target);\\n            }\\n            return returndata;\\n        }\\n    }\\n\\n    /**\\n     * @dev Tool to verify that a low level call was successful, and reverts if it wasn't, either by bubbling the\\n     * revert reason or with a default {Errors.FailedCall} error.\\n     */\\n    function verifyCallResult(bool success, bytes memory returndata) internal pure returns (bytes memory) {\\n        if (!success) {\\n            _revert(returndata);\\n        } else {\\n            return returndata;\\n        }\\n    }\\n\\n    /**\\n     * @dev Reverts with returndata if present. Otherwise reverts with {Errors.FailedCall}.\\n     */\\n    function _revert(bytes memory returndata) private pure {\\n        // Look for revert reason and bubble it up if present\\n        if (returndata.length > 0) {\\n            // The easiest way to bubble the revert reason is using memory via assembly\\n            assembly (\\\"memory-safe\\\") {\\n                revert(add(returndata, 0x20), mload(returndata))\\n            }\\n        } else {\\n            revert Errors.FailedCall();\\n        }\\n    }\\n}\\n\",\"keccak256\":\"0x6d0ae6e206645341fd122d278c2cb643dea260c190531f2f3f6a0426e77b00c0\",\"license\":\"MIT\"},\"@openzeppelin/contracts/utils/Errors.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\n// OpenZeppelin Contracts (last updated v5.1.0) (utils/Errors.sol)\\n\\npragma solidity ^0.8.20;\\n\\n/**\\n * @dev Collection of common custom errors used in multiple contracts\\n *\\n * IMPORTANT: Backwards compatibility is not guaranteed in future versions of the library.\\n * It is recommended to avoid relying on the error API for critical functionality.\\n *\\n * _Available since v5.1._\\n */\\nlibrary Errors {\\n    /**\\n     * @dev The ETH balance of the account is not enough to perform the operation.\\n     */\\n    error InsufficientBalance(uint256 balance, uint256 needed);\\n\\n    /**\\n     * @dev A call to an address target failed. The target may have reverted.\\n     */\\n    error FailedCall();\\n\\n    /**\\n     * @dev The deployment failed.\\n     */\\n    error FailedDeployment();\\n\\n    /**\\n     * @dev A necessary precompile is missing.\\n     */\\n    error MissingPrecompile(address);\\n}\\n\",\"keccak256\":\"0x6afa713bfd42cf0f7656efa91201007ac465e42049d7de1d50753a373648c123\",\"license\":\"MIT\"},\"@openzeppelin/contracts/utils/StorageSlot.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\n// OpenZeppelin Contracts (last updated v5.1.0) (utils/StorageSlot.sol)\\n// This file was procedurally generated from scripts/generate/templates/StorageSlot.js.\\n\\npragma solidity ^0.8.20;\\n\\n/**\\n * @dev Library for reading and writing primitive types to specific storage slots.\\n *\\n * Storage slots are often used to avoid storage conflict when dealing with upgradeable contracts.\\n * This library helps with reading and writing to such slots without the need for inline assembly.\\n *\\n * The functions in this library return Slot structs that contain a `value` member that can be used to read or write.\\n *\\n * Example usage to set ERC-1967 implementation slot:\\n * ```solidity\\n * contract ERC1967 {\\n *     // Define the slot. Alternatively, use the SlotDerivation library to derive the slot.\\n *     bytes32 internal constant _IMPLEMENTATION_SLOT = 0x360894a13ba1a3210667c828492db98dca3e2076cc3735a920a3ca505d382bbc;\\n *\\n *     function _getImplementation() internal view returns (address) {\\n *         return StorageSlot.getAddressSlot(_IMPLEMENTATION_SLOT).value;\\n *     }\\n *\\n *     function _setImplementation(address newImplementation) internal {\\n *         require(newImplementation.code.length > 0);\\n *         StorageSlot.getAddressSlot(_IMPLEMENTATION_SLOT).value = newImplementation;\\n *     }\\n * }\\n * ```\\n *\\n * TIP: Consider using this library along with {SlotDerivation}.\\n */\\nlibrary StorageSlot {\\n    struct AddressSlot {\\n        address value;\\n    }\\n\\n    struct BooleanSlot {\\n        bool value;\\n    }\\n\\n    struct Bytes32Slot {\\n        bytes32 value;\\n    }\\n\\n    struct Uint256Slot {\\n        uint256 value;\\n    }\\n\\n    struct Int256Slot {\\n        int256 value;\\n    }\\n\\n    struct StringSlot {\\n        string value;\\n    }\\n\\n    struct BytesSlot {\\n        bytes value;\\n    }\\n\\n    /**\\n     * @dev Returns an `AddressSlot` with member `value` located at `slot`.\\n     */\\n    function getAddressSlot(bytes32 slot) internal pure returns (AddressSlot storage r) {\\n        assembly (\\\"memory-safe\\\") {\\n            r.slot := slot\\n        }\\n    }\\n\\n    /**\\n     * @dev Returns a `BooleanSlot` with member `value` located at `slot`.\\n     */\\n    function getBooleanSlot(bytes32 slot) internal pure returns (BooleanSlot storage r) {\\n        assembly (\\\"memory-safe\\\") {\\n            r.slot := slot\\n        }\\n    }\\n\\n    /**\\n     * @dev Returns a `Bytes32Slot` with member `value` located at `slot`.\\n     */\\n    function getBytes32Slot(bytes32 slot) internal pure returns (Bytes32Slot storage r) {\\n        assembly (\\\"memory-safe\\\") {\\n            r.slot := slot\\n        }\\n    }\\n\\n    /**\\n     * @dev Returns a `Uint256Slot` with member `value` located at `slot`.\\n     */\\n    function getUint256Slot(bytes32 slot) internal pure returns (Uint256Slot storage r) {\\n        assembly (\\\"memory-safe\\\") {\\n            r.slot := slot\\n        }\\n    }\\n\\n    /**\\n     * @dev Returns a `Int256Slot` with member `value` located at `slot`.\\n     */\\n    function getInt256Slot(bytes32 slot) internal pure returns (Int256Slot storage r) {\\n        assembly (\\\"memory-safe\\\") {\\n            r.slot := slot\\n        }\\n    }\\n\\n    /**\\n     * @dev Returns a `StringSlot` with member `value` located at `slot`.\\n     */\\n    function getStringSlot(bytes32 slot) internal pure returns (StringSlot storage r) {\\n        assembly (\\\"memory-safe\\\") {\\n            r.slot := slot\\n        }\\n    }\\n\\n    /**\\n     * @dev Returns an `StringSlot` representation of the string storage pointer `store`.\\n     */\\n    function getStringSlot(string storage store) internal pure returns (StringSlot storage r) {\\n        assembly (\\\"memory-safe\\\") {\\n            r.slot := store.slot\\n        }\\n    }\\n\\n    /**\\n     * @dev Returns a `BytesSlot` with member `value` located at `slot`.\\n     */\\n    function getBytesSlot(bytes32 slot) internal pure returns (BytesSlot storage r) {\\n        assembly (\\\"memory-safe\\\") {\\n            r.slot := slot\\n        }\\n    }\\n\\n    /**\\n     * @dev Returns an `BytesSlot` representation of the bytes storage pointer `store`.\\n     */\\n    function getBytesSlot(bytes storage store) internal pure returns (BytesSlot storage r) {\\n        assembly (\\\"memory-safe\\\") {\\n            r.slot := store.slot\\n        }\\n    }\\n}\\n\",\"keccak256\":\"0xcf74f855663ce2ae00ed8352666b7935f6cddea2932fdf2c3ecd30a9b1cd0e97\",\"license\":\"MIT\"},\"contracts/interfaces/IPriceOracle.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\npragma solidity ^0.8.24;\\n\\n/**\\n * @title IPriceOracle\\n * @author edsphinx\\n * @notice Standard interface for retrieving price quotes between token pairs.\\n *         Designed for use in modular oracle adapters (Euler, DIA, Chainlink, etc.).\\n * @dev All implementations MUST return values scaled to 1e18 to ensure consistency.\\n */\\ninterface IPriceOracle {\\n    /**\\n     * @notice Returns the equivalent amount of `quote` tokens for a given `inAmount` of `base`.\\n     * @param inAmount Amount of base token to convert\\n     * @param base Address of the token being priced\\n     * @param quote Address of the token used as unit of account\\n     * @return outAmount Equivalent value in quote token units (scaled to 1e18)\\n     */\\n    function getQuote(uint256 inAmount, address base, address quote) external view returns (uint256 outAmount);\\n}\\n\",\"keccak256\":\"0xfed23c2a520357c182bf0fb3d48862041a089634df01c9d14d9012766f6539f5\",\"license\":\"MIT\"},\"contracts/oracles/MultiOracleAggregator.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\npragma solidity ^0.8.24;\\n\\nimport { IPriceOracle } from \\\"../interfaces/IPriceOracle.sol\\\";\\nimport { UUPSUpgradeable } from \\\"@openzeppelin/contracts-upgradeable/proxy/utils/UUPSUpgradeable.sol\\\";\\nimport { OwnableUpgradeable } from \\\"@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol\\\";\\nimport { ContextUpgradeable } from \\\"@openzeppelin/contracts-upgradeable/utils/ContextUpgradeable.sol\\\";\\n\\n/**\\n * @title MultiOracleAggregator (UUPS Upgradeable + Trusted Forwarder Compatible)\\n * @author edsphinx\\n * @notice Aggregates multiple oracle feeds and provides average/median pricing with full traceability.\\n * @dev Ensure all adapters return 1e18-scaled quotes. Emits events for tracing and deviation validation.\\n */\\ncontract MultiOracleAggregator is OwnableUpgradeable, UUPSUpgradeable {\\n    // \\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\n    // \\u2591\\u2591 CUSTOM ERRORS\\n    // \\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\n\\n    error ZeroAddress();\\n    error InvalidPair();\\n    error ZeroOracle();\\n    error DuplicateOracle();\\n    error InvalidIndex();\\n    error DeviationTooHigh(uint256 bps);\\n    error NoOracles();\\n    error NoData();\\n    error ZeroQuote();\\n\\n    // \\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\n    // \\u2591\\u2591 DATA STRUCTURES\\n    // \\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\n\\n    /// @notice Address of the trusted forwarder contract for meta-transactions\\n    address private _trustedForwarder;\\n\\n    /// @notice Structure holding oracle configuration\\n    struct OracleInfo {\\n        address oracleAddress;\\n        bool enabled;\\n    }\\n\\n    /// @notice Structure for deviation validation parameters\\n    struct DeviationParams {\\n        address base;\\n        address quote;\\n        uint256 amount;\\n        uint256 refPrice;\\n    }\\n\\n    /// @notice Mapping of base \\u21d2 quote \\u21d2 list of oracles\\n    /// @dev Slither false positive: mappings are initialized to empty by default in Solidity\\n    // slither-disable-next-line uninitialized-state\\n    mapping(address => mapping(address => OracleInfo[])) private _oracles;\\n\\n    /// @notice Allowed maximum deviation (in basis points)\\n    uint256 public maxDeviationBps;\\n\\n    // \\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\n    // \\u2591\\u2591 EVENTS\\n    // \\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\n\\n    /// @notice Emitted when a new oracle is added to a pair\\n    event OracleAdded(address indexed base, address indexed quote, address oracle);\\n\\n    /// @notice Emitted when an oracle is removed by index\\n    event OracleRemoved(address indexed base, address indexed quote, uint256 index);\\n\\n    /// @notice Emitted when an oracle is toggled (enabled/disabled)\\n    event OracleToggled(address indexed base, address indexed quote, uint256 index, bool enabled);\\n\\n    /// @notice Emitted when an oracle is updated\\n    event OracleUpdated(\\n        address indexed base,\\n        address indexed quote,\\n        uint256 index,\\n        address oldOracle,\\n        address newOracle\\n    );\\n\\n    /// @notice Emitted when the maximum deviation is updated\\n    event MaxDeviationUpdated(uint256 previousBps, uint256 newBps);\\n\\n    /// @notice Emitted when the trusted forwarder is updated\\n    event TrustedForwarderUpdated(address previousForwarder, address newForwarder);\\n\\n    /// @notice Emitted when a quote is successfully used\\n    event QuoteUsed(\\n        address indexed base,\\n        address indexed quote,\\n        address oracle,\\n        uint256 inputAmount, // This parameter is not used in the event.\\n        uint256 outputQuote\\n    );\\n\\n    /// @notice Emitted when a quote is rejected due to deviation\\n    event QuoteDeviationRejected(\\n        address indexed base,\\n        address indexed quote,\\n        address oracle,\\n        uint256 inputAmount,\\n        uint256 quoteValue,\\n        uint256 referenceQuote\\n    );\\n\\n    // \\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\n    // \\u2591\\u2591 CONSTRUCTOR / INITIALIZER\\n    // \\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\n\\n    /**\\n     * @notice Initializes the contract with the owner and deviation settings\\n     * @param initialOwner The owner to set\\n     * @param deviationBps Max allowed deviation in basis points\\n     */\\n    function initialize(address initialOwner, uint256 deviationBps) external initializer {\\n        if (initialOwner == address(0)) revert ZeroAddress();\\n        if (deviationBps > 10_000) revert DeviationTooHigh(deviationBps);\\n        __Ownable_init(initialOwner);\\n        __UUPSUpgradeable_init();\\n        maxDeviationBps = deviationBps;\\n    }\\n\\n    /// @notice Required by UUPS pattern - only owner can upgrade\\n    function _authorizeUpgrade(address newImplementation) internal view override onlyOwner {\\n        // Authorization is handled by onlyOwner modifier\\n        // newImplementation validation is handled by UUPS proxy\\n        (newImplementation); // Silence unused variable warning\\n    }\\n\\n    /// @dev Ensures both tokens are valid and not equal\\n    modifier onlyValidPair(address base, address quote) {\\n        if (base == address(0) || quote == address(0)) revert ZeroAddress();\\n        if (base == quote) revert InvalidPair();\\n        _;\\n    }\\n\\n    // \\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\n    // \\u2591\\u2591 ADMIN: ORACLE CONFIGURATION\\n    // \\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\n\\n    /**\\n     * @notice Adds an oracle for a base/quote pair\\n     * @param base Token being priced\\n     * @param quote Reference token\\n     * @param oracle Oracle address\\n     * @custom:security onlyOwner\\n     */\\n    function addOracle(address base, address quote, address oracle) external onlyOwner onlyValidPair(base, quote) {\\n        if (oracle == address(0)) revert ZeroOracle();\\n        OracleInfo[] storage list = _oracles[base][quote];\\n        for (uint256 i; i < list.length; i++) {\\n            if (list[i].oracleAddress == oracle) revert DuplicateOracle();\\n        }\\n        list.push(OracleInfo(oracle, true));\\n        emit OracleAdded(base, quote, oracle);\\n    }\\n\\n    /**\\n     * @notice Removes an oracle from a pair by index\\n     * @param base Token being priced\\n     * @param quote Reference token\\n     * @param index Oracle index\\n     * @custom:security onlyOwner\\n     */\\n    function removeOracle(address base, address quote, uint256 index) external onlyOwner {\\n        OracleInfo[] storage list = _oracles[base][quote];\\n        if (index >= list.length) revert InvalidIndex();\\n        emit OracleRemoved(base, quote, index);\\n        list[index] = list[list.length - 1];\\n        list.pop();\\n    }\\n\\n    /**\\n     * @notice Replaces an existing oracle\\n     * @param base Token being priced\\n     * @param quote Reference token\\n     * @param index Oracle index\\n     * @param newOracle New oracle address\\n     * @custom:security onlyOwner\\n     */\\n    function updateOracle(address base, address quote, uint256 index, address newOracle) external onlyOwner {\\n        if (newOracle == address(0)) revert ZeroOracle();\\n        OracleInfo[] storage list = _oracles[base][quote];\\n        if (index >= list.length) revert InvalidIndex();\\n        for (uint256 i; i < list.length; i++) {\\n            if (list[i].oracleAddress == newOracle) revert DuplicateOracle();\\n        }\\n        address old = list[index].oracleAddress;\\n        list[index].oracleAddress = newOracle;\\n        emit OracleUpdated(base, quote, index, old, newOracle);\\n    }\\n\\n    /**\\n     * @notice Enables or disables an oracle\\n     * @param base Token being priced\\n     * @param quote Reference token\\n     * @param index Oracle index\\n     * @param enabled True to enable, false to disable\\n     * @custom:security onlyOwner\\n     */\\n    function toggleOracle(address base, address quote, uint256 index, bool enabled) external onlyOwner {\\n        OracleInfo[] storage list = _oracles[base][quote];\\n        if (index >= list.length) revert InvalidIndex();\\n        list[index].enabled = enabled;\\n        emit OracleToggled(base, quote, index, enabled);\\n    }\\n\\n    /**\\n     * @notice Sets the maximum deviation allowed between quotes\\n     * @param bps Deviation in basis points\\n     * @custom:security onlyOwner\\n     */\\n    function setMaxDeviationBps(uint256 bps) external onlyOwner {\\n        if (bps > 10_000) revert DeviationTooHigh(bps);\\n        uint256 previousBps = maxDeviationBps;\\n        maxDeviationBps = bps;\\n        emit MaxDeviationUpdated(previousBps, bps);\\n    }\\n\\n    /**\\n     * @notice Sets the trusted forwarder for meta-transactions\\n     * @param forwarder Address of the trusted forwarder\\n     * @custom:security onlyOwner\\n     */\\n    function setTrustedForwarder(address forwarder) external onlyOwner {\\n        address previousForwarder = _trustedForwarder;\\n        _trustedForwarder = forwarder;\\n        emit TrustedForwarderUpdated(previousForwarder, forwarder);\\n    }\\n\\n    // \\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\n    // \\u2591\\u2591 READ: QUOTE RETRIEVAL\\n    // \\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\n\\n    /**\\n     * @notice Returns average quote after filtering\\n     * @param amount Input amount\\n     * @param base Token being priced\\n     * @param quote Reference token\\n     * @return Quote in reference token\\n     */\\n    function getQuoteAverage(uint256 amount, address base, address quote) external returns (uint256) {\\n        OracleInfo[] storage list = _oracles[base][quote];\\n        if (list.length == 0) revert NoOracles();\\n        uint256[] memory quotes = new uint256[](list.length);\\n        address[] memory oracleAddrs = new address[](list.length);\\n        uint256 count = 0;\\n\\n        for (uint256 i = 0; i < list.length; i++) {\\n            if (!list[i].enabled) continue;\\n            try IPriceOracle(list[i].oracleAddress).getQuote(amount, base, quote) returns (uint256 q) {\\n                if (q == 0) revert ZeroQuote();\\n                quotes[count] = q;\\n                oracleAddrs[count] = list[i].oracleAddress;\\n                count++;\\n                emit QuoteUsed(base, quote, list[i].oracleAddress, amount, q);\\n            } catch {}\\n        }\\n\\n        if (count == 0) revert NoData();\\n        uint256 sum = 0;\\n        for (uint256 i = 0; i < count; i++) sum += quotes[i];\\n        uint256 avg = sum / count;\\n\\n        _validateDeviation(quotes, oracleAddrs, count, DeviationParams(base, quote, amount, avg));\\n        return avg;\\n    }\\n\\n    /** @notice Returns average quote after filtering as view\\n     *  @param amount Input amount\\n     *  @param base Token being priced\\n     *  @param quote Reference token\\n     *  @return Quote in reference token\\n     */\\n    function computeQuoteAverage(uint256 amount, address base, address quote) public view returns (uint256) {\\n        OracleInfo[] storage list = _oracles[base][quote];\\n        if (list.length == 0) revert NoOracles();\\n\\n        uint256[] memory quotes = new uint256[](list.length);\\n        uint256 count = 0;\\n\\n        for (uint256 i = 0; i < list.length; i++) {\\n            if (!list[i].enabled) continue;\\n            try IPriceOracle(list[i].oracleAddress).getQuote(amount, base, quote) returns (uint256 q) {\\n                if (q == 0) revert ZeroQuote();\\n                quotes[count++] = q;\\n            } catch {}\\n        }\\n\\n        if (count == 0) revert NoData();\\n        uint256 sum = 0;\\n        for (uint256 i = 0; i < count; i++) sum += quotes[i];\\n        uint256 avg = sum / count;\\n\\n        for (uint256 i = 0; i < count; i++) {\\n            uint256 diff = quotes[i] > avg ? quotes[i] - avg : avg - quotes[i];\\n            uint256 deviationBps = (diff * 10_000) / avg;\\n            if (deviationBps > maxDeviationBps) revert DeviationTooHigh(deviationBps);\\n        }\\n\\n        return avg;\\n    }\\n\\n    /**\\n     * @notice Returns median quote after filtering\\n     * @param amount Input amount\\n     * @param base Token being priced\\n     * @param quote Reference token\\n     * @return Quote in reference token\\n     */\\n    function getQuoteMedian(uint256 amount, address base, address quote) external returns (uint256) {\\n        OracleInfo[] storage list = _oracles[base][quote];\\n        if (list.length == 0) revert NoOracles();\\n        uint256[] memory quotes = new uint256[](list.length);\\n        address[] memory oracleAddrs = new address[](list.length);\\n        uint256 count = 0;\\n\\n        for (uint256 i = 0; i < list.length; i++) {\\n            if (!list[i].enabled) continue;\\n            try IPriceOracle(list[i].oracleAddress).getQuote(amount, base, quote) returns (uint256 q) {\\n                if (q == 0) revert ZeroQuote();\\n                quotes[count] = q;\\n                oracleAddrs[count] = list[i].oracleAddress;\\n                count++;\\n                emit QuoteUsed(base, quote, list[i].oracleAddress, amount, q);\\n            } catch {}\\n        }\\n\\n        if (count == 0) revert NoData();\\n        uint256[] memory valid = new uint256[](count);\\n        for (uint256 i = 0; i < count; i++) valid[i] = quotes[i];\\n        uint256 med = _median(valid);\\n\\n        _validateDeviation(quotes, oracleAddrs, count, DeviationParams(base, quote, amount, med));\\n        return med;\\n    }\\n\\n    /**\\n     * @notice Returns median quote after filtering as view\\n     * @param amount Input amount\\n     * @param base Token being priced\\n     * @param quote Reference token\\n     * @return Quote in reference token\\n     */\\n    function computeQuoteMedian(uint256 amount, address base, address quote) public view returns (uint256) {\\n        OracleInfo[] storage list = _oracles[base][quote];\\n        if (list.length == 0) revert NoOracles();\\n        uint256[] memory quotes = new uint256[](list.length);\\n        uint256 count = 0;\\n\\n        for (uint256 i = 0; i < list.length; i++) {\\n            if (!list[i].enabled) continue;\\n            try IPriceOracle(list[i].oracleAddress).getQuote(amount, base, quote) returns (uint256 q) {\\n                if (q == 0) revert ZeroQuote();\\n                quotes[count++] = q;\\n            } catch {}\\n        }\\n\\n        if (count == 0) revert NoData();\\n        uint256[] memory valid = new uint256[](count);\\n        for (uint256 i = 0; i < count; i++) valid[i] = quotes[i];\\n        uint256 med = _median(valid);\\n\\n        for (uint256 i = 0; i < count; i++) {\\n            uint256 diff = quotes[i] > med ? quotes[i] - med : med - quotes[i];\\n            uint256 deviationBps = (diff * 10_000) / med;\\n            if (deviationBps > maxDeviationBps) {\\n                revert DeviationTooHigh(deviationBps);\\n            }\\n        }\\n        return med;\\n    }\\n\\n    /**\\n     * @dev Internal method to compute the median value\\n     * @param arr Array of quote values\\n     * @return Median value\\n     */\\n    function _median(uint256[] memory arr) internal pure returns (uint256) {\\n        for (uint256 i = 0; i < arr.length; i++) {\\n            for (uint256 j = i + 1; j < arr.length; j++) {\\n                if (arr[j] < arr[i]) (arr[i], arr[j]) = (arr[j], arr[i]);\\n            }\\n        }\\n        return arr[arr.length / 2];\\n    }\\n\\n    /**\\n     * @dev Internal method to validate deviation and emit events\\n     * @param quotes Array of quote values\\n     * @param oracleAddrs Array of oracle addresses corresponding to quotes\\n     * @param count Number of valid quotes\\n     * @param params Deviation validation parameters (base, quote, amount, refPrice)\\n     */\\n    function _validateDeviation(\\n        uint256[] memory quotes,\\n        address[] memory oracleAddrs,\\n        uint256 count,\\n        DeviationParams memory params\\n    ) internal {\\n        for (uint256 i; i < count; i++) {\\n            uint256 diff = quotes[i] > params.refPrice ? quotes[i] - params.refPrice : params.refPrice - quotes[i];\\n            uint256 deviationBps = (diff * 10_000) / params.refPrice;\\n            if (deviationBps > maxDeviationBps) {\\n                emit QuoteDeviationRejected(params.base, params.quote, oracleAddrs[i], params.amount, quotes[i], params.refPrice);\\n                revert DeviationTooHigh(deviationBps);\\n            }\\n        }\\n    }\\n\\n    // \\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\n    // \\u2591\\u2591 VIEW: ORACLE INSPECTION\\n    // \\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\n\\n    /**\\n     * @notice Returns list of registered oracles for a pair\\n     * @param base Token being priced\\n     * @param quote Reference token\\n     * @return Array of OracleInfo structs\\n     */\\n    function getOracles(address base, address quote) external view returns (OracleInfo[] memory) {\\n        return _oracles[base][quote];\\n    }\\n\\n    /**\\n     * @notice Returns the number of oracles for a pair\\n     * @param base Token being priced\\n     * @param quote Reference token\\n     * @return Number of registered oracles\\n     */\\n    function oracleCount(address base, address quote) external view returns (uint256) {\\n        return _oracles[base][quote].length;\\n    }\\n\\n    // \\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\n    // \\u2591\\u2591 ERC2771ContextUpgradeable: METATRANSACTIONS\\n    // \\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\n\\n    /// @custom:security ERC2771ContextUpgradeable\\n    function _msgSender() internal view override returns (address sender) {\\n        if (isTrustedForwarder(msg.sender)) {\\n            assembly {\\n                sender := shr(96, calldataload(sub(calldatasize(), 20)))\\n            }\\n        } else {\\n            sender = msg.sender;\\n        }\\n    }\\n\\n    /// @custom:security ERC2771ContextUpgradeable\\n    function _msgData() internal view override returns (bytes calldata) {\\n        if (isTrustedForwarder(msg.sender)) {\\n            return msg.data[:msg.data.length - 20];\\n        } else {\\n            return msg.data;\\n        }\\n    }\\n\\n    /// @custom:security ERC2771ContextUpgradeable\\n    function isTrustedForwarder(address forwarder) public view returns (bool) {\\n        return forwarder == _trustedForwarder;\\n    }\\n\\n    // \\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\n    // \\u2591\\u2591 EMERGENCY: ETH RECOVERY\\n    // \\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\u2500\\n\\n    /// @notice Emitted when ETH is withdrawn from the contract\\n    event EthWithdrawn(address indexed to, uint256 amount);\\n\\n    /**\\n     * @notice Withdraws any ETH accidentally sent to this contract\\n     * @param to Recipient address\\n     * @custom:security onlyOwner\\n     * @dev This contract is not designed to hold ETH. This function exists\\n     *      to recover any ETH accidentally sent to it.\\n     */\\n    function emergencyWithdrawEth(address payable to) external onlyOwner {\\n        if (to == address(0)) revert ZeroAddress();\\n        uint256 balance = address(this).balance;\\n        if (balance < 1) revert NoData(); // Changed from == 0 to avoid strict equality warning\\n        (bool success, ) = to.call{value: balance}(\\\"\\\");\\n        require(success, \\\"ETH transfer failed\\\");\\n        emit EthWithdrawn(to, balance);\\n    }\\n}\\n\",\"keccak256\":\"0xc52f6df04044dcd80238db734147ab0929f48fee821d715b5b7ad9edf2cebf0d\",\"license\":\"MIT\"}},\"version\":1}",
+  "bytecode": "0x60a0604052306080523480156012575f5ffd5b506080516127a26100395f395f8181611e6e01528181611e970152611fdb01526127a25ff3fe608060405260043610610131575f3560e01c80637c9a7853116100a8578063ad3cb1cc1161006d578063ad3cb1cc14610353578063cd6dc68714610390578063d22dec7c146103af578063d7dae84a146103ce578063da742228146103fa578063f2fde38b14610419575f5ffd5b80637c9a7853146102915780638068e42c146102b0578063870eea36146102cf5780638da5cb5b146102ee578063926eff9414610334575f5ffd5b806352d1902d116100f957806352d1902d146101cf57806353a57297146101e3578063572b6c05146102025780636cb73bc61461023f578063715018a61461025e5780637c74cb3414610272575f5ffd5b80630722a20d146101355780630bc4b220146101565780630ea7a112146101755780633ee7a701146101a75780634f1ef286146101bc575b5f5ffd5b348015610140575f5ffd5b5061015461014f366004612315565b610438565b005b348015610161575f5ffd5b50610154610170366004612365565b6105be565b348015610180575f5ffd5b5061019461018f3660046123ae565b61069e565b6040519081526020015b60405180910390f35b3480156101b2575f5ffd5b5061019460025481565b6101546101ca366004612401565b610a67565b3480156101da575f5ffd5b50610194610a86565b3480156101ee575f5ffd5b506101546101fd3660046124c4565b610aa1565b34801561020d575f5ffd5b5061022f61021c366004612502565b5f546001600160a01b0391821691161490565b604051901515815260200161019e565b34801561024a575f5ffd5b506101946102593660046123ae565b610bfa565b348015610269575f5ffd5b50610154610f21565b34801561027d575f5ffd5b5061015461028c36600461251d565b610f34565b34801561029c575f5ffd5b506101546102ab366004612502565b6110ea565b3480156102bb575f5ffd5b506101546102ca36600461254a565b61121e565b3480156102da575f5ffd5b506101946102e9366004612561565b611292565b3480156102f9575f5ffd5b507f9016d09d72d40fdae2fd8ceac6b6234c7706214fd39c1cd1e609a0528c199300546040516001600160a01b03909116815260200161019e565b34801561033f575f5ffd5b5061019461034e3660046123ae565b6112be565b34801561035e575f5ffd5b50610383604051806040016040528060058152602001640352e302e360dc1b81525081565b60405161019e9190612598565b34801561039b575f5ffd5b506101546103aa3660046125cd565b6115f3565b3480156103ba575f5ffd5b506101946103c93660046123ae565b611745565b3480156103d9575f5ffd5b506103ed6103e8366004612561565b611a1a565b60405161019e91906125f7565b348015610405575f5ffd5b50610154610414366004612502565b611ab3565b348015610424575f5ffd5b50610154610433366004612502565b611b14565b610440611b51565b6001600160a01b03811661046757604051636ab74eb360e11b815260040160405180910390fd5b6001600160a01b038085165f908152600160209081526040808320938716835292905220805483106104ac576040516363df817160e01b815260040160405180910390fd5b5f5b815481101561050d57826001600160a01b03168282815481106104d3576104d3612650565b5f918252602090912001546001600160a01b03160361050557604051635410d6e760e11b815260040160405180910390fd5b6001016104ae565b505f81848154811061052157610521612650565b5f9182526020909120015482546001600160a01b039091169150839083908690811061054f5761054f612650565b5f91825260209091200180546001600160a01b0319166001600160a01b03928316179055604051868216918816907f2b2cf0f1f837156898db06972250391421c04a652a40090aad4777f94b6ba83d906105ae90889086908990612664565b60405180910390a3505050505050565b6105c6611b51565b6001600160a01b038085165f9081526001602090815260408083209387168352929052208054831061060b576040516363df817160e01b815260040160405180910390fd5b8181848154811061061e5761061e612650565b905f5260205f20015f0160146101000a81548160ff021916908315150217905550836001600160a01b0316856001600160a01b03167f9d9a1d00585c0778506e9bc5213e2a88c24bc48cb12fb36b46964a1a293dfe9a858560405161068f9291909182521515602082015260400190565b60405180910390a35050505050565b6001600160a01b038083165f9081526001602090815260408083209385168352929052908120805482036106e557604051630d1c3ffd60e01b815260040160405180910390fd5b80545f906001600160401b03811115610700576107006123ed565b604051908082528060200260200182016040528015610729578160200160208202803683370190505b5082549091505f906001600160401b03811115610748576107486123ed565b604051908082528060200260200182016040528015610771578160200160208202803683370190505b5090505f805b845481101561095e5784818154811061079257610792612650565b5f91825260209091200154600160a01b900460ff1615610956578481815481106107be576107be612650565b5f91825260209091200154604051632b9a19db60e21b81526001600160a01b039091169063ae68676c906107fa908c908c908c90600401612664565b602060405180830381865afa925050508015610833575060408051601f3d908101601f1916820190925261083091810190612683565b60015b1561095657805f03610858576040516301a7e28b60e61b815260040160405180910390fd5b8085848151811061086b5761086b612650565b60200260200101818152505085828154811061088957610889612650565b5f9182526020909120015484516001600160a01b03909116908590859081106108b4576108b4612650565b6001600160a01b0390921660209283029190910190910152826108d6816126ae565b935050876001600160a01b0316896001600160a01b03167ff8505c29b85487e004976c82e24fd0124df5122af4f93c5b58f8665f01b6d70588858154811061092057610920612650565b5f9182526020918290200154604080516001600160a01b0390921682529181018f905290810185905260600160405180910390a3505b600101610777565b50805f0361097f5760405163175a3d1f60e31b815260040160405180910390fd5b5f816001600160401b03811115610998576109986123ed565b6040519080825280602002602001820160405280156109c1578160200160208202803683370190505b5090505f5b82811015610a0d578481815181106109e0576109e0612650565b60200260200101518282815181106109fa576109fa612650565b60209081029190910101526001016109c6565b505f610a1882611bce565b9050610a5885858560405180608001604052808e6001600160a01b031681526020018d6001600160a01b031681526020018f815260200186815250611cdb565b955050505050505b9392505050565b610a6f611e63565b610a7882611f07565b610a828282611f0f565b5050565b5f610a8f611fd0565b505f51602061274d5f395f51905f5290565b610aa9611b51565b6001600160a01b038084165f90815260016020908152604080832093861683529290522080548210610aee576040516363df817160e01b815260040160405180910390fd5b826001600160a01b0316846001600160a01b03167f1feaac000112470e14fe1e45816b1f03a9b394e65a021aeb38439974aa63097284604051610b3391815260200190565b60405180910390a380548190610b4b906001906126c6565b81548110610b5b57610b5b612650565b905f5260205f2001818381548110610b7557610b75612650565b5f91825260209091208254910180546001600160a01b039092166001600160a01b031983168117825592546001600160a81b0319909216909217600160a01b9182900460ff1615159091021790558054819080610bd457610bd46126d9565b5f8281526020902081015f1990810180546001600160a81b031916905501905550505050565b6001600160a01b038083165f908152600160209081526040808320938516835292905290812080548203610c4157604051630d1c3ffd60e01b815260040160405180910390fd5b80545f906001600160401b03811115610c5c57610c5c6123ed565b604051908082528060200260200182016040528015610c85578160200160208202803683370190505b5082549091505f906001600160401b03811115610ca457610ca46123ed565b604051908082528060200260200182016040528015610ccd578160200160208202803683370190505b5090505f805b8454811015610eba57848181548110610cee57610cee612650565b5f91825260209091200154600160a01b900460ff1615610eb257848181548110610d1a57610d1a612650565b5f91825260209091200154604051632b9a19db60e21b81526001600160a01b039091169063ae68676c90610d56908c908c908c90600401612664565b602060405180830381865afa925050508015610d8f575060408051601f3d908101601f19168201909252610d8c91810190612683565b60015b15610eb257805f03610db4576040516301a7e28b60e61b815260040160405180910390fd5b80858481518110610dc757610dc7612650565b602002602001018181525050858281548110610de557610de5612650565b5f9182526020909120015484516001600160a01b0390911690859085908110610e1057610e10612650565b6001600160a01b039092166020928302919091019091015282610e32816126ae565b935050876001600160a01b0316896001600160a01b03167ff8505c29b85487e004976c82e24fd0124df5122af4f93c5b58f8665f01b6d705888581548110610e7c57610e7c612650565b5f9182526020918290200154604080516001600160a01b0390921682529181018f905290810185905260600160405180910390a3505b600101610cd3565b50805f03610edb5760405163175a3d1f60e31b815260040160405180910390fd5b5f805b82811015610f1557848181518110610ef857610ef8612650565b602002602001015182610f0b91906126ed565b9150600101610ede565b505f610a188383612700565b610f29611b51565b610f325f612019565b565b610f3c611b51565b82826001600160a01b0382161580610f5b57506001600160a01b038116155b15610f795760405163d92e233d60e01b815260040160405180910390fd5b806001600160a01b0316826001600160a01b031603610fab57604051630793df6360e21b815260040160405180910390fd5b6001600160a01b038316610fd257604051636ab74eb360e11b815260040160405180910390fd5b6001600160a01b038086165f9081526001602090815260408083209388168352929052908120905b815481101561105957846001600160a01b031682828154811061101f5761101f612650565b5f918252602090912001546001600160a01b03160361105157604051635410d6e760e11b815260040160405180910390fd5b600101610ffa565b506040805180820182526001600160a01b0386811680835260016020808501828152875492830188555f888152829020955195909201805492511515600160a01b026001600160a81b03199093169585169590951791909117909355925192835287811692908916917fb4af261139740f02bdfd600c83590a7b42e71fd7798891b2b39cc7203e3de14791016105ae565b6110f2611b51565b6001600160a01b0381166111195760405163d92e233d60e01b815260040160405180910390fd5b47600181101561113c5760405163175a3d1f60e31b815260040160405180910390fd5b5f826001600160a01b0316826040515f6040518083038185875af1925050503d805f8114611185576040519150601f19603f3d011682016040523d82523d5f602084013e61118a565b606091505b50509050806111d65760405162461bcd60e51b8152602060048201526013602482015272115512081d1c985b9cd9995c8819985a5b1959606a1b60448201526064015b60405180910390fd5b826001600160a01b03167f8455ae6be5d92f1df1c3c1484388e247a36c7e60d72055ae216dbc258f257d4b8360405161121191815260200190565b60405180910390a2505050565b611226611b51565b61271081111561124c5760405163e1e67a0b60e01b8152600481018290526024016111cd565b600280549082905560408051828152602081018490527fea7b0359048504e79474eaaa05294b49265fc4e7b0a0c3737aaa22412e90f16e91015b60405180910390a15050565b6001600160a01b038083165f908152600160209081526040808320938516835292905220545b92915050565b6001600160a01b038083165f90815260016020908152604080832093851683529290529081208054820361130557604051630d1c3ffd60e01b815260040160405180910390fd5b80545f906001600160401b03811115611320576113206123ed565b604051908082528060200260200182016040528015611349578160200160208202803683370190505b5090505f805b83548110156114645783818154811061136a5761136a612650565b5f91825260209091200154600160a01b900460ff161561145c5783818154811061139657611396612650565b5f91825260209091200154604051632b9a19db60e21b81526001600160a01b039091169063ae68676c906113d2908b908b908b90600401612664565b602060405180830381865afa92505050801561140b575060408051601f3d908101601f1916820190925261140891810190612683565b60015b1561145c57805f03611430576040516301a7e28b60e61b815260040160405180910390fd5b80848461143c816126ae565b95508151811061144e5761144e612650565b602002602001018181525050505b60010161134f565b50805f036114855760405163175a3d1f60e31b815260040160405180910390fd5b5f816001600160401b0381111561149e5761149e6123ed565b6040519080825280602002602001820160405280156114c7578160200160208202803683370190505b5090505f5b82811015611513578381815181106114e6576114e6612650565b602002602001015182828151811061150057611500612650565b60209081029190910101526001016114cc565b505f61151e82611bce565b90505f5b838110156115e6575f8286838151811061153e5761153e612650565b6020026020010151116115755785828151811061155d5761155d612650565b60200260200101518361157091906126c6565b61159a565b8286838151811061158857611588612650565b602002602001015161159a91906126c6565b90505f836115aa8361271061271f565b6115b49190612700565b90506002548111156115dc5760405163e1e67a0b60e01b8152600481018290526024016111cd565b5050600101611522565b5098975050505050505050565b5f6115fc612089565b805490915060ff600160401b82041615906001600160401b03165f811580156116225750825b90505f826001600160401b0316600114801561163d5750303b155b90508115801561164b575080155b156116695760405163f92ee8a960e01b815260040160405180910390fd5b845467ffffffffffffffff19166001178555831561169357845460ff60401b1916600160401b1785555b6001600160a01b0387166116ba5760405163d92e233d60e01b815260040160405180910390fd5b6127108611156116e05760405163e1e67a0b60e01b8152600481018790526024016111cd565b6116e9876120b1565b6116f16120c2565b6002869055831561173c57845460ff60401b19168555604051600181527fc7f505b2f371ae2175ee4913f4499e1f2633a7b5936321eed1cdaeb6115181d29060200160405180910390a15b50505050505050565b6001600160a01b038083165f90815260016020908152604080832093851683529290529081208054820361178c57604051630d1c3ffd60e01b815260040160405180910390fd5b80545f906001600160401b038111156117a7576117a76123ed565b6040519080825280602002602001820160405280156117d0578160200160208202803683370190505b5090505f805b83548110156118eb578381815481106117f1576117f1612650565b5f91825260209091200154600160a01b900460ff16156118e35783818154811061181d5761181d612650565b5f91825260209091200154604051632b9a19db60e21b81526001600160a01b039091169063ae68676c90611859908b908b908b90600401612664565b602060405180830381865afa925050508015611892575060408051601f3d908101601f1916820190925261188f91810190612683565b60015b156118e357805f036118b7576040516301a7e28b60e61b815260040160405180910390fd5b8084846118c3816126ae565b9550815181106118d5576118d5612650565b602002602001018181525050505b6001016117d6565b50805f0361190c5760405163175a3d1f60e31b815260040160405180910390fd5b5f805b828110156119465783818151811061192957611929612650565b60200260200101518261193c91906126ed565b915060010161190f565b505f6119528383612700565b90505f5b838110156115e6575f8286838151811061197257611972612650565b6020026020010151116119a95785828151811061199157611991612650565b6020026020010151836119a491906126c6565b6119ce565b828683815181106119bc576119bc612650565b60200260200101516119ce91906126c6565b90505f836119de8361271061271f565b6119e89190612700565b9050600254811115611a105760405163e1e67a0b60e01b8152600481018290526024016111cd565b5050600101611956565b6001600160a01b038083165f9081526001602090815260408083209385168352928152828220805484518184028101840190955280855260609493919290919084015b82821015611aa7575f84815260209081902060408051808201909152908401546001600160a01b0381168252600160a01b900460ff16151581830152825260019092019101611a5d565b50505050905092915050565b611abb611b51565b5f80546001600160a01b038381166001600160a01b031983168117909355604080519190921680825260208201939093527f06710129fbc2650f48c82631edcea255e102cd5e17c444deb7273855cfb5e77d9101611286565b611b1c611b51565b6001600160a01b038116611b4557604051631e4fbdf760e01b81525f60048201526024016111cd565b611b4e81612019565b50565b611b596120ca565b6001600160a01b0316611b937f9016d09d72d40fdae2fd8ceac6b6234c7706214fd39c1cd1e609a0528c199300546001600160a01b031690565b6001600160a01b031614610f3257611ba96120ca565b60405163118cdaa760e01b81526001600160a01b0390911660048201526024016111cd565b5f805b8251811015611cac575f611be68260016126ed565b90505b8351811015611ca357838281518110611c0457611c04612650565b6020026020010151848281518110611c1e57611c1e612650565b60200260200101511015611c9b57838181518110611c3e57611c3e612650565b6020026020010151848381518110611c5857611c58612650565b6020026020010151858481518110611c7257611c72612650565b60200260200101868481518110611c8b57611c8b612650565b6020908102919091010191909152525b600101611be9565b50600101611bd1565b508160028351611cbc9190612700565b81518110611ccc57611ccc612650565b60200260200101519050919050565b5f5b82811015611e5c575f8260600151868381518110611cfd57611cfd612650565b602002602001015111611d3857858281518110611d1c57611d1c612650565b60200260200101518360600151611d3391906126c6565b611d61565b8260600151868381518110611d4f57611d4f612650565b6020026020010151611d6191906126c6565b90505f836060015182612710611d77919061271f565b611d819190612700565b9050600254811115611e525783602001516001600160a01b0316845f01516001600160a01b03167f8b1b9d1b268d03930c763773b0f87ebe8d66cfb9eb2ede0142c48538af8cafd0888681518110611ddb57611ddb612650565b602002602001015187604001518b8881518110611dfa57611dfa612650565b6020908102919091018101516060808c0151604080516001600160a01b039097168752938601949094529184015282015260800160405180910390a360405163e1e67a0b60e01b8152600481018290526024016111cd565b5050600101611cdd565b5050505050565b306001600160a01b037f0000000000000000000000000000000000000000000000000000000000000000161480611ee957507f00000000000000000000000000000000000000000000000000000000000000006001600160a01b0316611edd5f51602061274d5f395f51905f52546001600160a01b031690565b6001600160a01b031614155b15610f325760405163703e46dd60e11b815260040160405180910390fd5b611b4e611b51565b816001600160a01b03166352d1902d6040518163ffffffff1660e01b8152600401602060405180830381865afa925050508015611f69575060408051601f3d908101601f19168201909252611f6691810190612683565b60015b611f9157604051634c9c8ce360e01b81526001600160a01b03831660048201526024016111cd565b5f51602061274d5f395f51905f528114611fc157604051632a87526960e21b8152600481018290526024016111cd565b611fcb83836120ee565b505050565b306001600160a01b037f00000000000000000000000000000000000000000000000000000000000000001614610f325760405163703e46dd60e11b815260040160405180910390fd5b7f9016d09d72d40fdae2fd8ceac6b6234c7706214fd39c1cd1e609a0528c19930080546001600160a01b031981166001600160a01b03848116918217845560405192169182907f8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e0905f90a3505050565b5f807ff0c57e16840df040f15088dc2f81fe391c3923bec73e23a9662efc9c229c6a006112b8565b6120b9612143565b611b4e81612168565b610f32612143565b5f80546001600160a01b031633036120e9575060131936013560601c90565b503390565b6120f782612170565b6040516001600160a01b038316907fbc7cd75a20ee27fd9adebab32041f755214dbc6bffa90cc0225b39da2e5c2d3b905f90a280511561213b57611fcb82826121d3565b610a82612245565b61214b612264565b610f3257604051631afcd79f60e31b815260040160405180910390fd5b611b1c612143565b806001600160a01b03163b5f036121a557604051634c9c8ce360e01b81526001600160a01b03821660048201526024016111cd565b5f51602061274d5f395f51905f5280546001600160a01b0319166001600160a01b0392909216919091179055565b60605f5f846001600160a01b0316846040516121ef9190612736565b5f60405180830381855af49150503d805f8114612227576040519150601f19603f3d011682016040523d82523d5f602084013e61222c565b606091505b509150915061223c85838361227d565b95945050505050565b3415610f325760405163b398979f60e01b815260040160405180910390fd5b5f61226d612089565b54600160401b900460ff16919050565b6060826122925761228d826122d9565b610a60565b81511580156122a957506001600160a01b0384163b155b156122d257604051639996b31560e01b81526001600160a01b03851660048201526024016111cd565b5080610a60565b8051156122e857805160208201fd5b60405163d6bda27560e01b815260040160405180910390fd5b6001600160a01b0381168114611b4e575f5ffd5b5f5f5f5f60808587031215612328575f5ffd5b843561233381612301565b9350602085013561234381612301565b925060408501359150606085013561235a81612301565b939692955090935050565b5f5f5f5f60808587031215612378575f5ffd5b843561238381612301565b9350602085013561239381612301565b9250604085013591506060850135801515811461235a575f5ffd5b5f5f5f606084860312156123c0575f5ffd5b8335925060208401356123d281612301565b915060408401356123e281612301565b809150509250925092565b634e487b7160e01b5f52604160045260245ffd5b5f5f60408385031215612412575f5ffd5b823561241d81612301565b915060208301356001600160401b03811115612437575f5ffd5b8301601f81018513612447575f5ffd5b80356001600160401b03811115612460576124606123ed565b604051601f8201601f19908116603f011681016001600160401b038111828210171561248e5761248e6123ed565b6040528181528282016020018710156124a5575f5ffd5b816020840160208301375f602083830101528093505050509250929050565b5f5f5f606084860312156124d6575f5ffd5b83356124e181612301565b925060208401356124f181612301565b929592945050506040919091013590565b5f60208284031215612512575f5ffd5b8135610a6081612301565b5f5f5f6060848603121561252f575f5ffd5b833561253a81612301565b925060208401356123d281612301565b5f6020828403121561255a575f5ffd5b5035919050565b5f5f60408385031215612572575f5ffd5b823561257d81612301565b9150602083013561258d81612301565b809150509250929050565b602081525f82518060208401528060208501604085015e5f604082850101526040601f19601f83011684010191505092915050565b5f5f604083850312156125de575f5ffd5b82356125e981612301565b946020939093013593505050565b602080825282518282018190525f918401906040840190835b8181101561264557835180516001600160a01b0316845260209081015115158185015290930192604090920191600101612610565b509095945050505050565b634e487b7160e01b5f52603260045260245ffd5b9283526001600160a01b03918216602084015216604082015260600190565b5f60208284031215612693575f5ffd5b5051919050565b634e487b7160e01b5f52601160045260245ffd5b5f600182016126bf576126bf61269a565b5060010190565b818103818111156112b8576112b861269a565b634e487b7160e01b5f52603160045260245ffd5b808201808211156112b8576112b861269a565b5f8261271a57634e487b7160e01b5f52601260045260245ffd5b500490565b80820281158282048414176112b8576112b861269a565b5f82518060208501845e5f92019182525091905056fe360894a13ba1a3210667c828492db98dca3e2076cc3735a920a3ca505d382bbca2646970667358221220d645607ca1c55c6f3ea0dcc1d633f39988dc9dda490147f7e5bcb5b07869f93364736f6c634300081d0033",
+  "deployedBytecode": "0x608060405260043610610131575f3560e01c80637c9a7853116100a8578063ad3cb1cc1161006d578063ad3cb1cc14610353578063cd6dc68714610390578063d22dec7c146103af578063d7dae84a146103ce578063da742228146103fa578063f2fde38b14610419575f5ffd5b80637c9a7853146102915780638068e42c146102b0578063870eea36146102cf5780638da5cb5b146102ee578063926eff9414610334575f5ffd5b806352d1902d116100f957806352d1902d146101cf57806353a57297146101e3578063572b6c05146102025780636cb73bc61461023f578063715018a61461025e5780637c74cb3414610272575f5ffd5b80630722a20d146101355780630bc4b220146101565780630ea7a112146101755780633ee7a701146101a75780634f1ef286146101bc575b5f5ffd5b348015610140575f5ffd5b5061015461014f366004612315565b610438565b005b348015610161575f5ffd5b50610154610170366004612365565b6105be565b348015610180575f5ffd5b5061019461018f3660046123ae565b61069e565b6040519081526020015b60405180910390f35b3480156101b2575f5ffd5b5061019460025481565b6101546101ca366004612401565b610a67565b3480156101da575f5ffd5b50610194610a86565b3480156101ee575f5ffd5b506101546101fd3660046124c4565b610aa1565b34801561020d575f5ffd5b5061022f61021c366004612502565b5f546001600160a01b0391821691161490565b604051901515815260200161019e565b34801561024a575f5ffd5b506101946102593660046123ae565b610bfa565b348015610269575f5ffd5b50610154610f21565b34801561027d575f5ffd5b5061015461028c36600461251d565b610f34565b34801561029c575f5ffd5b506101546102ab366004612502565b6110ea565b3480156102bb575f5ffd5b506101546102ca36600461254a565b61121e565b3480156102da575f5ffd5b506101946102e9366004612561565b611292565b3480156102f9575f5ffd5b507f9016d09d72d40fdae2fd8ceac6b6234c7706214fd39c1cd1e609a0528c199300546040516001600160a01b03909116815260200161019e565b34801561033f575f5ffd5b5061019461034e3660046123ae565b6112be565b34801561035e575f5ffd5b50610383604051806040016040528060058152602001640352e302e360dc1b81525081565b60405161019e9190612598565b34801561039b575f5ffd5b506101546103aa3660046125cd565b6115f3565b3480156103ba575f5ffd5b506101946103c93660046123ae565b611745565b3480156103d9575f5ffd5b506103ed6103e8366004612561565b611a1a565b60405161019e91906125f7565b348015610405575f5ffd5b50610154610414366004612502565b611ab3565b348015610424575f5ffd5b50610154610433366004612502565b611b14565b610440611b51565b6001600160a01b03811661046757604051636ab74eb360e11b815260040160405180910390fd5b6001600160a01b038085165f908152600160209081526040808320938716835292905220805483106104ac576040516363df817160e01b815260040160405180910390fd5b5f5b815481101561050d57826001600160a01b03168282815481106104d3576104d3612650565b5f918252602090912001546001600160a01b03160361050557604051635410d6e760e11b815260040160405180910390fd5b6001016104ae565b505f81848154811061052157610521612650565b5f9182526020909120015482546001600160a01b039091169150839083908690811061054f5761054f612650565b5f91825260209091200180546001600160a01b0319166001600160a01b03928316179055604051868216918816907f2b2cf0f1f837156898db06972250391421c04a652a40090aad4777f94b6ba83d906105ae90889086908990612664565b60405180910390a3505050505050565b6105c6611b51565b6001600160a01b038085165f9081526001602090815260408083209387168352929052208054831061060b576040516363df817160e01b815260040160405180910390fd5b8181848154811061061e5761061e612650565b905f5260205f20015f0160146101000a81548160ff021916908315150217905550836001600160a01b0316856001600160a01b03167f9d9a1d00585c0778506e9bc5213e2a88c24bc48cb12fb36b46964a1a293dfe9a858560405161068f9291909182521515602082015260400190565b60405180910390a35050505050565b6001600160a01b038083165f9081526001602090815260408083209385168352929052908120805482036106e557604051630d1c3ffd60e01b815260040160405180910390fd5b80545f906001600160401b03811115610700576107006123ed565b604051908082528060200260200182016040528015610729578160200160208202803683370190505b5082549091505f906001600160401b03811115610748576107486123ed565b604051908082528060200260200182016040528015610771578160200160208202803683370190505b5090505f805b845481101561095e5784818154811061079257610792612650565b5f91825260209091200154600160a01b900460ff1615610956578481815481106107be576107be612650565b5f91825260209091200154604051632b9a19db60e21b81526001600160a01b039091169063ae68676c906107fa908c908c908c90600401612664565b602060405180830381865afa925050508015610833575060408051601f3d908101601f1916820190925261083091810190612683565b60015b1561095657805f03610858576040516301a7e28b60e61b815260040160405180910390fd5b8085848151811061086b5761086b612650565b60200260200101818152505085828154811061088957610889612650565b5f9182526020909120015484516001600160a01b03909116908590859081106108b4576108b4612650565b6001600160a01b0390921660209283029190910190910152826108d6816126ae565b935050876001600160a01b0316896001600160a01b03167ff8505c29b85487e004976c82e24fd0124df5122af4f93c5b58f8665f01b6d70588858154811061092057610920612650565b5f9182526020918290200154604080516001600160a01b0390921682529181018f905290810185905260600160405180910390a3505b600101610777565b50805f0361097f5760405163175a3d1f60e31b815260040160405180910390fd5b5f816001600160401b03811115610998576109986123ed565b6040519080825280602002602001820160405280156109c1578160200160208202803683370190505b5090505f5b82811015610a0d578481815181106109e0576109e0612650565b60200260200101518282815181106109fa576109fa612650565b60209081029190910101526001016109c6565b505f610a1882611bce565b9050610a5885858560405180608001604052808e6001600160a01b031681526020018d6001600160a01b031681526020018f815260200186815250611cdb565b955050505050505b9392505050565b610a6f611e63565b610a7882611f07565b610a828282611f0f565b5050565b5f610a8f611fd0565b505f51602061274d5f395f51905f5290565b610aa9611b51565b6001600160a01b038084165f90815260016020908152604080832093861683529290522080548210610aee576040516363df817160e01b815260040160405180910390fd5b826001600160a01b0316846001600160a01b03167f1feaac000112470e14fe1e45816b1f03a9b394e65a021aeb38439974aa63097284604051610b3391815260200190565b60405180910390a380548190610b4b906001906126c6565b81548110610b5b57610b5b612650565b905f5260205f2001818381548110610b7557610b75612650565b5f91825260209091208254910180546001600160a01b039092166001600160a01b031983168117825592546001600160a81b0319909216909217600160a01b9182900460ff1615159091021790558054819080610bd457610bd46126d9565b5f8281526020902081015f1990810180546001600160a81b031916905501905550505050565b6001600160a01b038083165f908152600160209081526040808320938516835292905290812080548203610c4157604051630d1c3ffd60e01b815260040160405180910390fd5b80545f906001600160401b03811115610c5c57610c5c6123ed565b604051908082528060200260200182016040528015610c85578160200160208202803683370190505b5082549091505f906001600160401b03811115610ca457610ca46123ed565b604051908082528060200260200182016040528015610ccd578160200160208202803683370190505b5090505f805b8454811015610eba57848181548110610cee57610cee612650565b5f91825260209091200154600160a01b900460ff1615610eb257848181548110610d1a57610d1a612650565b5f91825260209091200154604051632b9a19db60e21b81526001600160a01b039091169063ae68676c90610d56908c908c908c90600401612664565b602060405180830381865afa925050508015610d8f575060408051601f3d908101601f19168201909252610d8c91810190612683565b60015b15610eb257805f03610db4576040516301a7e28b60e61b815260040160405180910390fd5b80858481518110610dc757610dc7612650565b602002602001018181525050858281548110610de557610de5612650565b5f9182526020909120015484516001600160a01b0390911690859085908110610e1057610e10612650565b6001600160a01b039092166020928302919091019091015282610e32816126ae565b935050876001600160a01b0316896001600160a01b03167ff8505c29b85487e004976c82e24fd0124df5122af4f93c5b58f8665f01b6d705888581548110610e7c57610e7c612650565b5f9182526020918290200154604080516001600160a01b0390921682529181018f905290810185905260600160405180910390a3505b600101610cd3565b50805f03610edb5760405163175a3d1f60e31b815260040160405180910390fd5b5f805b82811015610f1557848181518110610ef857610ef8612650565b602002602001015182610f0b91906126ed565b9150600101610ede565b505f610a188383612700565b610f29611b51565b610f325f612019565b565b610f3c611b51565b82826001600160a01b0382161580610f5b57506001600160a01b038116155b15610f795760405163d92e233d60e01b815260040160405180910390fd5b806001600160a01b0316826001600160a01b031603610fab57604051630793df6360e21b815260040160405180910390fd5b6001600160a01b038316610fd257604051636ab74eb360e11b815260040160405180910390fd5b6001600160a01b038086165f9081526001602090815260408083209388168352929052908120905b815481101561105957846001600160a01b031682828154811061101f5761101f612650565b5f918252602090912001546001600160a01b03160361105157604051635410d6e760e11b815260040160405180910390fd5b600101610ffa565b506040805180820182526001600160a01b0386811680835260016020808501828152875492830188555f888152829020955195909201805492511515600160a01b026001600160a81b03199093169585169590951791909117909355925192835287811692908916917fb4af261139740f02bdfd600c83590a7b42e71fd7798891b2b39cc7203e3de14791016105ae565b6110f2611b51565b6001600160a01b0381166111195760405163d92e233d60e01b815260040160405180910390fd5b47600181101561113c5760405163175a3d1f60e31b815260040160405180910390fd5b5f826001600160a01b0316826040515f6040518083038185875af1925050503d805f8114611185576040519150601f19603f3d011682016040523d82523d5f602084013e61118a565b606091505b50509050806111d65760405162461bcd60e51b8152602060048201526013602482015272115512081d1c985b9cd9995c8819985a5b1959606a1b60448201526064015b60405180910390fd5b826001600160a01b03167f8455ae6be5d92f1df1c3c1484388e247a36c7e60d72055ae216dbc258f257d4b8360405161121191815260200190565b60405180910390a2505050565b611226611b51565b61271081111561124c5760405163e1e67a0b60e01b8152600481018290526024016111cd565b600280549082905560408051828152602081018490527fea7b0359048504e79474eaaa05294b49265fc4e7b0a0c3737aaa22412e90f16e91015b60405180910390a15050565b6001600160a01b038083165f908152600160209081526040808320938516835292905220545b92915050565b6001600160a01b038083165f90815260016020908152604080832093851683529290529081208054820361130557604051630d1c3ffd60e01b815260040160405180910390fd5b80545f906001600160401b03811115611320576113206123ed565b604051908082528060200260200182016040528015611349578160200160208202803683370190505b5090505f805b83548110156114645783818154811061136a5761136a612650565b5f91825260209091200154600160a01b900460ff161561145c5783818154811061139657611396612650565b5f91825260209091200154604051632b9a19db60e21b81526001600160a01b039091169063ae68676c906113d2908b908b908b90600401612664565b602060405180830381865afa92505050801561140b575060408051601f3d908101601f1916820190925261140891810190612683565b60015b1561145c57805f03611430576040516301a7e28b60e61b815260040160405180910390fd5b80848461143c816126ae565b95508151811061144e5761144e612650565b602002602001018181525050505b60010161134f565b50805f036114855760405163175a3d1f60e31b815260040160405180910390fd5b5f816001600160401b0381111561149e5761149e6123ed565b6040519080825280602002602001820160405280156114c7578160200160208202803683370190505b5090505f5b82811015611513578381815181106114e6576114e6612650565b602002602001015182828151811061150057611500612650565b60209081029190910101526001016114cc565b505f61151e82611bce565b90505f5b838110156115e6575f8286838151811061153e5761153e612650565b6020026020010151116115755785828151811061155d5761155d612650565b60200260200101518361157091906126c6565b61159a565b8286838151811061158857611588612650565b602002602001015161159a91906126c6565b90505f836115aa8361271061271f565b6115b49190612700565b90506002548111156115dc5760405163e1e67a0b60e01b8152600481018290526024016111cd565b5050600101611522565b5098975050505050505050565b5f6115fc612089565b805490915060ff600160401b82041615906001600160401b03165f811580156116225750825b90505f826001600160401b0316600114801561163d5750303b155b90508115801561164b575080155b156116695760405163f92ee8a960e01b815260040160405180910390fd5b845467ffffffffffffffff19166001178555831561169357845460ff60401b1916600160401b1785555b6001600160a01b0387166116ba5760405163d92e233d60e01b815260040160405180910390fd5b6127108611156116e05760405163e1e67a0b60e01b8152600481018790526024016111cd565b6116e9876120b1565b6116f16120c2565b6002869055831561173c57845460ff60401b19168555604051600181527fc7f505b2f371ae2175ee4913f4499e1f2633a7b5936321eed1cdaeb6115181d29060200160405180910390a15b50505050505050565b6001600160a01b038083165f90815260016020908152604080832093851683529290529081208054820361178c57604051630d1c3ffd60e01b815260040160405180910390fd5b80545f906001600160401b038111156117a7576117a76123ed565b6040519080825280602002602001820160405280156117d0578160200160208202803683370190505b5090505f805b83548110156118eb578381815481106117f1576117f1612650565b5f91825260209091200154600160a01b900460ff16156118e35783818154811061181d5761181d612650565b5f91825260209091200154604051632b9a19db60e21b81526001600160a01b039091169063ae68676c90611859908b908b908b90600401612664565b602060405180830381865afa925050508015611892575060408051601f3d908101601f1916820190925261188f91810190612683565b60015b156118e357805f036118b7576040516301a7e28b60e61b815260040160405180910390fd5b8084846118c3816126ae565b9550815181106118d5576118d5612650565b602002602001018181525050505b6001016117d6565b50805f0361190c5760405163175a3d1f60e31b815260040160405180910390fd5b5f805b828110156119465783818151811061192957611929612650565b60200260200101518261193c91906126ed565b915060010161190f565b505f6119528383612700565b90505f5b838110156115e6575f8286838151811061197257611972612650565b6020026020010151116119a95785828151811061199157611991612650565b6020026020010151836119a491906126c6565b6119ce565b828683815181106119bc576119bc612650565b60200260200101516119ce91906126c6565b90505f836119de8361271061271f565b6119e89190612700565b9050600254811115611a105760405163e1e67a0b60e01b8152600481018290526024016111cd565b5050600101611956565b6001600160a01b038083165f9081526001602090815260408083209385168352928152828220805484518184028101840190955280855260609493919290919084015b82821015611aa7575f84815260209081902060408051808201909152908401546001600160a01b0381168252600160a01b900460ff16151581830152825260019092019101611a5d565b50505050905092915050565b611abb611b51565b5f80546001600160a01b038381166001600160a01b031983168117909355604080519190921680825260208201939093527f06710129fbc2650f48c82631edcea255e102cd5e17c444deb7273855cfb5e77d9101611286565b611b1c611b51565b6001600160a01b038116611b4557604051631e4fbdf760e01b81525f60048201526024016111cd565b611b4e81612019565b50565b611b596120ca565b6001600160a01b0316611b937f9016d09d72d40fdae2fd8ceac6b6234c7706214fd39c1cd1e609a0528c199300546001600160a01b031690565b6001600160a01b031614610f3257611ba96120ca565b60405163118cdaa760e01b81526001600160a01b0390911660048201526024016111cd565b5f805b8251811015611cac575f611be68260016126ed565b90505b8351811015611ca357838281518110611c0457611c04612650565b6020026020010151848281518110611c1e57611c1e612650565b60200260200101511015611c9b57838181518110611c3e57611c3e612650565b6020026020010151848381518110611c5857611c58612650565b6020026020010151858481518110611c7257611c72612650565b60200260200101868481518110611c8b57611c8b612650565b6020908102919091010191909152525b600101611be9565b50600101611bd1565b508160028351611cbc9190612700565b81518110611ccc57611ccc612650565b60200260200101519050919050565b5f5b82811015611e5c575f8260600151868381518110611cfd57611cfd612650565b602002602001015111611d3857858281518110611d1c57611d1c612650565b60200260200101518360600151611d3391906126c6565b611d61565b8260600151868381518110611d4f57611d4f612650565b6020026020010151611d6191906126c6565b90505f836060015182612710611d77919061271f565b611d819190612700565b9050600254811115611e525783602001516001600160a01b0316845f01516001600160a01b03167f8b1b9d1b268d03930c763773b0f87ebe8d66cfb9eb2ede0142c48538af8cafd0888681518110611ddb57611ddb612650565b602002602001015187604001518b8881518110611dfa57611dfa612650565b6020908102919091018101516060808c0151604080516001600160a01b039097168752938601949094529184015282015260800160405180910390a360405163e1e67a0b60e01b8152600481018290526024016111cd565b5050600101611cdd565b5050505050565b306001600160a01b037f0000000000000000000000000000000000000000000000000000000000000000161480611ee957507f00000000000000000000000000000000000000000000000000000000000000006001600160a01b0316611edd5f51602061274d5f395f51905f52546001600160a01b031690565b6001600160a01b031614155b15610f325760405163703e46dd60e11b815260040160405180910390fd5b611b4e611b51565b816001600160a01b03166352d1902d6040518163ffffffff1660e01b8152600401602060405180830381865afa925050508015611f69575060408051601f3d908101601f19168201909252611f6691810190612683565b60015b611f9157604051634c9c8ce360e01b81526001600160a01b03831660048201526024016111cd565b5f51602061274d5f395f51905f528114611fc157604051632a87526960e21b8152600481018290526024016111cd565b611fcb83836120ee565b505050565b306001600160a01b037f00000000000000000000000000000000000000000000000000000000000000001614610f325760405163703e46dd60e11b815260040160405180910390fd5b7f9016d09d72d40fdae2fd8ceac6b6234c7706214fd39c1cd1e609a0528c19930080546001600160a01b031981166001600160a01b03848116918217845560405192169182907f8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e0905f90a3505050565b5f807ff0c57e16840df040f15088dc2f81fe391c3923bec73e23a9662efc9c229c6a006112b8565b6120b9612143565b611b4e81612168565b610f32612143565b5f80546001600160a01b031633036120e9575060131936013560601c90565b503390565b6120f782612170565b6040516001600160a01b038316907fbc7cd75a20ee27fd9adebab32041f755214dbc6bffa90cc0225b39da2e5c2d3b905f90a280511561213b57611fcb82826121d3565b610a82612245565b61214b612264565b610f3257604051631afcd79f60e31b815260040160405180910390fd5b611b1c612143565b806001600160a01b03163b5f036121a557604051634c9c8ce360e01b81526001600160a01b03821660048201526024016111cd565b5f51602061274d5f395f51905f5280546001600160a01b0319166001600160a01b0392909216919091179055565b60605f5f846001600160a01b0316846040516121ef9190612736565b5f60405180830381855af49150503d805f8114612227576040519150601f19603f3d011682016040523d82523d5f602084013e61222c565b606091505b509150915061223c85838361227d565b95945050505050565b3415610f325760405163b398979f60e01b815260040160405180910390fd5b5f61226d612089565b54600160401b900460ff16919050565b6060826122925761228d826122d9565b610a60565b81511580156122a957506001600160a01b0384163b155b156122d257604051639996b31560e01b81526001600160a01b03851660048201526024016111cd565b5080610a60565b8051156122e857805160208201fd5b60405163d6bda27560e01b815260040160405180910390fd5b6001600160a01b0381168114611b4e575f5ffd5b5f5f5f5f60808587031215612328575f5ffd5b843561233381612301565b9350602085013561234381612301565b925060408501359150606085013561235a81612301565b939692955090935050565b5f5f5f5f60808587031215612378575f5ffd5b843561238381612301565b9350602085013561239381612301565b9250604085013591506060850135801515811461235a575f5ffd5b5f5f5f606084860312156123c0575f5ffd5b8335925060208401356123d281612301565b915060408401356123e281612301565b809150509250925092565b634e487b7160e01b5f52604160045260245ffd5b5f5f60408385031215612412575f5ffd5b823561241d81612301565b915060208301356001600160401b03811115612437575f5ffd5b8301601f81018513612447575f5ffd5b80356001600160401b03811115612460576124606123ed565b604051601f8201601f19908116603f011681016001600160401b038111828210171561248e5761248e6123ed565b6040528181528282016020018710156124a5575f5ffd5b816020840160208301375f602083830101528093505050509250929050565b5f5f5f606084860312156124d6575f5ffd5b83356124e181612301565b925060208401356124f181612301565b929592945050506040919091013590565b5f60208284031215612512575f5ffd5b8135610a6081612301565b5f5f5f6060848603121561252f575f5ffd5b833561253a81612301565b925060208401356123d281612301565b5f6020828403121561255a575f5ffd5b5035919050565b5f5f60408385031215612572575f5ffd5b823561257d81612301565b9150602083013561258d81612301565b809150509250929050565b602081525f82518060208401528060208501604085015e5f604082850101526040601f19601f83011684010191505092915050565b5f5f604083850312156125de575f5ffd5b82356125e981612301565b946020939093013593505050565b602080825282518282018190525f918401906040840190835b8181101561264557835180516001600160a01b0316845260209081015115158185015290930192604090920191600101612610565b509095945050505050565b634e487b7160e01b5f52603260045260245ffd5b9283526001600160a01b03918216602084015216604082015260600190565b5f60208284031215612693575f5ffd5b5051919050565b634e487b7160e01b5f52601160045260245ffd5b5f600182016126bf576126bf61269a565b5060010190565b818103818111156112b8576112b861269a565b634e487b7160e01b5f52603160045260245ffd5b808201808211156112b8576112b861269a565b5f8261271a57634e487b7160e01b5f52601260045260245ffd5b500490565b80820281158282048414176112b8576112b861269a565b5f82518060208501845e5f92019182525091905056fe360894a13ba1a3210667c828492db98dca3e2076cc3735a920a3ca505d382bbca2646970667358221220d645607ca1c55c6f3ea0dcc1d633f39988dc9dda490147f7e5bcb5b07869f93364736f6c634300081d0033",
+  "devdoc": {
+    "author": "edsphinx",
+    "details": "Ensure all adapters return 1e18-scaled quotes. Emits events for tracing and deviation validation.",
+    "errors": {
+      "AddressEmptyCode(address)": [
+        {
+          "details": "There's no code at `target` (it is not a contract)."
+        }
+      ],
+      "ERC1967InvalidImplementation(address)": [
+        {
+          "details": "The `implementation` of the proxy is invalid."
+        }
+      ],
+      "ERC1967NonPayable()": [
+        {
+          "details": "An upgrade function sees `msg.value > 0` that may be lost."
+        }
+      ],
+      "FailedCall()": [
+        {
+          "details": "A call to an address target failed. The target may have reverted."
+        }
+      ],
+      "InvalidInitialization()": [
+        {
+          "details": "The contract is already initialized."
+        }
+      ],
+      "NotInitializing()": [
+        {
+          "details": "The contract is not initializing."
+        }
+      ],
+      "OwnableInvalidOwner(address)": [
+        {
+          "details": "The owner is not a valid owner account. (eg. `address(0)`)"
+        }
+      ],
+      "OwnableUnauthorizedAccount(address)": [
+        {
+          "details": "The caller account is not authorized to perform an operation."
+        }
+      ],
+      "UUPSUnauthorizedCallContext()": [
+        {
+          "details": "The call is from an unauthorized context."
+        }
+      ],
+      "UUPSUnsupportedProxiableUUID(bytes32)": [
+        {
+          "details": "The storage `slot` is unsupported as a UUID."
+        }
+      ]
+    },
+    "events": {
+      "Initialized(uint64)": {
+        "details": "Triggered when the contract has been initialized or reinitialized."
+      },
+      "Upgraded(address)": {
+        "details": "Emitted when the implementation is upgraded."
+      }
+    },
+    "kind": "dev",
+    "methods": {
+      "addOracle(address,address,address)": {
+        "custom:security": "onlyOwner",
+        "params": {
+          "base": "Token being priced",
+          "oracle": "Oracle address",
+          "quote": "Reference token"
+        }
+      },
+      "computeQuoteAverage(uint256,address,address)": {
+        "params": {
+          "amount": "Input amount",
+          "base": "Token being priced",
+          "quote": "Reference token"
+        },
+        "returns": {
+          "_0": "Quote in reference token"
+        }
+      },
+      "computeQuoteMedian(uint256,address,address)": {
+        "params": {
+          "amount": "Input amount",
+          "base": "Token being priced",
+          "quote": "Reference token"
+        },
+        "returns": {
+          "_0": "Quote in reference token"
+        }
+      },
+      "emergencyWithdrawEth(address)": {
+        "custom:security": "onlyOwner",
+        "details": "This contract is not designed to hold ETH. This function exists      to recover any ETH accidentally sent to it.",
+        "params": {
+          "to": "Recipient address"
+        }
+      },
+      "getOracles(address,address)": {
+        "params": {
+          "base": "Token being priced",
+          "quote": "Reference token"
+        },
+        "returns": {
+          "_0": "Array of OracleInfo structs"
+        }
+      },
+      "getQuoteAverage(uint256,address,address)": {
+        "params": {
+          "amount": "Input amount",
+          "base": "Token being priced",
+          "quote": "Reference token"
+        },
+        "returns": {
+          "_0": "Quote in reference token"
+        }
+      },
+      "getQuoteMedian(uint256,address,address)": {
+        "params": {
+          "amount": "Input amount",
+          "base": "Token being priced",
+          "quote": "Reference token"
+        },
+        "returns": {
+          "_0": "Quote in reference token"
+        }
+      },
+      "initialize(address,uint256)": {
+        "params": {
+          "deviationBps": "Max allowed deviation in basis points",
+          "initialOwner": "The owner to set"
+        }
+      },
+      "isTrustedForwarder(address)": {
+        "custom:security": "ERC2771ContextUpgradeable"
+      },
+      "oracleCount(address,address)": {
+        "params": {
+          "base": "Token being priced",
+          "quote": "Reference token"
+        },
+        "returns": {
+          "_0": "Number of registered oracles"
+        }
+      },
+      "owner()": {
+        "details": "Returns the address of the current owner."
+      },
+      "proxiableUUID()": {
+        "details": "Implementation of the ERC-1822 {proxiableUUID} function. This returns the storage slot used by the implementation. It is used to validate the implementation's compatibility when performing an upgrade. IMPORTANT: A proxy pointing at a proxiable contract should not be considered proxiable itself, because this risks bricking a proxy that upgrades to it, by delegating to itself until out of gas. Thus it is critical that this function revert if invoked through a proxy. This is guaranteed by the `notDelegated` modifier."
+      },
+      "removeOracle(address,address,uint256)": {
+        "custom:security": "onlyOwner",
+        "params": {
+          "base": "Token being priced",
+          "index": "Oracle index",
+          "quote": "Reference token"
+        }
+      },
+      "renounceOwnership()": {
+        "details": "Leaves the contract without owner. It will not be possible to call `onlyOwner` functions. Can only be called by the current owner. NOTE: Renouncing ownership will leave the contract without an owner, thereby disabling any functionality that is only available to the owner."
+      },
+      "setMaxDeviationBps(uint256)": {
+        "custom:security": "onlyOwner",
+        "params": {
+          "bps": "Deviation in basis points"
+        }
+      },
+      "setTrustedForwarder(address)": {
+        "custom:security": "onlyOwner",
+        "params": {
+          "forwarder": "Address of the trusted forwarder"
+        }
+      },
+      "toggleOracle(address,address,uint256,bool)": {
+        "custom:security": "onlyOwner",
+        "params": {
+          "base": "Token being priced",
+          "enabled": "True to enable, false to disable",
+          "index": "Oracle index",
+          "quote": "Reference token"
+        }
+      },
+      "transferOwnership(address)": {
+        "details": "Transfers ownership of the contract to a new account (`newOwner`). Can only be called by the current owner."
+      },
+      "updateOracle(address,address,uint256,address)": {
+        "custom:security": "onlyOwner",
+        "params": {
+          "base": "Token being priced",
+          "index": "Oracle index",
+          "newOracle": "New oracle address",
+          "quote": "Reference token"
+        }
+      },
+      "upgradeToAndCall(address,bytes)": {
+        "custom:oz-upgrades-unsafe-allow-reachable": "delegatecall",
+        "details": "Upgrade the implementation of the proxy to `newImplementation`, and subsequently execute the function call encoded in `data`. Calls {_authorizeUpgrade}. Emits an {Upgraded} event."
+      }
+    },
+    "stateVariables": {
+      "_oracles": {
+        "details": "Slither false positive: mappings are initialized to empty by default in Solidity"
+      }
+    },
+    "title": "MultiOracleAggregator (UUPS Upgradeable + Trusted Forwarder Compatible)",
+    "version": 1
+  },
+  "userdoc": {
+    "events": {
+      "EthWithdrawn(address,uint256)": {
+        "notice": "Emitted when ETH is withdrawn from the contract"
+      },
+      "MaxDeviationUpdated(uint256,uint256)": {
+        "notice": "Emitted when the maximum deviation is updated"
+      },
+      "OracleAdded(address,address,address)": {
+        "notice": "Emitted when a new oracle is added to a pair"
+      },
+      "OracleRemoved(address,address,uint256)": {
+        "notice": "Emitted when an oracle is removed by index"
+      },
+      "OracleToggled(address,address,uint256,bool)": {
+        "notice": "Emitted when an oracle is toggled (enabled/disabled)"
+      },
+      "OracleUpdated(address,address,uint256,address,address)": {
+        "notice": "Emitted when an oracle is updated"
+      },
+      "QuoteDeviationRejected(address,address,address,uint256,uint256,uint256)": {
+        "notice": "Emitted when a quote is rejected due to deviation"
+      },
+      "QuoteUsed(address,address,address,uint256,uint256)": {
+        "notice": "Emitted when a quote is successfully used"
+      },
+      "TrustedForwarderUpdated(address,address)": {
+        "notice": "Emitted when the trusted forwarder is updated"
+      }
+    },
+    "kind": "user",
+    "methods": {
+      "addOracle(address,address,address)": {
+        "notice": "Adds an oracle for a base/quote pair"
+      },
+      "computeQuoteAverage(uint256,address,address)": {
+        "notice": "Returns average quote after filtering as view"
+      },
+      "computeQuoteMedian(uint256,address,address)": {
+        "notice": "Returns median quote after filtering as view"
+      },
+      "emergencyWithdrawEth(address)": {
+        "notice": "Withdraws any ETH accidentally sent to this contract"
+      },
+      "getOracles(address,address)": {
+        "notice": "Returns list of registered oracles for a pair"
+      },
+      "getQuoteAverage(uint256,address,address)": {
+        "notice": "Returns average quote after filtering"
+      },
+      "getQuoteMedian(uint256,address,address)": {
+        "notice": "Returns median quote after filtering"
+      },
+      "initialize(address,uint256)": {
+        "notice": "Initializes the contract with the owner and deviation settings"
+      },
+      "maxDeviationBps()": {
+        "notice": "Allowed maximum deviation (in basis points)"
+      },
+      "oracleCount(address,address)": {
+        "notice": "Returns the number of oracles for a pair"
+      },
+      "removeOracle(address,address,uint256)": {
+        "notice": "Removes an oracle from a pair by index"
+      },
+      "setMaxDeviationBps(uint256)": {
+        "notice": "Sets the maximum deviation allowed between quotes"
+      },
+      "setTrustedForwarder(address)": {
+        "notice": "Sets the trusted forwarder for meta-transactions"
+      },
+      "toggleOracle(address,address,uint256,bool)": {
+        "notice": "Enables or disables an oracle"
+      },
+      "updateOracle(address,address,uint256,address)": {
+        "notice": "Replaces an existing oracle"
+      }
+    },
+    "notice": "Aggregates multiple oracle feeds and provides average/median pricing with full traceability.",
+    "version": 1
+  },
+  "storageLayout": {
+    "storage": [
+      {
+        "astId": 20912,
+        "contract": "contracts/oracles/MultiOracleAggregator.sol:MultiOracleAggregator",
+        "label": "_trustedForwarder",
+        "offset": 0,
+        "slot": "0",
+        "type": "t_address"
+      },
+      {
+        "astId": 20937,
+        "contract": "contracts/oracles/MultiOracleAggregator.sol:MultiOracleAggregator",
+        "label": "_oracles",
+        "offset": 0,
+        "slot": "1",
+        "type": "t_mapping(t_address,t_mapping(t_address,t_array(t_struct(OracleInfo)20918_storage)dyn_storage))"
+      },
+      {
+        "astId": 20940,
+        "contract": "contracts/oracles/MultiOracleAggregator.sol:MultiOracleAggregator",
+        "label": "maxDeviationBps",
+        "offset": 0,
+        "slot": "2",
+        "type": "t_uint256"
+      }
+    ],
+    "types": {
+      "t_address": {
+        "encoding": "inplace",
+        "label": "address",
+        "numberOfBytes": "20"
+      },
+      "t_array(t_struct(OracleInfo)20918_storage)dyn_storage": {
+        "base": "t_struct(OracleInfo)20918_storage",
+        "encoding": "dynamic_array",
+        "label": "struct MultiOracleAggregator.OracleInfo[]",
+        "numberOfBytes": "32"
+      },
+      "t_bool": {
+        "encoding": "inplace",
+        "label": "bool",
+        "numberOfBytes": "1"
+      },
+      "t_mapping(t_address,t_array(t_struct(OracleInfo)20918_storage)dyn_storage)": {
+        "encoding": "mapping",
+        "key": "t_address",
+        "label": "mapping(address => struct MultiOracleAggregator.OracleInfo[])",
+        "numberOfBytes": "32",
+        "value": "t_array(t_struct(OracleInfo)20918_storage)dyn_storage"
+      },
+      "t_mapping(t_address,t_mapping(t_address,t_array(t_struct(OracleInfo)20918_storage)dyn_storage))": {
+        "encoding": "mapping",
+        "key": "t_address",
+        "label": "mapping(address => mapping(address => struct MultiOracleAggregator.OracleInfo[]))",
+        "numberOfBytes": "32",
+        "value": "t_mapping(t_address,t_array(t_struct(OracleInfo)20918_storage)dyn_storage)"
+      },
+      "t_struct(OracleInfo)20918_storage": {
+        "encoding": "inplace",
+        "label": "struct MultiOracleAggregator.OracleInfo",
+        "members": [
+          {
+            "astId": 20915,
+            "contract": "contracts/oracles/MultiOracleAggregator.sol:MultiOracleAggregator",
+            "label": "oracleAddress",
+            "offset": 0,
+            "slot": "0",
+            "type": "t_address"
+          },
+          {
+            "astId": 20917,
+            "contract": "contracts/oracles/MultiOracleAggregator.sol:MultiOracleAggregator",
+            "label": "enabled",
+            "offset": 20,
+            "slot": "0",
+            "type": "t_bool"
+          }
+        ],
+        "numberOfBytes": "32"
+      },
+      "t_uint256": {
+        "encoding": "inplace",
+        "label": "uint256",
+        "numberOfBytes": "32"
+      }
+    }
+  }
+}

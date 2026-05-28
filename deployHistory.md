@@ -4,6 +4,21 @@ This document records the smart contract deployments made to the different netwo
 
 ---
 
+## Deployment to `arbitrumSepolia` - 2026-02-07
+
+| Contract | Address | Explorer Link |
+| :--- | :--- | :--- |
+| **AggregatorFactory** | `0x19d557EF678B989A27e5C490cD252Fe957e74b7C` | [View on sepolia.arbiscan.io](https://sepolia.arbiscan.io/address/0x19d557EF678B989A27e5C490cD252Fe957e74b7C) |
+| **GasXConfig** | `0xDc3094e8D3ffa8D59aB427Ae777B5CBcfF6FC067` | [View on sepolia.arbiscan.io](https://sepolia.arbiscan.io/address/0xDc3094e8D3ffa8D59aB427Ae777B5CBcfF6FC067) |
+| **GasXWhitelistPaymaster** | `0x1c4263f15FC800D0ECa118011e1401cc367c547c` | [View on sepolia.arbiscan.io](https://sepolia.arbiscan.io/address/0x1c4263f15FC800D0ECa118011e1401cc367c547c) |
+| **MultiOracleAggregator** | `0xE7fD65F31f6daB86593A89113a240827e561F574` | [View on sepolia.arbiscan.io](https://sepolia.arbiscan.io/address/0xE7fD65F31f6daB86593A89113a240827e561F574) |
+| **MultiOracleAggregatorInstance** | `0xb609E4A123636B1aC20f7B67652537132efBDa8C` | [View on sepolia.arbiscan.io](https://sepolia.arbiscan.io/address/0xb609E4A123636B1aC20f7B67652537132efBDa8C) |
+| **SimpleAccountFactory** | `0x1abb2888d82899EC41dEa9C02306e895d0aCd050` | [View on sepolia.arbiscan.io](https://sepolia.arbiscan.io/address/0x1abb2888d82899EC41dEa9C02306e895d0aCd050) |
+| **GasXSubscriptions** | `0x0cC37E635EDCc33C62BBA916927bee7E4955b0A8` | [View on sepolia.arbiscan.io](https://sepolia.arbiscan.io/address/0x0cC37E635EDCc33C62BBA916927bee7E4955b0A8) |
+| **DIAAdapterFactory_arbitrumSepolia** | `0xCe103b17520718B31074D64c59579B056d21e92B` | [View on sepolia.arbiscan.io](https://sepolia.arbiscan.io/address/0xCe103b17520718B31074D64c59579B056d21e92B) |
+
+---
+
 ## Deployment to `arbitrumSepolia` - 2025-09-19
 
 | Contract | Address | Explorer Link |

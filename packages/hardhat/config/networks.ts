@@ -48,6 +48,8 @@ export const networkConfigs: Record<string, NetworkConfig> = {
     oracleSigner: process.env.ARBITRUM_SEPOLIA_ORACLE_SIGNER ?? "",
     treasury: process.env.ARBITRUM_SEPOLIA_PAYMASTER_TREASURY ?? "",
     blockExplorerUrl: "https://sepolia.arbiscan.io",
+    stakeEth: "0.01",
+    depositEth: "0.05",
     // ERC20 Paymaster config
     feeToken: process.env.ARBITRUM_SEPOLIA_FEE_TOKEN ?? "", // USDC on Arbitrum Sepolia
     priceQuoteBaseToken: process.env.ARBITRUM_SEPOLIA_WETH ?? "", // WETH on Arbitrum Sepolia

@@ -1,6 +1,6 @@
 import { HardhatRuntimeEnvironment } from "hardhat/types";
 import { DeployFunction } from "hardhat-deploy/types";
-import { ethers } from "hardhat";
+import { ethers, upgrades } from "hardhat";
 import { verifyContract } from "../helpers/verify";
 import { getEnvironmentName, resolveEnvironment } from "../helpers/environment";
 import { networkConfigs, NetworkConfig } from "../config/networks";
@@ -9,12 +9,12 @@ import { networkConfigs, NetworkConfig } from "../config/networks";
  * @notice Deploys the GasXSubscriptions contract as a UUPS proxy.
  * @dev This script deploys the subscription and credit management contract,
  * configuring it with the treasury and USDC addresses for the target network.
- * Uses UUPS proxy pattern for upgradeability.
+ * Uses UUPS proxy pattern via @openzeppelin/hardhat-upgrades for upgradeability.
  * @param hre The Hardhat Runtime Environment.
  */
 const func: DeployFunction = async (hre: HardhatRuntimeEnvironment) => {
   const { deployments, getNamedAccounts, network } = hre;
-  const { deploy, log, getOrNull } = deployments;
+  const { deploy, log, save, getOrNull } = deployments;
   const { deployer } = await getNamedAccounts();
 
   const artifactName = "GasXSubscriptions";
@@ -73,7 +73,7 @@ const func: DeployFunction = async (hre: HardhatRuntimeEnvironment) => {
   log(`    ✅ Treasury: ${treasuryAddress}`);
   log(`    ✅ USDC:     ${usdcAddress}`);
 
-  // --- Deployment (UUPS Proxy) ---
+  // --- Deployment (UUPS Proxy via @openzeppelin/hardhat-upgrades) ---
   if (!forceRedeploy) {
     const existing = await deployments.getOrNull(artifactName);
     if (existing) {
@@ -83,31 +83,30 @@ const func: DeployFunction = async (hre: HardhatRuntimeEnvironment) => {
     }
   }
 
-  // Deploy using hardhat-deploy's proxy feature
-  const deployResult = await deploy(artifactName, {
-    from: deployer,
-    proxy: {
-      proxyContract: "ERC1967Proxy",
-      execute: {
-        init: {
-          methodName: "initialize",
-          args: [treasuryAddress, usdcAddress],
-        },
-      },
-    },
-    log: true,
+  log(`🚀 Deploying ${artifactName} UUPS proxy...`);
+  const factory = await ethers.getContractFactory(artifactName);
+  const instance = await upgrades.deployProxy(factory, [treasuryAddress, usdcAddress], {
+    kind: "uups",
+    initializer: "initialize",
   });
 
-  log(`✅ ${artifactName} proxy deployed at: ${deployResult.address}`);
-  if (deployResult.implementation) {
-    log(`   Implementation at: ${deployResult.implementation}`);
-  }
+  await instance.waitForDeployment();
+  const proxyAddress = await instance.getAddress();
+
+  // Save deployment info for hardhat-deploy tracking
+  const artifact = await deployments.getArtifact(artifactName);
+  await save(artifactName, {
+    address: proxyAddress,
+    abi: artifact.abi,
+  });
+
+  log(`✅ ${artifactName} proxy deployed at: ${proxyAddress}`);
 
   // --- Post-deployment: Add additional tokens if configured ---
   const shouldAddTokens = process.env.ADD_TOKENS_ON_DEPLOY === "true";
   if (shouldAddTokens) {
     log(`\n💰 Adding additional payment tokens...`);
-    const subscriptions = await hre.ethers.getContractAt(artifactName, deployResult.address);
+    const subscriptions = await hre.ethers.getContractAt(artifactName, proxyAddress);
 
     // USDT addresses by chain
     const usdtAddresses: Record<string, string> = {
@@ -150,7 +149,7 @@ const func: DeployFunction = async (hre: HardhatRuntimeEnvironment) => {
   }
 
   // --- Verification ---
-  await verifyContract(hre, artifactName, deployResult.address, deployResult.args || []);
+  await verifyContract(hre, artifactName, proxyAddress, []);
   log(`----------------------------------------------------\n`);
 };
 

@@ -76,13 +76,13 @@ contract GasXERC20FeePaymaster is BasePaymaster, Pausable {
         address _initialOracleSigner,
         uint256 _minFee,
         uint256 _feeMarkupBps
-    ) BasePaymaster(_entryPoint) {
+    ) BasePaymaster(_entryPoint, msg.sender) {
         require(_feeToken != address(0), "GasX: Invalid feeToken address");
         require(_priceQuoteBaseToken != address(0), "GasX: Invalid priceQuoteBaseToken address");
         require(_priceOracle != address(0), "GasX: Invalid priceOracle address");
         require(_initialOracleSigner != address(0), "GasX: Invalid initialOracleSigner address");
         require(_feeMarkupBps <= 1000, "GasX: Markup too high"); // Max 10%
-        _transferOwnership(msg.sender);
+        // v0.9 BasePaymaster sets the owner via its constructor (Ownable2Step).
         feeToken = _feeToken;
         priceQuoteBaseToken = _priceQuoteBaseToken;
         priceOracle = MultiOracleAggregator(_priceOracle);

@@ -40,3 +40,8 @@ fail_on_revert = false         # Don't fail on expected reverts
 line_length = 120
 tab_width = 4
 bracket_spacing = true
+
+# Fork test RPC endpoints (Tier A: integration tests against live on-chain state).
+# The fork test reads ARBITRUM_SEPOLIA_RPC_URL (env) first, falling back to this.
+[rpc_endpoints]
+arbitrum_sepolia = "https://sepolia-rollup.arbitrum.io/rpc"

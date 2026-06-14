@@ -5,13 +5,13 @@ __metadata:
   version: 6
   cacheKey: 8
 
-"@account-abstraction/contracts@npm:^0.8.0":
-  version: 0.8.0
-  resolution: "@account-abstraction/contracts@npm:0.8.0"
+"@account-abstraction/contracts@npm:0.9.0-rc.1":
+  version: 0.9.0-rc.1
+  resolution: "@account-abstraction/contracts@npm:0.9.0-rc.1"
   dependencies:
     "@openzeppelin/contracts": ^5.1.0
     "@uniswap/v3-periphery": ^1.4.3
-  checksum: c73d4d56cb91b37330f6b66d1141130c1cc368b7c68e420f456d3a3dd52d34ec2554bf40e59b02afa4da87c0fda4eb8e7ee717d46d0eb541a9508d1375473c04
+  checksum: 63e1e25bc49b4bc3aff7966823b1117888fef822c2642e07839a561ae9643069afb12f3c985869a49a18432927cb73a3a0d70369ef79315ba885125dcdd8551f
   languageName: node
   linkType: hard
 
@@ -4220,7 +4220,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@se-2/hardhat@workspace:packages/hardhat"
   dependencies:
-    "@account-abstraction/contracts": ^0.8.0
+    "@account-abstraction/contracts": 0.9.0-rc.1
     "@alchemy/aa-accounts": latest
     "@alchemy/aa-core": latest
     "@alchemy/aa-ethers": latest

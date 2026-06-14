@@ -126,17 +126,17 @@ contract GasXWhitelistPaymaster is BasePaymaster, Pausable {
      * @param _environment The deployment environment (Dev, Testnet, or Production).
      */
     constructor(
-        IEntryPoint _entryPoint, // 0.8 Entrypoint
+        IEntryPoint _entryPoint, // EntryPoint v0.9 (0x4337…D009)
         address _config, // futuro contrato de parámetros
         address _treasury, // multisig que fondea el paymaster
         Environment _environment
-    ) BasePaymaster(_entryPoint) {
+    ) BasePaymaster(_entryPoint, msg.sender) {
+        // v0.9 BasePaymaster sets the owner via its constructor (Ownable2Step), so no _transferOwnership here.
         require(_config != address(0), "GasX: Invalid config address");
         require(_treasury != address(0), "GasX: Invalid treasury address");
         config = _config;
         treasury = _treasury;
         environment = _environment;
-        _transferOwnership(msg.sender);
     }
 
     // ----------------------------------------------------------------------

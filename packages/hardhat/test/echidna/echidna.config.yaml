@@ -1,9 +1,0 @@
-# Echidna configuration for GasXERC20FeePaymaster invariant testing
-testMode: "property"
-testLimit: 50000
-shrinkLimit: 5000
-seqLen: 100
-contractAddr: "0x00a329c0648769A73afAc7F9381E08FB43dBEA72"
-deployer: "0x00a329c0648769A73afAc7F9381E08FB43dBEA72"
-sender: ["0x00a329c0648769A73afAc7F9381E08FB43dBEA72"]
-cryticArgs: ["--compile-force-framework", "foundry"]

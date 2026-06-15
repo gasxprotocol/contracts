@@ -43,3 +43,5 @@ bracket_spacing = true
 # The fork test reads ARBITRUM_SEPOLIA_RPC_URL (env) first, falling back to this.
 [rpc_endpoints]
 arbitrum_sepolia = "https://sepolia-rollup.arbitrum.io/rpc"
+# Base Sepolia probe — the test reads BASE_SEPOLIA_RPC_URL (env) first, falling back to this.
+base_sepolia = "https://sepolia.base.org"

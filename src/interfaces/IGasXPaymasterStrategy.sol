@@ -10,7 +10,9 @@ pragma solidity ^0.8.24;
 interface IGasXPaymasterStrategy {
     function strategyId() external view returns (bytes32);
     function policyManager() external view returns (address);
-    function entryPoint() external view returns (address);
+    /// @dev Named `entryPointAddress` (not `entryPoint`) to avoid clashing with BasePaymaster's
+    ///      public immutable `entryPoint` getter, which returns `IEntryPoint` (resolved Open Q5).
+    function entryPointAddress() external view returns (address);
     function supportsCampaign(bytes32 campaignId) external view returns (bool);
 
     event GasXSponsored(bytes32 indexed campaignId, address indexed sender, bytes32 userOpHash, uint256 actualFeeWei);

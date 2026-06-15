@@ -83,4 +83,21 @@ contract GasXPolicyLibFuzzTest is Test {
     {
         return GasXPolicyLib.recover(ds, a, sig);
     }
+
+    function testFuzz_tryRecover_roundtrips(uint256 pk, bytes32 opHash) public {
+        pk = bound(pk, 1, 0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFEBAAEDCE6AF48A03BBFD25E8CD0364140);
+        address signer = vm.addr(pk);
+        bytes32 ds = _domainSeparator(address(this));
+        GasXPolicyLib.SignedApproval memory a = _approval(bytes32(0), address(0xBEEF), opHash);
+        bytes32 digest = keccak256(abi.encodePacked("\x19\x01", ds, GasXPolicyLib.hash(a)));
+        (uint8 v, bytes32 r, bytes32 s) = vm.sign(pk, digest);
+        assertEq(GasXPolicyLib.tryRecover(ds, a, abi.encodePacked(r, s, v)), signer, "tryRecover mismatch");
+    }
+
+    function test_tryRecover_returns_zero_on_malformed_sig() public view {
+        GasXPolicyLib.SignedApproval memory a = _approval(bytes32(0), address(0xBEEF), bytes32(0));
+        bytes32 ds = _domainSeparator(address(this));
+        // short sig must NOT revert (unlike recover) — it returns address(0) so validation fails closed.
+        assertEq(GasXPolicyLib.tryRecover(ds, a, hex"1234"), address(0), "malformed sig must yield address(0)");
+    }
 }

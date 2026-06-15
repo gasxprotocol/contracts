@@ -4,6 +4,7 @@ pragma solidity ^0.8.24;
 import { Test } from "forge-std/Test.sol";
 import { IEntryPoint } from "@account-abstraction/contracts/interfaces/IEntryPoint.sol";
 import { PackedUserOperation } from "@account-abstraction/contracts/core/UserOperationLib.sol";
+import { _packValidationData } from "@account-abstraction/contracts/core/Helpers.sol";
 import { GasXPaymasterBase } from "../src/core/GasXPaymasterBase.sol";
 import { GasXPolicyLib } from "../src/libraries/GasXPolicyLib.sol";
 import { GasXConformancePaymaster, MockGasXPolicyManager } from "../src/testutils/GasXConformanceHarness.sol";
@@ -45,6 +46,7 @@ contract GasXPaymasterBaseFuzzTest is Test {
     bytes32 internal constant C = keccak256("campaign.alpha");
     bytes32 internal constant OP_HASH = keccak256("op.alpha");
     address internal constant SENDER = address(0x5EED);
+    uint48 internal constant MAXT = type(uint48).max;
 
     function setUp() public {
         signer = vm.addr(SIGNER_PK);
@@ -69,7 +71,6 @@ contract GasXPaymasterBaseFuzzTest is Test {
         pure
         returns (GasXPolicyLib.SignedApproval memory a)
     {
-        // userOpHash is filled by `_bind` once the binding hash over the sig-excluded pad is known.
         a = GasXPolicyLib.SignedApproval({
             campaignId: C,
             sender: SENDER,
@@ -87,13 +88,13 @@ contract GasXPaymasterBaseFuzzTest is Test {
         return abi.encodePacked(r, s, v);
     }
 
-    /// @dev The signature-excluded region (`paymasterAndData[:len-65]`) that the approval binds over.
+    /// @dev The signature-excluded region (`paymasterAndData[:len-65]`) the approval binds over.
     ///      Layout matches GasXPaymasterBase._decodeApproval (NO userOpHash — derived on-chain).
-    function _signedRegion(GasXPolicyLib.SignedApproval memory a) internal view returns (bytes memory) {
+    function _region(GasXPolicyLib.SignedApproval memory a, uint128 postOpGas) internal view returns (bytes memory) {
         return abi.encodePacked(
             address(pm),
             uint128(300_000),
-            uint128(150_000), // 52-byte offset
+            postOpGas, // bytes [36:52] = paymasterPostOpGasLimit
             a.campaignId,
             a.sender,
             a.maxFeeWei,
@@ -103,8 +104,6 @@ contract GasXPaymasterBaseFuzzTest is Test {
         );
     }
 
-    /// @dev Binding (Open Q3, RESOLVED): set `a.userOpHash` to the EntryPoint hash of the op whose
-    ///      paymasterAndData is the sig-excluded region, exactly as the base derives it.
     function _bind(GasXPolicyLib.SignedApproval memory a, uint256 nonce)
         internal
         view
@@ -118,7 +117,7 @@ contract GasXPaymasterBaseFuzzTest is Test {
             accountGasLimits: bytes32(0),
             preVerificationGas: 0,
             gasFees: bytes32(0),
-            paymasterAndData: _signedRegion(a),
+            paymasterAndData: _region(a, 150_000),
             signature: ""
         });
         a.userOpHash = ep.getUserOpHash(bindingOp);
@@ -126,7 +125,7 @@ contract GasXPaymasterBaseFuzzTest is Test {
     }
 
     function _pad(GasXPolicyLib.SignedApproval memory a, bytes memory sig) internal view returns (bytes memory) {
-        return abi.encodePacked(_signedRegion(a), sig);
+        return abi.encodePacked(_region(a, 150_000), sig);
     }
 
     function _op(bytes memory pad, uint256 nonce) internal pure returns (PackedUserOperation memory) {
@@ -144,70 +143,75 @@ contract GasXPaymasterBaseFuzzTest is Test {
     }
 
     function test_happy_path_validates_and_packs_context() public {
-        GasXPolicyLib.SignedApproval memory a = _bind(_approval(1 ether, 0, type(uint48).max), 0);
+        GasXPolicyLib.SignedApproval memory a = _bind(_approval(1 ether, 0, MAXT), 0);
         bytes memory pad = _pad(a, _sign(a, SIGNER_PK));
         (bytes memory ctx, uint256 vd) = pm.exposedValidate(_op(pad, 0), OP_HASH, 0.5 ether);
-        assertEq(vd, 0, "valid");
-        (bytes32 campaignId, uint256 maxFeeWei) = abi.decode(ctx, (bytes32, uint256));
+        assertEq(vd, _packValidationData(false, MAXT, 0), "valid: sigOk + window");
+        (bytes32 campaignId, address sender, bytes32 userOpHash) = abi.decode(ctx, (bytes32, address, bytes32));
         assertEq(campaignId, C);
-        assertEq(maxFeeWei, 1 ether);
+        assertEq(sender, SENDER, "context carries the real sender (not the EntryPoint)");
+        assertEq(userOpHash, a.userOpHash, "context carries the bound userOpHash");
     }
 
-    function test_reverts_when_signer_not_registered() public {
-        pm.setTrustedSigner(signer, false); // flip the OWN-storage mirror
-        GasXPolicyLib.SignedApproval memory a = _bind(_approval(1 ether, 0, type(uint48).max), 0);
+    function test_sigFailed_when_signer_not_registered() public {
+        pm.setTrustedSigner(signer, false);
+        GasXPolicyLib.SignedApproval memory a = _bind(_approval(1 ether, 0, MAXT), 0);
         bytes memory pad = _pad(a, _sign(a, SIGNER_PK));
-        vm.expectRevert(GasXPaymasterBase.UnauthorizedSigner.selector);
-        pm.exposedValidate(_op(pad, 0), OP_HASH, 0.5 ether);
+        (, uint256 vd) = pm.exposedValidate(_op(pad, 0), OP_HASH, 0.5 ether);
+        assertEq(vd, _packValidationData(true, MAXT, 0), "unregistered signer => SIG_VALIDATION_FAILED, no revert");
     }
 
-    function test_reverts_on_wrong_signer_key() public {
-        GasXPolicyLib.SignedApproval memory a = _bind(_approval(1 ether, 0, type(uint48).max), 0);
-        bytes memory pad = _pad(a, _sign(a, 0xBAD)); // not registered
-        vm.expectRevert(GasXPaymasterBase.UnauthorizedSigner.selector);
-        pm.exposedValidate(_op(pad, 0), OP_HASH, 0.5 ether);
+    function test_sigFailed_on_wrong_signer_key() public {
+        GasXPolicyLib.SignedApproval memory a = _bind(_approval(1 ether, 0, MAXT), 0);
+        bytes memory pad = _pad(a, _sign(a, 0xBAD));
+        (, uint256 vd) = pm.exposedValidate(_op(pad, 0), OP_HASH, 0.5 ether);
+        assertEq(vd, _packValidationData(true, MAXT, 0), "wrong key => sigFailed");
     }
 
-    function test_reverts_on_expiry() public {
-        vm.warp(1000);
+    function test_sigFailed_on_malformed_sig_does_not_revert() public {
+        GasXPolicyLib.SignedApproval memory a = _bind(_approval(1 ether, 0, MAXT), 0);
+        bytes memory pad = _pad(a, new bytes(65)); // all-zero 65-byte sig => tryRecover yields address(0)
+        (, uint256 vd) = pm.exposedValidate(_op(pad, 0), OP_HASH, 0.5 ether);
+        assertEq(vd, _packValidationData(true, MAXT, 0), "malformed sig fails closed, no revert");
+    }
+
+    function test_returns_window_for_expired_instead_of_reverting() public {
         GasXPolicyLib.SignedApproval memory a = _bind(_approval(1 ether, 0, uint48(999)), 0);
         bytes memory pad = _pad(a, _sign(a, SIGNER_PK));
-        vm.expectRevert(GasXPaymasterBase.ApprovalExpired.selector);
-        pm.exposedValidate(_op(pad, 0), OP_HASH, 0.5 ether);
+        (, uint256 vd) = pm.exposedValidate(_op(pad, 0), OP_HASH, 0.5 ether);
+        assertEq(vd, _packValidationData(false, 999, 0), "validUntil returned for EntryPoint to enforce (AA32)");
     }
 
-    function test_reverts_before_validAfter() public {
-        vm.warp(1000);
-        GasXPolicyLib.SignedApproval memory a = _bind(_approval(1 ether, uint48(2000), type(uint48).max), 0);
+    function test_returns_window_for_not_yet_valid() public {
+        GasXPolicyLib.SignedApproval memory a = _bind(_approval(1 ether, uint48(2000), MAXT), 0);
         bytes memory pad = _pad(a, _sign(a, SIGNER_PK));
-        vm.expectRevert(GasXPaymasterBase.ApprovalNotYetValid.selector);
-        pm.exposedValidate(_op(pad, 0), OP_HASH, 0.5 ether);
+        (, uint256 vd) = pm.exposedValidate(_op(pad, 0), OP_HASH, 0.5 ether);
+        assertEq(vd, _packValidationData(false, MAXT, 2000), "validAfter returned, not reverted");
     }
 
     function test_reverts_when_maxCost_exceeds_maxFeeWei() public {
-        GasXPolicyLib.SignedApproval memory a = _bind(_approval(0.5 ether, 0, type(uint48).max), 0);
+        GasXPolicyLib.SignedApproval memory a = _bind(_approval(0.5 ether, 0, MAXT), 0);
         bytes memory pad = _pad(a, _sign(a, SIGNER_PK));
         vm.expectRevert(GasXPaymasterBase.MaxFeeExceeded.selector);
-        pm.exposedValidate(_op(pad, 0), OP_HASH, 1 ether); // maxCost > maxFeeWei
+        pm.exposedValidate(_op(pad, 0), OP_HASH, 1 ether);
     }
 
     function test_reverts_on_sender_mismatch() public {
-        GasXPolicyLib.SignedApproval memory a = _bind(_approval(1 ether, 0, type(uint48).max), 0);
+        GasXPolicyLib.SignedApproval memory a = _bind(_approval(1 ether, 0, MAXT), 0);
         bytes memory pad = _pad(a, _sign(a, SIGNER_PK));
         PackedUserOperation memory op = _op(pad, 0);
-        op.sender = address(0xDEAD); // != signed sender → SenderMismatch (checked before the hash binding)
+        op.sender = address(0xDEAD);
         vm.expectRevert(GasXPaymasterBase.SenderMismatch.selector);
         pm.exposedValidate(op, OP_HASH, 0.5 ether);
     }
 
-    function test_reverts_on_op_field_tamper_replay() public {
-        // Anti-replay: the approval binds to the EntryPoint hash of THIS op (sig-excluded). Replaying the
-        // same approval against a different op (changed nonce) yields a different derived userOpHash, so
-        // the recovered signer no longer matches → UnauthorizedSigner.
-        GasXPolicyLib.SignedApproval memory a = _bind(_approval(1 ether, 0, type(uint48).max), 0);
+    function test_replay_other_op_fails_signature() public {
+        // The approval binds to THIS op's hash (sig-excluded). Replay against nonce 7 => different derived
+        // userOpHash => recovered != trusted signer => sigFailed (soft), not a revert.
+        GasXPolicyLib.SignedApproval memory a = _bind(_approval(1 ether, 0, MAXT), 0);
         bytes memory pad = _pad(a, _sign(a, SIGNER_PK));
-        vm.expectRevert(GasXPaymasterBase.UnauthorizedSigner.selector);
-        pm.exposedValidate(_op(pad, 7), OP_HASH, 0.5 ether); // nonce 7 != bound nonce 0
+        (, uint256 vd) = pm.exposedValidate(_op(pad, 7), OP_HASH, 0.5 ether);
+        assertEq(vd, _packValidationData(true, MAXT, 0), "replay against another op => sigFailed");
     }
 
     function test_reverts_on_short_signed_data() public {
@@ -216,18 +220,32 @@ contract GasXPaymasterBaseFuzzTest is Test {
         pm.exposedValidate(_op(pad, 0), OP_HASH, 0);
     }
 
+    function test_reverts_on_low_postop_gas() public {
+        GasXPolicyLib.SignedApproval memory a = _approval(1 ether, 0, MAXT);
+        bytes memory pad = abi.encodePacked(_region(a, 1000), new bytes(65)); // postOpGas 1000 < MIN_POSTOP_GAS
+        vm.expectRevert(GasXPaymasterBase.PostOpGasTooLow.selector);
+        pm.exposedValidate(_op(pad, 0), OP_HASH, 0.5 ether);
+    }
+
     function test_postOp_consumes_actualGasCost() public {
-        bytes memory ctx = abi.encode(C, uint256(1 ether));
+        bytes memory ctx = abi.encode(C, SENDER, bytes32("uoh"));
         pm.exposedPostOp(ctx, 0.3 ether, 1 gwei);
         assertEq(policy.consumed(C), 0.3 ether, "postOp must consume actualGasCost");
         assertEq(policy.lastFee(), 0.3 ether);
     }
 
+    function test_postOp_does_not_revert_when_consume_reverts() public {
+        policy.setReverts(true); // PolicyManager paused/upgraded/exhausted -> consumeUpTo reverts
+        bytes memory ctx = abi.encode(C, SENDER, bytes32("uoh"));
+        pm.exposedPostOp(ctx, 0.3 ether, 1 gwei); // must NOT revert (try/catch) -> no PostOpReverted grief
+        assertEq(policy.consumed(C), 0, "consume reverted; nothing recorded but postOp survived");
+    }
+
     function test_validation_does_not_touch_policyManager() public {
         policy.setReverts(true); // any cross-contract call into PM during validation would revert
-        GasXPolicyLib.SignedApproval memory a = _bind(_approval(1 ether, 0, type(uint48).max), 0);
+        GasXPolicyLib.SignedApproval memory a = _bind(_approval(1 ether, 0, MAXT), 0);
         bytes memory pad = _pad(a, _sign(a, SIGNER_PK));
         (, uint256 vd) = pm.exposedValidate(_op(pad, 0), OP_HASH, 0.5 ether);
-        assertEq(vd, 0, "validation must not read PolicyManager");
+        assertEq(vd, _packValidationData(false, MAXT, 0), "validation must not read PolicyManager");
     }
 }

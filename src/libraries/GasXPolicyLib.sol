@@ -56,4 +56,18 @@ library GasXPolicyLib {
         bytes32 digest = keccak256(abi.encodePacked("\x19\x01", domainSeparator, hash(a)));
         return ECDSA.recover(digest, sig);
     }
+
+    /// @notice Non-reverting recover for use inside ERC-4337 validation: a malformed signature
+    ///         (bad length / s-malleability / v) yields `address(0)` instead of reverting, so the
+    ///         paymaster can surface SIG_VALIDATION_FAILED via `validationData` rather than bricking
+    ///         bundler simulation. `address(0)` is never a trusted signer, so it fails closed.
+    function tryRecover(bytes32 domainSeparator, SignedApproval memory a, bytes memory sig)
+        internal
+        pure
+        returns (address)
+    {
+        bytes32 digest = keccak256(abi.encodePacked("\x19\x01", domainSeparator, hash(a)));
+        (address recovered,,) = ECDSA.tryRecover(digest, sig);
+        return recovered;
+    }
 }

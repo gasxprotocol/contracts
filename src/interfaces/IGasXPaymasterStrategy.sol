@@ -16,4 +16,8 @@ interface IGasXPaymasterStrategy {
     function supportsCampaign(bytes32 campaignId) external view returns (bool);
 
     event GasXSponsored(bytes32 indexed campaignId, address indexed sender, bytes32 userOpHash, uint256 actualFeeWei);
+
+    /// @notice Emitted when the own-storage oracle-signer mirror changes (so signer-mirror drift vs
+    ///         GasXPolicyManager.OracleSignerSet is observable/diffable off-chain).
+    event TrustedSignerSet(address indexed signer, bool allowed);
 }

@@ -46,10 +46,13 @@ contract MockGasXPolicyManager {
         reverts = r;
     }
 
-    function consume(bytes32 id, uint256 feeWei) external {
+    /// @dev Mirrors GasXPolicyManager.consumeUpTo: records and returns the charged amount. The `reverts`
+    ///      flag lets tests prove the base's postOp try/catch absorbs a reverting PolicyManager.
+    function consumeUpTo(bytes32 id, uint256 feeWei) external returns (uint256) {
         require(!reverts, "PM: revert");
         consumed[id] += feeWei;
         lastCampaign = id;
         lastFee = feeWei;
+        return feeWei;
     }
 }

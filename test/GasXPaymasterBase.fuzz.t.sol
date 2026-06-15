@@ -248,4 +248,68 @@ contract GasXPaymasterBaseFuzzTest is Test {
         (, uint256 vd) = pm.exposedValidate(_op(pad, 0), OP_HASH, 0.5 ether);
         assertEq(vd, _packValidationData(false, MAXT, 0), "validation must not read PolicyManager");
     }
+
+    // --- Task 5: adversarial negative sweep (handbook §5 / spec §10) ---
+
+    function test_no_52byte_bypass_on_production_path() public {
+        // A bare 52-byte paymasterAndData (no signed approval) MUST be rejected — there is NO dev/simple-mode
+        // bypass on the base (handbook §5: no 52-byte oracle bypass in production).
+        bytes memory bare = abi.encodePacked(address(pm), uint128(300_000), uint128(150_000));
+        vm.expectRevert(GasXPaymasterBase.InvalidSignedDataLength.selector);
+        pm.exposedValidate(_op(bare, 0), OP_HASH, 0);
+    }
+
+    function testFuzz_replay_rejected_for_any_other_nonce(uint256 nonce) public {
+        vm.assume(nonce != 0);
+        GasXPolicyLib.SignedApproval memory a = _bind(_approval(1 ether, 0, MAXT), 0); // bound to nonce 0
+        bytes memory pad = _pad(a, _sign(a, SIGNER_PK));
+        (, uint256 vd) = pm.exposedValidate(_op(pad, nonce), OP_HASH, 0.5 ether);
+        assertEq(vd, _packValidationData(true, MAXT, 0), "approval bound to nonce 0 must fail on any other nonce");
+    }
+
+    function test_tamper_campaignId_fails() public {
+        GasXPolicyLib.SignedApproval memory a = _bind(_approval(1 ether, 0, MAXT), 0);
+        bytes memory sig = _sign(a, SIGNER_PK); // sign the original
+        GasXPolicyLib.SignedApproval memory t = a;
+        t.campaignId = keccak256("campaign.evil"); // tamper a signed field after signing
+        (, uint256 vd) = pm.exposedValidate(_op(_pad(t, sig), 0), OP_HASH, 0.5 ether);
+        assertEq(vd, _packValidationData(true, MAXT, 0), "tampered campaignId => sigFailed");
+    }
+
+    function test_tamper_maxFee_fails() public {
+        GasXPolicyLib.SignedApproval memory a = _bind(_approval(1 ether, 0, MAXT), 0);
+        bytes memory sig = _sign(a, SIGNER_PK);
+        GasXPolicyLib.SignedApproval memory t = a;
+        t.maxFeeWei = 2 ether; // changed but still >= maxCost so it reaches the sig check (not MaxFeeExceeded)
+        (, uint256 vd) = pm.exposedValidate(_op(_pad(t, sig), 0), OP_HASH, 0.5 ether);
+        assertEq(vd, _packValidationData(true, MAXT, 0), "tampered maxFeeWei => sigFailed");
+    }
+
+    function test_tamper_eligibilityRef_fails() public {
+        GasXPolicyLib.SignedApproval memory a = _bind(_approval(1 ether, 0, MAXT), 0);
+        bytes memory sig = _sign(a, SIGNER_PK);
+        GasXPolicyLib.SignedApproval memory t = a;
+        t.eligibilityRef = bytes32(uint256(0xBAD));
+        (, uint256 vd) = pm.exposedValidate(_op(_pad(t, sig), 0), OP_HASH, 0.5 ether);
+        assertEq(vd, _packValidationData(true, MAXT, 0), "tampered eligibilityRef => sigFailed");
+    }
+
+    function test_signature_for_wrong_domain_fails() public {
+        // A signature under a DIFFERENT verifyingContract domain must not validate on `pm` (cross-deploy replay).
+        GasXPolicyLib.SignedApproval memory a = _bind(_approval(1 ether, 0, MAXT), 0);
+        bytes32 wrongDs = keccak256(
+            abi.encode(
+                keccak256("EIP712Domain(string name,string version,uint256 chainId,address verifyingContract)"),
+                keccak256(bytes("GasX")),
+                keccak256(bytes("1")),
+                block.chainid,
+                address(0xBEEF) // not address(pm)
+            )
+        );
+        bytes32 digest = keccak256(abi.encodePacked("\x19\x01", wrongDs, GasXPolicyLib.hash(a)));
+        (uint8 v, bytes32 r, bytes32 s) = vm.sign(SIGNER_PK, digest);
+        bytes memory pad = _pad(a, abi.encodePacked(r, s, v));
+        (, uint256 vd) = pm.exposedValidate(_op(pad, 0), OP_HASH, 0.5 ether);
+        assertEq(vd, _packValidationData(true, MAXT, 0), "wrong-domain sig => sigFailed");
+    }
 }

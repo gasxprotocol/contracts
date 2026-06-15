@@ -1,22 +1,20 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.24;
-import "../core/GasXWhitelistPaymaster.sol";
 
-/// @title TestableGasX
-/// @notice Exposes internal GasX functions for unit testing purposes.
+import { IEntryPoint } from "@account-abstraction/contracts/interfaces/IEntryPoint.sol";
+import { PackedUserOperation } from "@account-abstraction/contracts/core/UserOperationLib.sol";
+import { GasXWhitelistPaymaster } from "../core/GasXWhitelistPaymaster.sol";
+
+/// @title  TestableGasX — exposes internal GasXWhitelistPaymaster hooks for unit testing.
 contract TestableGasX is GasXWhitelistPaymaster {
-    constructor(
-        address ep,
-        address cfg,
-        address treas
-    ) GasXWhitelistPaymaster(IEntryPoint(ep), cfg, treas, environment) {}
+    constructor(address ep, address policyManager_, string memory name, string memory version)
+        GasXWhitelistPaymaster(IEntryPoint(ep), policyManager_, name, version)
+    { }
 
-    /// @notice expone la validación internamente para tests
-    function exposedValidate(
-        PackedUserOperation calldata op,
-        bytes32 opHash,
-        uint256 maxCost
-    ) external view returns (bytes memory ctx, uint256 vd) {
+    function exposedValidate(PackedUserOperation calldata op, bytes32 opHash, uint256 maxCost)
+        external
+        returns (bytes memory ctx, uint256 vd)
+    {
         return _validatePaymasterUserOp(op, opHash, maxCost);
     }
 

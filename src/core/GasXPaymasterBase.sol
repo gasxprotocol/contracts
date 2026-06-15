@@ -101,13 +101,17 @@ abstract contract GasXPaymasterBase is BasePaymaster, EIP712, IGasXPaymasterStra
     // --- validation (ERC-7562: only signed data + own storage) ---
     // NOT `view`: strategies may write in validation (e.g. ERC20 pre-charge, Task 9). The only external
     // call is entryPoint().getUserOpHash on the paymaster's own immutable, trusted EntryPoint (ERC-7562-ok).
-    function _validatePaymasterUserOp(PackedUserOperation calldata op, bytes32, uint256 maxCost)
+    /// @dev Shared verification reused by `_validatePaymasterUserOp` and by strategies that need the decoded
+    ///      approval (e.g. the ERC20 strategy reads `eligibilityRef` for the signer-committed token price).
+    ///      Returns the fully-resolved approval (with the on-chain-derived `userOpHash`) + the packed
+    ///      validationData (sigFailed + time window). Reverts ONLY on data-integrity violations.
+    function _verifyApproval(PackedUserOperation calldata op, uint256 maxCost)
         internal
-        virtual
-        override
-        returns (bytes memory context, uint256 validationData)
+        view
+        returns (GasXPolicyLib.SignedApproval memory a, uint256 validationData)
     {
-        (GasXPolicyLib.SignedApproval memory a, bytes calldata sig) = _decodeApproval(op.paymasterAndData);
+        bytes calldata sig;
+        (a, sig) = _decodeApproval(op.paymasterAndData);
 
         // Data-integrity reverts (deterministic on the op's own fields — safe to revert in validation).
         if (a.sender != op.sender) revert SenderMismatch();
@@ -119,12 +123,22 @@ abstract contract GasXPaymasterBase is BasePaymaster, EIP712, IGasXPaymasterStra
 
         if (maxCost > a.maxFeeWei) revert MaxFeeExceeded();
 
-        // Soft results (returned as validationData so the EntryPoint enforces them; never revert here).
+        // Soft result (returned as validationData so the EntryPoint enforces it; never revert here).
         address recovered = GasXPolicyLib.tryRecover(_domainSeparatorV4(), a, sig);
         bool sigFailed = !_trustedSigners[recovered];
+        return (a, _packValidationData(sigFailed, a.validUntil, a.validAfter));
+    }
 
+    function _validatePaymasterUserOp(PackedUserOperation calldata op, bytes32, uint256 maxCost)
+        internal
+        virtual
+        override
+        returns (bytes memory context, uint256 validationData)
+    {
+        GasXPolicyLib.SignedApproval memory a;
+        (a, validationData) = _verifyApproval(op, maxCost);
         context = abi.encode(a.campaignId, a.sender, a.userOpHash);
-        return (context, _packValidationData(sigFailed, a.validUntil, a.validAfter));
+        return (context, validationData);
     }
 
     // --- postOp (cross-contract write permitted; never reverts upward) ---

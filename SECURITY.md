@@ -1,46 +1,47 @@
-# Security Policy for the GasX Protocol
+# Security Policy — GasX Protocol
 
-The GasX Protocol team and community take the security of our smart contracts and infrastructure very seriously. We are committed to ensuring the safety of our users and their funds.
-
----
-## 🛡️ Reporting a Vulnerability
-
-If you discover a security vulnerability, we strongly encourage you to report it responsibly.
-
-**Please DO NOT open a public GitHub issue.**
-
-Instead, please send a detailed report to our private security contact:
-
-**[edsphinx@gmail.com](mailto:edsphinx@gmail.com)** *(Replace with your actual private security email)*
-
-Please include the following in your report:
-- A detailed description of the vulnerability.
-- The contract(s) and network(s) affected.
-- Steps to reproduce the issue.
-- Any potential impact you have identified.
-
-We will acknowledge your report within 48 hours and will work with you to understand and resolve the issue. We plan to offer a bug bounty program in the future to reward researchers for their contributions.
+GasX takes the security of its smart contracts and infrastructure seriously. This policy covers the public
+`gasxprotocol/contracts` repository.
 
 ---
-##  implemented Security Measures
+## 🛡️ Reporting a vulnerability
 
-The GasX Protocol is built with a security-first mindset. The following measures and best practices are currently in place:
+**Please DO NOT open a public GitHub issue for security reports.**
 
-### 1. Smart Contract Security
-- **Immutable First:** All V1 paymaster contracts are deployed as **immutable** to provide maximum trust and prevent malicious upgrades.
-- **Separation of Concerns:** The protocol is broken into small, single-responsibility contracts (e.g., `GasXWhitelistPaymaster`, `GasXConfig`). This minimizes the attack surface of each component.
-- **Use of Audited Libraries:** We rely on the latest, battle-tested libraries from OpenZeppelin for critical operations like `Ownable` and `ECDSA`.
-- **Defensive Programming:** Contracts include robust checks for all inputs, such as the "fail-fast" validation logic, gas limit ceilings, and on-chain oracle price deviation checks.
-- **Professional Testing:** The project has a comprehensive test suite, including unit, integration, and end-to-end tests, with high code coverage.
+Email a detailed report privately to **[edsphinx@gmail.com](mailto:edsphinx@gmail.com)**. Include:
+- a description of the vulnerability,
+- the contract(s) and network(s) affected,
+- steps to reproduce,
+- the potential impact.
 
-### 2. Operational Security
-- **Multi-Chain Configuration:** All network-specific addresses and parameters are managed in a central configuration file and injected at deployment, preventing hardcoding errors.
-- **Professional Deployment Workflow:** We use a standardized suite of Hardhat scripts and a `DEPLOYMENT_GUIDE.md` to ensure deployments are repeatable and safe.
-- **Pre-Flight Checks:** A `check:preflight` script is used to validate the environment and on-chain state before running critical operations on a live network.
+We aim to acknowledge within 48 hours and will coordinate disclosure with you. A bug-bounty program is planned.
 
 ---
-##  audits
+## Security posture
 
-- **Internal Review:** The codebase has undergone extensive internal peer review.
-- **Static Analysis:** We use tools like Slither in our CI/CD pipeline to automatically check for common vulnerabilities.
-- **External Audit:** A professional, third-party security audit is planned as a key milestone in our **[Roadmap](./docs/overview/02_roadmap.md)** before any significant mainnet deployment with user funds at scale.
+GasX is an ERC-4337 paymaster protocol on **EntryPoint v0.9** (canonical
+`0x433709009B8330FDa32311DF1C2AFA402eD8D009`; v0.8 has a disclosed griefing issue and is not used).
+
+### Design-level controls
+- **On-chain budget enforcement.** `GasXPolicyManager` holds per-campaign budgets that strategies decrement in
+  `postOp` (`consumeUpTo`, non-reverting, auto-deactivating). This closes the paymaster-drain class: a campaign
+  cannot be spent past its funded limit, and a registered strategy cannot spend a campaign it does not own
+  (campaign↔strategy binding).
+- **Bundler-safe validation (ERC-7562).** `GasXPaymasterBase.validatePaymasterUserOp` reads **only** the signed
+  approval data + the paymaster's own storage (an own-storage trusted-signer mirror) — no cross-contract reads.
+  Signature failure and the time window are returned as `validationData`, not reverted.
+- **Non-circular signed-approval binding.** The approval binds to the EntryPoint userOpHash over the
+  signature-excluded `paymasterAndData`; replay across ops/deploys fails closed. No legacy 52-byte bypass.
+- **postOp safety.** Budget consume runs inside `try/catch`; the ERC-20 strategy charges in `postOp` with an
+  oracle deviation clamp, balance-delta accounting (fee-on-transfer safe), and CEI + `nonReentrant`.
+- Built on battle-tested OpenZeppelin (`ECDSA`, `EIP712`, `Ownable2Step`, `UUPS`, `Pausable`) pinned as
+  immutable `lib/` submodules (no npm for contract deps).
+
+### Testing & review
+- **154 tests** (151 unit/fuzz + 3 live-fork against the real v0.9 EntryPoint on Arbitrum Sepolia).
+- **Internal multi-agent security audit** (adversarial, multi-dimension) — must-fix findings applied + hardened.
+- **Slither** runs in CI.
+- **External audit:** planned before any mainnet deployment with user funds at scale (e.g. via the Arbitrum
+  Audit Program). **Not yet performed** — treat the current code as testnet-stage.
+
+Live, exploitable findings are tracked privately until fixed and disclosed here.

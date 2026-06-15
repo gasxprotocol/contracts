@@ -1,198 +1,76 @@
-# Builder-Hub: The GasX Suite of Paymasters
+# GasX — Modular ERC-4337 Paymaster Protocol
 
-![Builder-Hub Logo](https://github.com/edsphinx/builder-hub/blob/main/.github/assets/gasx.png)
+**GasX makes gasless UX a reusable building block.** A modular ("LEGO") ERC-4337 paymaster suite on a shared
+base: swappable sponsorship strategies, an off-chain EIP-712 signed-policy bridge, and a minimal on-chain
+budget manager that enforces per-campaign spend limits — closing the classic paymaster-drain risk class.
 
-**GasX is a professional suite of ERC-4337 Paymasters designed to eliminate gas fee friction for any dApp.**
-_Sponsor transactions completely with our **Whitelist Paymaster**, or empower users to pay gas with tokens like **USDC** using our **ERC20 Fee Paymaster**. GasX is the flagship protocol of Builder-Hub._
+[![CI](https://github.com/gasxprotocol/contracts/actions/workflows/ci.yml/badge.svg)](https://github.com/gasxprotocol/contracts/actions)
+[![License: MIT](https://img.shields.io/badge/License-MIT-success)](./LICENCE)
 
-[![CI](https://github.com/edsphinx/builder-hub/workflows/CI/badge.svg)](https://github.com/edsphinx/builder-hub/actions)
-[![Telegram](https://img.shields.io/badge/chat-Telegram-blue?logo=telegram)](https://t.me/edsphinx)
-[![MIT License](https://img.shields.io/badge/License-MIT-success)](LICENSE)
-
----
-
-## ✨ Why GasX Matters
-
-On-chain adoption stalls when new users must first acquire a native gas token (like ETH) before they can perform any action. The **GasX Suite** directly solves this by offering two powerful solutions that dApps can integrate:
-
-1.  **Complete Sponsorship (`GasXWhitelistPaymaster`):**
-    -   **Problem:** You want to offer a truly free "first mint" or "create profile" experience to onboard new users.
-    -   **Solution:** The protocol uses the `GasXWhitelistPaymaster` to pay 100% of the gas fees for specific, pre-approved actions, creating a frictionless, Web2-like experience.
-
-2.  **Convenient Payments (`GasXERC20FeePaymaster`):**
-    -   **Problem:** Your users hold stablecoins like USDC but don't have ETH on the right network to pay for gas.
-    -   **Solution:** The `GasXERC20FeePaymaster` allows users to pay for their own transactions using USDC. The protocol handles the on-chain price conversion and pays the network in ETH, abstracting away the native gas token entirely.
-
-The GasX Suite is currently deployed and tested on **Arbitrum Sepolia** and **Scroll Sepolia** and is fully compatible with EntryPoint v0.8.
-
----
-## 📈 Project Status & Milestones
-
-The GasX Protocol has achieved a **feature-complete MVP (Minimum Viable Product)** state. The core contracts, tooling, and documentation have been professionally architected, providing a stable foundation for rigorous testnet validation and future expansion.
-
-| Category | Deliverable | Status |
-| :--- | :--- | :---: |
-| **Smart Contracts** | **`GasXWhitelistPaymaster`** deployed and verified on-chain. | ✅ |
-| | **`GasXConfig`** and **`MultiOracleAggregator`** deployed and verified. | ✅ |
-| | **`GasXERC20FeePaymaster`** deployed and verified. | ✅ |
-| | **`GasXSubscriptions`** subscription & credit payment system. | ✅ |
-| **Tooling** | Professional, multi-chain Hardhat deployment and testing suite. | ✅ |
-| **Frontend** | Functional Next.js demo app for gasless transactions. | ✅ |
-| **Testing** | Unit, Integration, E2E, Fuzz, and Invariant tests with 100% coverage on core. | ✅ |
-| **Security** | Pausable contracts, emergency withdrawals, events for monitoring. | ✅ |
-| **Documentation** | Complete `/docs` suite, including architecture, guides, and references. | ✅ |
-| **Open Source** | MIT License, `CONTRIBUTING.md`, and `SECURITY.md` in place. | ✅ |
-
-The project is fully prepared for deployment and E2E testing on the **Arbitrum** network.
+> **Status (2026-06):** A1 — the modular signed-policy paymaster — is **built, internally security-audited, and
+> proven end-to-end on a live Arbitrum Sepolia v0.9 EntryPoint fork**. **Testnet-first**; not yet on mainnet.
+> Foundry-native; dependencies are pinned `lib/` git submodules (no npm for contracts).
 
 ---
 
-## ✅ Comprehensive Test Coverage
+## Why GasX
 
-The GasX Protocol is rigorously tested using a multi-layered approach to ensure reliability and security. Our test suite includes unit tests, integration tests, fuzz tests, and invariant tests.
+On-chain adoption stalls when a new user must first acquire a native gas token before doing anything. GasX
+removes that friction two ways, on one swappable base:
 
-| Test Type | Contract / System Tested | Key Verifications |
-| :--- | :--- | :--- |
-| **Unit & Integration** | `GasXWhitelistPaymaster` | Owner-only access, selector whitelisting, gas limit enforcement, oracle signature logic, pausable, emergency withdrawal. |
-| | `GasXERC20FeePaymaster` | Token fee payments, price oracle integration, pausable functionality. |
-| | `GasXSubscriptions` | Plan management, credit system, ETH/token payments, CEI pattern. |
-| | `GasXConfig` | Correct deployment, access control, and parameter updates. |
-| | `MultiOracleAggregator`| Oracle management, average/median price calculation, and deviation checks. |
-| **Fuzz Testing** | `GasXWhitelistPaymaster` | 9 fuzz tests with 1,000 runs each. |
-| | `GasXSubscriptions` | 9 fuzz tests with 1,000 runs each. |
-| **Invariant Testing** | `GasXWhitelistPaymaster` | 9 invariant properties verified via Echidna. |
-| | `GasXSubscriptions` | 7 invariant properties verified via Echidna. |
-| **End-to-End (E2E)** | Full AA Stack (Local) | Simulates a complete, sponsored `UserOperation` on a local Hardhat network. |
-| | Full AA Stack (Public) | Verifies the entire flow on live testnets (e.g., Arbitrum Sepolia) using a real bundler. |
+- **Full sponsorship** (`GasXWhitelistPaymaster`) — the protocol pays 100% of gas for pre-approved actions
+  (e.g. onboarding, first mint), gated by a function-selector whitelist + per-op gas ceiling.
+- **Pay gas in an ERC-20** (`GasXERC20FeePaymaster`) — users pay their fee in a token like USDC; the paymaster
+  fronts ETH gas and charges the token fee in `postOp`, oracle-clamped and fee-on-transfer-safe.
 
-### Coverage Summary
+The differentiator is **on-chain policy**: a `GasXPolicyManager` holds per-campaign budgets that strategies
+decrement in `postOp`, so sponsorship can't be drained past its funded limit.
 
-| Contract | Statements | Branches | Functions | Lines |
-|----------|------------|----------|-----------|-------|
-| `GasXWhitelistPaymaster` | 100% | 88.1% | 100% | 100% |
-| `GasXERC20FeePaymaster` | 100% | 96.88% | 100% | 100% |
-| `GasXSubscriptions` | 93.18% | 68.82% | 88.57% | 95.57% |
-| `GasXConfig` | 100% | 91.67% | 100% | 100% |
+## Architecture (Approach C — hybrid)
 
-> The entire test suite is run automatically on every commit via our **Continuous Integration** pipeline.
+| Piece | Role |
+|---|---|
+| `GasXPolicyLib` | EIP-712 `SignedApproval` struct + `recover`/`tryRecover` |
+| `GasXPaymasterBase` | shared validation — verifies the signed approval reading **only signed data + own storage** (ERC-7562 / bundler-safe), returns packed `validationData`; `postOp` decrements the campaign budget |
+| `GasXPolicyManager` | on-chain per-campaign budget/spent/active, **strategy-bound**, oracle-signer registry (UUPS + Ownable2Step) |
+| `IGasXPaymasterStrategy` / `IGasXPolicyManager` | the swap planes + per-interface conformance suites |
+| `GasXWhitelistPaymaster`, `GasXERC20FeePaymaster` | concrete strategies on the base |
+| off-chain bridge (private) | ERC-7677 orchestrator (`pm_getPaymasterData`) + EIP-712 signer + account adapter that produce the approvals the base verifies |
 
----
+**Binding:** the approval's `userOpHash` is derived on-chain as the EntryPoint userOpHash over the
+signature-excluded `paymasterAndData` (canonical verifying-paymaster scheme) — no cross-deploy/op replay.
+**EntryPoint:** v0.9 canonical `0x433709009B8330FDa32311DF1C2AFA402eD8D009`.
 
-## 🔒 Security Analysis
+## Tests & security
 
-All smart contracts have been analyzed with industry-standard static analysis tools and passed with zero high/medium severity findings.
+- **154 tests green:** 151 unit/fuzz + **3 live-fork tests** against the real v0.9 EntryPoint on Arbitrum
+  Sepolia (a sponsored `SimpleAccount` op via `handleOps` decrements the on-chain budget; a no-approval op
+  reverts; an exhausted budget caps + auto-deactivates).
+- **Internal multi-agent security audit** (must-fix findings applied + hardened) + Slither in CI. See
+  [`SECURITY.md`](./SECURITY.md) for disclosure. A formal **external audit is planned** (not yet done).
+- Claims here are scoped to what's proven on testnet — no mainnet/production guarantees yet.
 
-### Static Analysis Tools
+## Quick start (Foundry)
 
-| Tool | Version | High | Medium | Low | Status |
-|:-----|:--------|:----:|:------:|:---:|:------:|
-| **Slither** | 0.10.x | 0 | 0 | 0 | ✅ Pass |
-| **Aderyn** | 0.4.x | 0 | 0 | 14 | ✅ Pass |
-
-### Security Testing
-
-| Test Type | Framework | Count | Status |
-|:----------|:----------|------:|:------:|
-| Unit Tests | Hardhat + Chai | 344 | ✅ Pass |
-| Fuzz Tests | Foundry | 101 | ✅ Pass |
-| Invariant Tests | Echidna | Configured | ✅ Ready |
-
-### Key Security Features
-
-- **CEI Pattern:** All state changes occur before external calls (Checks-Effects-Interactions)
-- **Reentrancy Protection:** Critical functions follow strict ordering to prevent reentrancy
-- **Access Control:** Owner-only functions with proper modifiers
-- **Pausable:** Emergency pause functionality on all paymasters
-- **Emergency Withdrawal:** Recovery functions for accidentally sent ETH/tokens
-
-### Audit Status
-
-| Item | Status |
-|:-----|:------:|
-| Internal Security Review | ✅ Complete |
-| Static Analysis (Slither/Aderyn) | ✅ 0 High/Medium |
-| Fuzz Testing (Foundry) | ✅ 101 tests passing |
-| Invariant Testing (Echidna) | ✅ Configured |
-| Formal External Audit | 🔄 Pending |
-
-> Full security reports available in [`packages/hardhat/report-aderyn.md`](./packages/hardhat/report-aderyn.md)
-
----
-
-## 🛠️ Architectural & Security Highlights
-
--   **Security-First Design:** V1 contracts are deployed as **immutable** for maximum trust. The protocol uses a strict separation of concerns and includes on-chain protections like gas ceilings and selector whitelists.
--   **Pausable Contracts:** All paymasters can be paused by the owner in case of emergency, using OpenZeppelin's `Pausable` with `whenNotPaused` modifier.
--   **Emergency Recovery:** `emergencyWithdrawEth()` allows recovery of accidentally sent ETH.
--   **Comprehensive Events:** All admin actions emit events for monitoring: `LimitsUpdated`, `SelectorUpdated`, `DevModeChanged`, `Paused`, `Unpaused`, `EmergencyWithdraw`.
--   **Multi-Paymaster Suite:** A suite of specialized paymasters allows dApps to choose the exact tool for their needs.
--   **Resilient On-Chain Oracles:** A robust `MultiOracleAggregator` provides reliable price data with built-in deviation checks.
--   **Chain-Agnostic Architecture:** Professional deployment scripts and a centralized configuration allow for seamless multi-chain support.
--   **Off-Chain Extensibility:** Paymasters support time-bound signatures from off-chain services for powerful, real-time validation logic.
--   **Analytics & Monitoring:** Paymasters emit detailed events like `GasSponsored` on every successful transaction.
-
----
-
-## 🚀 Roadmap
-
-### No-Code First Strategy
-
-GasX differentiates from enterprise solutions (Pimlico, Alchemy, Biconomy) by focusing on **No-Code/Low-Code tools** that enable any project to implement gas sponsorship without developer resources.
-
-| Quarter | Phase | Key Deliverables | Status |
-| :--- | :--- | :--- | :---: |
-| **Q3 2025** | **Foundation & Core Infrastructure** | - **`GasXWhitelistPaymaster`:** Deployed on Arbitrum & Scroll Sepolia.<br>- **`GasXConfig` & `MultiOracleAggregator`:** Multi-oracle price feeds.<br>- **Oracle Adapters:** DIA & Euler adapters with factory deployment. | ✅ |
-| **Q4 2025** | **USDC & Subscriptions** | - **`GasXERC20FeePaymaster`:** Token fee payments (100% coverage).<br>- **`GasXSubscriptions`:** Tiered subscriptions with credit system.<br>- **Security Prep:** 344 tests, 101 fuzz tests, Slither & Aderyn clean. | ✅ |
-| **Q1 2026** | **No-Code Platform v1** | - **Admin Dashboard:** Visual paymaster configuration & monitoring.<br>- **Campaign Builder:** Create gas sponsorship campaigns without code.<br>- **Whitelist Manager:** CSV import, API integrations, rule builder. | 📝 |
-| **Q2 2026** | **Platform Expansion** | - **Analytics Dashboard:** Usage metrics, spending reports, user insights.<br>- **Embed Widget:** Copy-paste integration snippet for any website.<br>- **Webhook/Zapier:** Connect with existing tools and workflows.<br>- **Mainnet Deployment:** Arbitrum, Base, Scroll mainnets. | 📝 |
-
----
-## 📘 Documentation
-
-Comprehensive technical documentation for the GasX protocol is maintained in the `/docs` directory. The best place to start is the **[Documentation Hub (`/docs/index.md`)](./docs/index.md)**.
-
--   **[Architecture Overview](./docs/overview/01_architecture.md):** A deep dive into the smart contract system.
--   **[Deployment Guide](./DEPLOYMENT_GUIDE.md):** Step-by-step instructions for deploying the protocol.
-
----
-## 🔨 Quick Start (Local Development)
-
-### 1. Prerequisites
-- **Node.js:** `20.19.3` (Exact version recommended)
-- **Yarn:** v3.x or higher
-
-### 2. Setup & Run
 ```bash
-# Clone the repo and install dependencies
-git clone [https://github.com/edsphinx/builder-hub.git](https://github.com/edsphinx/builder-hub.git)
-cd builder-hub
-yarn install
-
-# In one terminal, run the local blockchain & deploy contracts
-cd packages/hardhat
-yarn deploy
-
-# In a second terminal, start the frontend demo
-cd packages/nextjs
-yarn start
+git clone --recurse-submodules git@github.com:gasxprotocol/contracts.git
+cd contracts
+forge build
+forge test                         # full suite (the fork tests self-fork Arbitrum Sepolia)
+forge test --no-match-contract Fork  # unit/fuzz only (no RPC)
 ```
-> The frontend is now available at `http://localhost:3000`.
+
+Dependencies are pinned `lib/` submodules (forge-std, OpenZeppelin v5.4.0 + upgradeable,
+eth-infinitism/account-abstraction v0.9.0). Set `ARBITRUM_SEPOLIA_RPC_URL` to override the public fork RPC.
+
+## Contributing & security
+
+Open-source under MIT. See [`CONTRIBUTING.md`](./CONTRIBUTING.md) and [`SECURITY.md`](./SECURITY.md). Please
+report vulnerabilities privately (do not open a public issue).
+
+## License
+
+MIT — see [`LICENCE`](./LICENCE).
 
 ---
-## 🤝 Contributing & Security
-
-The GasX Protocol is an open-source project. We welcome contributions and take security very seriously. Please see our **[Contributing Guide](./CONTRIBUTING.md)** and our **[Security Policy](./SECURITY.md)**.
-
-## 👥 Core Team
-
-| Name | Role | GitHub / X |
-| :--- | :--- | :--- |
-| **edsphinx** | Lead Solidity / ZK | [@edsphinx](https://github.com/edsphinx) / [@oFonCK](https://x.com/oFonCK) |
-
----
-## ✍️ Licence
-
-MIT – see [LICENSE](LICENSE).
-
----
-_Made with ♥ in Honduras. Coming soon to Arbitrum, Base, Scroll, and more._
+_Built in Honduras 🇭🇳_

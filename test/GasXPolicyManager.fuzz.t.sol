@@ -92,7 +92,7 @@ contract GasXPolicyManagerFuzzTest is Test {
 
     function test_consume_reverts_when_inactive() public {
         _set(1 ether);
-        pm.setActive(C, false);
+        pm.deactivate(C);
         vm.prank(strategy);
         vm.expectRevert(GasXPolicyManager.CampaignInactive.selector);
         pm.consume(C, 1);
@@ -159,5 +159,69 @@ contract GasXPolicyManagerFuzzTest is Test {
         emit IGasXPolicyManager.Consumed(C, strategy, 2 ether, 3 ether);
         vm.prank(strategy);
         pm.consume(C, 2 ether);
+    }
+
+    // --- B0: governance surface (creation-only, monotonic raise, guarded lower, fail-closed pause) ---
+
+    function test_setCampaign_is_creation_only() public {
+        _set(10 ether);
+        vm.expectRevert(GasXPolicyManager.CampaignExists.selector);
+        pm.setCampaign(C, strategy, 5 ether, uint48(block.timestamp + 1 days)); // no silent overwrite/raise
+    }
+
+    function test_raiseBudget_monotonic_up_only() public {
+        _set(10 ether);
+        pm.raiseBudget(C, 20 ether);
+        assertEq(pm.campaignOf(C).budgetWei, 20 ether);
+        vm.expectRevert(GasXPolicyManager.BudgetNotIncreased.selector);
+        pm.raiseBudget(C, 20 ether); // not strictly higher
+        vm.expectRevert(GasXPolicyManager.BudgetNotIncreased.selector);
+        pm.raiseBudget(C, 5 ether); // lower via raise is forbidden
+    }
+
+    function test_lowerBudget_guardian_only_and_floors_at_spent() public {
+        _set(10 ether);
+        vm.prank(strategy);
+        pm.consume(C, 3 ether); // spent = 3
+        vm.expectRevert(GasXPolicyManager.NotGuardian.selector);
+        pm.lowerBudget(C, 5 ether); // caller is owner, not guardian
+        pm.setGuardian(address(this));
+        vm.expectRevert(GasXPolicyManager.InvalidLowerBudget.selector);
+        pm.lowerBudget(C, 2 ether); // below spent
+        vm.expectRevert(GasXPolicyManager.InvalidLowerBudget.selector);
+        pm.lowerBudget(C, 11 ether); // above current (no raise via lower)
+        pm.lowerBudget(C, 5 ether);
+        assertEq(pm.campaignOf(C).budgetWei, 5 ether);
+    }
+
+    function test_pause_is_fail_closed() public {
+        _set(10 ether);
+        pm.pause(); // owner may pause via onlyGuardianOrOwner
+        assertTrue(pm.paused());
+        vm.prank(strategy);
+        vm.expectRevert(); // EnforcedPause (strict path reverts)
+        pm.consume(C, 1 ether);
+        vm.prank(strategy);
+        assertEq(pm.consumeUpTo(C, 1 ether), 0, "consumeUpTo returns 0 while paused, never reverts");
+        pm.unpause();
+        vm.prank(strategy);
+        assertEq(pm.consumeUpTo(C, 1 ether), 1 ether, "resumes after unpause");
+    }
+
+    // --- B1: the load-bearing aggregate-cap invariant ---
+    // Many independent ops (the agent fleet) draw from ONE campaign budget and can never collectively exceed it.
+    function testFuzz_aggregate_never_exceeds_budget(uint128 budget, uint96[8] memory fees) public {
+        budget = uint128(bound(budget, 1, type(uint128).max / 2));
+        bytes32 id = keccak256("campaign.fleet");
+        pm.setCampaign(id, strategy, budget, 0);
+        uint256 totalCharged;
+        for (uint256 i = 0; i < fees.length; i++) {
+            vm.prank(strategy);
+            uint256 charged = pm.consumeUpTo(id, fees[i]);
+            totalCharged += charged;
+            assertLe(pm.campaignOf(id).spentWei, budget, "spentWei never exceeds the one budget");
+        }
+        assertLe(totalCharged, budget, "aggregate charged across all ops never exceeds the budget");
+        assertEq(pm.campaignOf(id).spentWei, totalCharged, "spentWei == sum of all charged");
     }
 }

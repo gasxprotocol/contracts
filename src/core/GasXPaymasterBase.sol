@@ -147,7 +147,11 @@ abstract contract GasXPaymasterBase is BasePaymaster, EIP712, IGasXPaymasterStra
         virtual
         override
     {
-        if (mode != PostOpMode.opSucceeded) return;
+        // The sponsor's deposit is charged for gas on opSucceeded AND opReverted (a reverted inner call
+        // still burns gas). Decrement the on-chain budget in both — skipping opReverted would let untrusted
+        // wallets bypass the aggregate cap via reverting ops. Only postOpReverted (the re-entrant double
+        // call) is skipped to avoid double-charging. Matches GasXERC20FeePaymaster.
+        if (mode == PostOpMode.postOpReverted) return;
         (bytes32 campaignId, address sender, bytes32 userOpHash) = abi.decode(context, (bytes32, address, bytes32));
         // consumeUpTo is non-reverting on expected cases; try/catch also absorbs an unexpected revert
         // (paused/upgraded PolicyManager) so a postOp can never bubble PostOpReverted.

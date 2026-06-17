@@ -3,6 +3,7 @@ pragma solidity ^0.8.24;
 
 import { Test } from "forge-std/Test.sol";
 import { IEntryPoint } from "@account-abstraction/contracts/interfaces/IEntryPoint.sol";
+import { IPaymaster } from "@account-abstraction/contracts/interfaces/IPaymaster.sol";
 import { PackedUserOperation } from "@account-abstraction/contracts/core/UserOperationLib.sol";
 import { _packValidationData } from "@account-abstraction/contracts/core/Helpers.sol";
 import { GasXPaymasterBase } from "../src/core/GasXPaymasterBase.sol";
@@ -239,6 +240,24 @@ contract GasXPaymasterBaseFuzzTest is Test {
         bytes memory ctx = abi.encode(C, SENDER, bytes32("uoh"));
         pm.exposedPostOp(ctx, 0.3 ether, 1 gwei); // must NOT revert (try/catch) -> no PostOpReverted grief
         assertEq(policy.consumed(C), 0, "consume reverted; nothing recorded but postOp survived");
+    }
+
+    // The sponsor's EntryPoint deposit is charged for the op's gas even when the inner call REVERTS
+    // (opReverted), so the on-chain budget MUST be decremented in that mode too. Skipping it is an
+    // aggregate-cap bypass: untrusted wallets could burn sponsor gas via cheap always-reverting ops
+    // without ever drawing down the campaign budget.
+    function test_postOp_consumes_on_opReverted() public {
+        bytes memory ctx = abi.encode(C, SENDER, bytes32("uoh"));
+        pm.exposedPostOpWithMode(IPaymaster.PostOpMode.opReverted, ctx, 0.3 ether, 1 gwei);
+        assertEq(policy.consumed(C), 0.3 ether, "opReverted still burns sponsor gas; budget must be charged");
+    }
+
+    // postOpReverted is the re-entrant second postOp call; charging there would double-count the gas.
+    // It is the ONLY mode that must skip the decrement.
+    function test_postOp_skips_only_postOpReverted() public {
+        bytes memory ctx = abi.encode(C, SENDER, bytes32("uoh"));
+        pm.exposedPostOpWithMode(IPaymaster.PostOpMode.postOpReverted, ctx, 0.3 ether, 1 gwei);
+        assertEq(policy.consumed(C), 0, "postOpReverted must not decrement (avoids double-charge)");
     }
 
     function test_validation_does_not_touch_policyManager() public {

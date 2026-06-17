@@ -53,11 +53,12 @@ signature-excluded `paymasterAndData` (canonical verifying-paymaster scheme) —
 
 ## Tests & security
 
-- **169 tests green:** 163 unit/fuzz + **6 live-fork tests** against the real v0.9 EntryPoint on Arbitrum
+- **173 tests green:** 167 unit/fuzz + **6 live-fork tests** against the real v0.9 EntryPoint on Arbitrum
   Sepolia (a sponsored `SimpleAccount` op via `handleOps` decrements the on-chain budget; a no-approval op
   reverts; an exhausted budget caps + auto-deactivates). The fuzz suite includes the aggregate-cap invariant
-  (many ops sharing one campaign can never collectively exceed its budget) and the B0 governance proof (the
-  guardian lowers/pauses instantly but can never raise or upgrade; raises land only after the timelock delay).
+  (many ops sharing one campaign can never collectively exceed its budget), the B0 governance proof (the
+  guardian lowers/pauses instantly but can never raise or upgrade; raises land only after the timelock delay),
+  and the postOp charge-on-revert parity (a reverted op still burns sponsor gas, so it draws down the budget).
 - **Internal multi-agent security audit** (must-fix findings applied + hardened) + Slither in CI. See
   [`SECURITY.md`](./SECURITY.md) for disclosure. A formal **external audit is planned** (not yet done).
 - Claims here are scoped to what's proven on testnet — no mainnet/production guarantees yet.

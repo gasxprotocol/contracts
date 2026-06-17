@@ -28,6 +28,14 @@ contract GasXConformancePaymaster is GasXPaymasterBase {
     function exposedPostOp(bytes calldata ctx, uint256 actualGasCost, uint256 feePerGas) external {
         _postOp(PostOpMode.opSucceeded, ctx, actualGasCost, feePerGas);
     }
+
+    /// @dev Drive postOp with an explicit mode so tests can prove the budget is decremented for a
+    ///      reverted-but-gas-paying op (opReverted) and skipped only for the re-entrant postOpReverted.
+    function exposedPostOpWithMode(PostOpMode mode, bytes calldata ctx, uint256 actualGasCost, uint256 feePerGas)
+        external
+    {
+        _postOp(mode, ctx, actualGasCost, feePerGas);
+    }
 }
 
 /// @notice Records consume() calls; mimics GasXPolicyManager's registry for validation tests.

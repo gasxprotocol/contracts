@@ -5,6 +5,7 @@ import { Test } from "forge-std/Test.sol";
 import { ERC1967Proxy } from "@openzeppelin/contracts/proxy/ERC1967/ERC1967Proxy.sol";
 import { ERC20 } from "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 import { IEntryPoint } from "@account-abstraction/contracts/interfaces/IEntryPoint.sol";
+import { IPaymaster } from "@account-abstraction/contracts/interfaces/IPaymaster.sol";
 import { PackedUserOperation } from "@account-abstraction/contracts/core/UserOperationLib.sol";
 import { _packValidationData } from "@account-abstraction/contracts/core/Helpers.sol";
 import { GasXERC20FeePaymaster, IGasXPriceOracle } from "../src/core/GasXERC20FeePaymaster.sol";
@@ -214,6 +215,25 @@ contract GasXERC20FeePaymasterTest is Test {
         assertEq(token.balanceOf(address(pm)) - balBefore, PRICE, "fee == GAS*price/1e18 == price");
         assertEq(pm.totalFeesCollected(), PRICE);
         assertEq(policy.remaining(C), 10 ether - GAS, "ETH budget consumed by actualGasCost");
+    }
+
+    // Parity with GasXPaymasterBase: a reverted inner call (opReverted) still burned the sponsor's gas,
+    // so the ETH budget must be consumed by actualGasCost. The fee is also charged (gas was spent).
+    function test_postOp_consumes_budget_on_opReverted() public {
+        (bytes memory ctx,) = pm.exposedValidate(_signedOp(PRICE), OP_HASH, 1 ether);
+        uint256 balBefore = token.balanceOf(address(pm));
+        pm.exposedPostOpWithMode(IPaymaster.PostOpMode.opReverted, ctx, GAS, 1 gwei);
+        assertEq(policy.remaining(C), 10 ether - GAS, "opReverted still consumes the ETH budget");
+        assertEq(token.balanceOf(address(pm)) - balBefore, PRICE, "fee charged on opReverted too");
+    }
+
+    // postOpReverted (re-entrant double call) must NOT touch the budget or charge a fee.
+    function test_postOp_skips_postOpReverted() public {
+        (bytes memory ctx,) = pm.exposedValidate(_signedOp(PRICE), OP_HASH, 1 ether);
+        uint256 balBefore = token.balanceOf(address(pm));
+        pm.exposedPostOpWithMode(IPaymaster.PostOpMode.postOpReverted, ctx, GAS, 1 gwei);
+        assertEq(policy.remaining(C), 10 ether, "postOpReverted must not consume the budget");
+        assertEq(token.balanceOf(address(pm)) - balBefore, 0, "postOpReverted must not charge a fee");
     }
 
     function test_postOp_oracle_clamps_overpriced_signer() public {

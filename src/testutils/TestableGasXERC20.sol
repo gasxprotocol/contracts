@@ -30,6 +30,17 @@ contract TestableGasXERC20 is GasXERC20FeePaymaster {
         _postOp(PostOpMode.opSucceeded, context, actualGasCost, userOpGasPrice);
     }
 
+    /// @dev Drive postOp with an explicit mode (parity with the base harness) to prove the budget is
+    ///      decremented on opReverted and skipped only on the re-entrant postOpReverted.
+    function exposedPostOpWithMode(
+        PostOpMode mode,
+        bytes calldata context,
+        uint256 actualGasCost,
+        uint256 userOpGasPrice
+    ) external {
+        _postOp(mode, context, actualGasCost, userOpGasPrice);
+    }
+
     function exposedFeeFor(uint256 gasWei, uint256 price) external pure returns (uint256) {
         return _feeFor(gasWei, price);
     }

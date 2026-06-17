@@ -183,7 +183,10 @@ contract GasXSignedPolicyForkTest is Test {
         // Valid approval but a 1-wei campaign: postOp consumeUpTo caps at remaining + auto-deactivates; the op
         // STILL succeeds (the paymaster pays that op's gas — the bounded, accepted one-op residual; the
         // off-chain signer is the real spend gate). The budget never goes negative.
-        policy.setCampaign(C, address(paymaster), 1, uint48(block.timestamp + 1 days)); // 1 wei budget
+        // B0: setCampaign is creation-only; shrink the existing campaign to 1 wei via the guardian lower path
+        // (the production-faithful way to reduce a live budget — spent is 0, so lowerBudget(C, 1) is valid).
+        policy.setGuardian(address(this));
+        policy.lowerBudget(C, 1); // 1 wei budget
         (address sender, bytes memory initCode) = _initCode(2);
         PackedUserOperation[] memory ops = new PackedUserOperation[](1);
         ops[0] = _buildSignedOp(sender, initCode);

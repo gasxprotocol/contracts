@@ -43,6 +43,9 @@ If you are a developer looking to integrate or contribute to the GasX protocol, 
 - **[`EulerOracleAdapter`](./contracts/07_EulerOracleAdapter.md):** Technical reference for the Euler Protocol oracle adapter.
 - **[`DIAAdapterFactory`](./contracts/08_DIAAdapterFactory.md):** Technical reference for the DIA adapter factory.
 
+### 4. Standards & Specifications
+- **[Sponsor-Set Aggregate Spend Ceilings (ERC draft)](./eip-draft-aggregate-spend-ceiling.md):** A denomination-agnostic interface for an on-chain budget shared by N untrusted accounts, with raise/lower authority split by risk direction. `GasXPolicyManager` is the reference implementation.
+
 
 ---
 ## 🤝 Contributing & Security

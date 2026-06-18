@@ -163,3 +163,19 @@ Post-pivot risk-direction governance deploy via `script/DeployGasX.s.sol` (secur
 Timelock delay 300s. Demo campaign `0x5f37…6db2` (budget 5e14 wei). Paymaster EntryPoint deposit 0.02 ETH.
 Ownership: deployer configured then transferred to the timelock; `acceptOwnership` executed via the
 timelock (governance proposer/executor) so the owner is the TimelockController. Guardian is a distinct key.
+
+## Arbitrum Sepolia (421614) — Value path (B2/B3) — 2026-06-18
+
+The value (stablecoin/x402) ceiling, added to the keystone PolicyManager by a TIMELOCKED upgrade:
+
+| Role / contract | Address |
+|---|---|
+| GasXPolicyManager impl (B2, with consumeValue/setValueCampaign) | `0x99c0a2fB7305207f945F68a420c446Da70075dB4` |
+| GasXSettlementRouter (x402 choke-point) | `0x2b458E6942d913e934208D0C09EC0307FECef351` |
+| (proxy upgraded to the B2 impl) | `0xB4802848b96f2f64B78F015F2239d9DB65c77db2` |
+| USDC (Arbitrum Sepolia) | `0x75faf114eafb1BDbe2F0316DF893fd58CE46AA4d` |
+
+Demo value campaign `0xc76eaad72114d6410c4dbf9c40ae71707460458447066c68d743caa496cf3ae0`
+(settler = the router, token = USDC, budget 10 USDC, active). The upgrade + setValueCampaign were
+executed as ONE timelock `executeBatch` by the governance proposer/executor after the 300s delay — the
+deployer/guardian could not upgrade. tx `0x79ece450d42fff0ce6f49e27f4a8dc0c50b3b6505fe83fc8eef6ba3d1550f498`.

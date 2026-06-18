@@ -5,7 +5,10 @@ sponsor-set budget that a bound strategy decrements in `postOp` and that fails c
 axes no incumbent combines: **sponsor-set + aggregate-across-untrusted-wallets + on-chain-revert.** The engine
 is `GasXPolicyManager`; **ERC-4337 gas sponsorship is the proven instance that ships today** (the budget is
 gas-denominated), built on a modular ("LEGO") paymaster base with swappable strategies and an off-chain
-EIP-712 signed-policy bridge. Stablecoin/x402 value ceilings are the next instance.
+EIP-712 signed-policy bridge. A second instance — a **stablecoin/x402 value ceiling** (a separate
+`ValueCampaign` + strict `consumeValue`, enforced at the `GasXSettlementRouter` x402 choke-point) — is now
+implemented and deployed on Arbitrum Sepolia testnet alongside the gas path. Testnet-first, internally
+reviewed; not yet on mainnet, no external audit.
 
 [![CI](https://github.com/gasxprotocol/contracts/actions/workflows/ci.yml/badge.svg)](https://github.com/gasxprotocol/contracts/actions)
 [![License: MIT](https://img.shields.io/badge/License-MIT-success)](./LICENCE)
@@ -33,8 +36,11 @@ Gas sponsorship is the proven instance of that ceiling today, in two flavors on 
 - **Pay gas in an ERC-20** (`GasXERC20FeePaymaster`) — users pay their fee in a token like USDC; the paymaster
   fronts ETH gas and charges the token fee in `postOp`, oracle-clamped and fee-on-transfer-safe.
 
-The budget is **gas-denominated** today; it bounds gas spend, not arbitrary stablecoin value (that is the
-next instance, not yet built).
+The gas campaign's budget is **gas-denominated**. The parallel **value campaign** (`setValueCampaign` /
+`consumeValue`, in a token's native units, no on-chain price conversion) bounds stablecoin value, enforced
+on-chain at the `GasXSettlementRouter`: an x402 settlement is routed through the router (the merchant sets
+`payTo = router`), which decrements the aggregate value budget with a strict revert before forwarding to
+the merchant — so N untrusted agents draw down ONE value ceiling, fail-closed.
 
 ## Architecture (Approach C — hybrid)
 
@@ -53,12 +59,14 @@ signature-excluded `paymasterAndData` (canonical verifying-paymaster scheme) —
 
 ## Tests & security
 
-- **173 tests green:** 167 unit/fuzz + **6 live-fork tests** against the real v0.9 EntryPoint on Arbitrum
+- **194 tests green:** 186 unit/fuzz + **8 live-fork tests** against the real v0.9 EntryPoint on Arbitrum
   Sepolia (a sponsored `SimpleAccount` op via `handleOps` decrements the on-chain budget; a no-approval op
-  reverts; an exhausted budget caps + auto-deactivates). The fuzz suite includes the aggregate-cap invariant
-  (many ops sharing one campaign can never collectively exceed its budget), the B0 governance proof (the
-  guardian lowers/pauses instantly but can never raise or upgrade; raises land only after the timelock delay),
-  and the postOp charge-on-revert parity (a reverted op still burns sponsor gas, so it draws down the budget).
+  reverts; an exhausted budget caps + auto-deactivates; and a 3-wallets-one-ceiling demo where the third
+  wallet is capped). The fuzz suite includes the aggregate-cap invariant for BOTH the gas and value paths
+  (many ops/settlements sharing one campaign can never collectively exceed its budget), the B0 governance
+  proof (the guardian lowers/pauses instantly but can never raise or upgrade; raises land only after the
+  timelock delay), and the postOp charge-on-revert parity (a reverted op still burns sponsor gas, so it
+  draws down the budget). The x402 settlement router is proven end-to-end against a faithful EIP-3009 token.
 - **Internal multi-agent security audit** (must-fix findings applied + hardened) + Slither in CI. See
   [`SECURITY.md`](./SECURITY.md) for disclosure. A formal **external audit is planned** (not yet done).
 - Claims here are scoped to what's proven on testnet — no mainnet/production guarantees yet.

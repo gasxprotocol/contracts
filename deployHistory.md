@@ -144,3 +144,22 @@ This document records the smart contract deployments made to the different netwo
 | **MultiOracleAggregator (Impl)**  | `0x62B6A3b944077662b84C517007fed1185c66A9d3` | [View on Scrollscan](https://sepolia.scrollscan.com/address/0x62B6A3b944077662b84C517007fed1185c66A9d3#code) |
 | **MultiOracleAggregator (Proxy)** | `0x954F33832c6C444ab9888aD62DacA25Ad1CBA6cB` | [View on Scrollscan](https://sepolia.scrollscan.com/address/0x954F33832c6C444ab9888aD62DacA25Ad1CBA6cB#code) |
 | **AggregatorFactory**             | `0x000c18FAcA88BE59025CC8bf8b7100D111545554` | [View on Scrollscan](https://sepolia.scrollscan.com/address/0x000c18FAcA88BE59025CC8bf8b7100D111545554#code) |
+
+## Arbitrum Sepolia (421614) — Governance stack (keystone) — 2026-06-18
+
+Post-pivot risk-direction governance deploy via `script/DeployGasX.s.sol` (secure 3-key):
+
+| Role / contract | Address |
+|---|---|
+| GasXPolicyManager (UUPS proxy) | `0xB4802848b96f2f64B78F015F2239d9DB65c77db2` |
+| GasXPolicyManager (impl) | `0xeBa1C1DA7fa747BA4CC36b2652016c82BfE19933` |
+| GasXWhitelistPaymaster (strategy) | `0xa0F53b77cAfEE0F887e4a7f20Dc07Bcbe0a73dB3` |
+| TimelockController (owner) | `0x19b7bbD6D25D599C989180EBd7E71FB77C6633f7` |
+| Governance (timelock proposer/executor) | `0xc4a7CebcFd3b8e743f711B267C1860b4bbb85787` |
+| Guardian (instant lower/pause) | `0x2B607294B8a8507dD614c8bf06899C3792064535` |
+| Oracle signer (off-chain) | `0x18A4B426AA721AD7FcD2B89a42C2E5E1AEd747d4` |
+| EntryPoint v0.9 | `0x433709009B8330FDa32311DF1C2AFA402eD8D009` |
+
+Timelock delay 300s. Demo campaign `0x5f37…6db2` (budget 5e14 wei). Paymaster EntryPoint deposit 0.02 ETH.
+Ownership: deployer configured then transferred to the timelock; `acceptOwnership` executed via the
+timelock (governance proposer/executor) so the owner is the TimelockController. Guardian is a distinct key.

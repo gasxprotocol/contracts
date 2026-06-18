@@ -79,8 +79,7 @@ interface IGasXPolicyManager {
     ///         bound settler. Aggregate `valueSpent` across N untrusted callers can never exceed valueBudget.
     function consumeValue(bytes32 id, uint256 amount) external;
     /// @notice Create a NEW value campaign (creation-only). `settler` consumes it; `token` is its unit.
-    function setValueCampaign(bytes32 id, address settler, address token, uint128 valueBudget, uint48 endsAt)
-        external;
+    function setValueCampaign(bytes32 id, address settler, address token, uint128 valueBudget, uint48 endsAt) external;
     /// @notice OWNER (timelock) only: raise a value budget. Monotonic up.
     function raiseValueBudget(bytes32 id, uint128 newValueBudget) external;
     /// @notice GUARDIAN only: lower a value budget. Down only, never below valueSpent.
@@ -112,7 +111,9 @@ interface IGasXPolicyManager {
     event GuardianSet(address indexed newGuardian);
 
     // value-ceiling (B2) events
-    event ValueCampaignSet(bytes32 indexed id, address indexed settler, address token, uint128 valueBudget, uint48 endsAt);
+    event ValueCampaignSet(
+        bytes32 indexed id, address indexed settler, address token, uint128 valueBudget, uint48 endsAt
+    );
     event ValueConsumed(bytes32 indexed id, address indexed settler, uint256 amount, uint256 remaining);
     event ValueBudgetRaised(bytes32 indexed id, uint128 newValueBudget);
     event ValueBudgetLowered(bytes32 indexed id, uint128 newValueBudget);

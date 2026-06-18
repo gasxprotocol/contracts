@@ -26,6 +26,7 @@ contract GasXPolicyManager is IGasXPolicyManager, Ownable2StepUpgradeable, Pausa
     mapping(address => bool) private _strategies;
     mapping(address => bool) private _oracleSigners;
     address private _guardian; // instant-only safety role: lower / deactivate / pause. Never raises or upgrades.
+    mapping(bytes32 => ValueCampaign) private _valueCampaigns; // B2: parallel stablecoin/x402 value ceiling
 
     error NotStrategy();
     error StrategyNotRegistered();
@@ -39,6 +40,8 @@ contract GasXPolicyManager is IGasXPolicyManager, Ownable2StepUpgradeable, Pausa
     error BudgetNotIncreased();
     error InvalidLowerBudget();
     error NotExtended();
+    error NotSettler();
+    error ValueBudgetExceeded();
 
     modifier onlyGuardian() {
         if (msg.sender != _guardian) revert NotGuardian();
@@ -181,6 +184,84 @@ contract GasXPolicyManager is IGasXPolicyManager, Ownable2StepUpgradeable, Pausa
         emit ActiveSet(id, true);
     }
 
+    // --- value ceiling (B2): stablecoin/x402 value, strict (revert = enforcement), token native units ---
+    function valueCampaignOf(bytes32 id) external view returns (ValueCampaign memory) {
+        return _valueCampaigns[id];
+    }
+
+    function valueRemaining(bytes32 id) public view returns (uint256) {
+        ValueCampaign storage c = _valueCampaigns[id];
+        return c.valueBudget > c.valueSpent ? c.valueBudget - c.valueSpent : 0;
+    }
+
+    /// @inheritdoc IGasXPolicyManager
+    /// @dev Strict + fail-closed: reverts on over-budget/inactive/expired/wrong-settler/paused. The revert
+    ///      blocks the settlement, which IS the enforcement (no postOp constraint here, unlike the gas path).
+    ///      Monotonic; aggregate valueSpent across N untrusted settlers can never exceed valueBudget.
+    function consumeValue(bytes32 id, uint256 amount) external whenNotPaused {
+        ValueCampaign storage c = _valueCampaigns[id];
+        if (c.settler != msg.sender) revert NotSettler();
+        if (!c.active) revert CampaignInactive();
+        if (c.endsAt != 0 && block.timestamp > c.endsAt) revert CampaignExpired();
+        uint256 newSpent = uint256(c.valueSpent) + amount;
+        if (newSpent > c.valueBudget) revert ValueBudgetExceeded();
+        c.valueSpent = uint128(newSpent);
+        if (newSpent == c.valueBudget) {
+            c.active = false;
+            emit ValueActiveSet(id, false);
+        }
+        emit ValueConsumed(id, msg.sender, amount, c.valueBudget - c.valueSpent);
+    }
+
+    /// @inheritdoc IGasXPolicyManager
+    /// @dev Creation-only (no silent raise via re-set); raises go through raiseValueBudget (timelocked).
+    function setValueCampaign(bytes32 id, address settler, address token, uint128 valueBudget, uint48 endsAt)
+        external
+        onlyOwner
+    {
+        if (settler == address(0) || token == address(0)) revert ZeroAddress();
+        ValueCampaign storage c = _valueCampaigns[id];
+        if (c.settler != address(0)) revert CampaignExists();
+        c.valueBudget = valueBudget;
+        c.endsAt = endsAt;
+        c.active = true;
+        c.settler = settler;
+        c.token = token;
+        emit ValueCampaignSet(id, settler, token, valueBudget, endsAt);
+        emit ValueActiveSet(id, true);
+    }
+
+    /// @inheritdoc IGasXPolicyManager
+    function raiseValueBudget(bytes32 id, uint128 newValueBudget) external onlyOwner {
+        ValueCampaign storage c = _valueCampaigns[id];
+        if (c.settler == address(0)) revert UnknownCampaign();
+        if (newValueBudget <= c.valueBudget) revert BudgetNotIncreased(); // monotonic up; owner==timelock
+        c.valueBudget = newValueBudget;
+        emit ValueBudgetRaised(id, newValueBudget);
+    }
+
+    /// @inheritdoc IGasXPolicyManager
+    function lowerValueBudget(bytes32 id, uint128 newValueBudget) external onlyGuardian {
+        ValueCampaign storage c = _valueCampaigns[id];
+        if (c.settler == address(0)) revert UnknownCampaign();
+        if (newValueBudget > c.valueBudget || newValueBudget < c.valueSpent) revert InvalidLowerBudget();
+        c.valueBudget = newValueBudget;
+        emit ValueBudgetLowered(id, newValueBudget);
+    }
+
+    /// @inheritdoc IGasXPolicyManager
+    function deactivateValue(bytes32 id) external onlyGuardianOrOwner {
+        _valueCampaigns[id].active = false;
+        emit ValueActiveSet(id, false);
+    }
+
+    /// @inheritdoc IGasXPolicyManager
+    function reactivateValue(bytes32 id) external onlyOwner {
+        if (_valueCampaigns[id].settler == address(0)) revert UnknownCampaign();
+        _valueCampaigns[id].active = true;
+        emit ValueActiveSet(id, true);
+    }
+
     // --- registries (owner = timelock) ---
     function setOracleSigner(address signer, bool allowed) external onlyOwner {
         if (signer == address(0)) revert ZeroAddress();
@@ -215,5 +296,5 @@ contract GasXPolicyManager is IGasXPolicyManager, Ownable2StepUpgradeable, Pausa
     ///      delayed and publicly visible. The guardian is NOT the owner and can never upgrade.
     function _authorizeUpgrade(address) internal override onlyOwner { }
 
-    uint256[46] private __gap; // was [47]; debited by 1 for `_guardian`
+    uint256[45] private __gap; // was [47]; debited by 1 for `_guardian` and 1 for `_valueCampaigns` (B2)
 }
